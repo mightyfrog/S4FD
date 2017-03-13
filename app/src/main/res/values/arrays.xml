@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="detail_tabs">
+        <item>@string/details_tab_0</item>
+        <item>@string/details_tab_1</item>
+        <item>@string/details_tab_2</item>
+        <item>@string/details_tab_3</item>
+    </string-array>
+</resources>

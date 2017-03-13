@@ -1,0 +1,12 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/Smash4Data.zip
+/smash4data.db
+/app/fabric.properties
+/app/src/main/assets/smash4data.db

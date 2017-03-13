@@ -1,0 +1,393 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+
+        <!-- prevents black screen on activity transition -->
+        <!-- turns out setting this true causes random issues, like -->
+        <!-- screen doesn't rotate, pauses to home screen -->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+    </style>
+
+    <style name="SettingsTheme" parent="AppTheme.NoActionBar">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    </style>
+
+    <style name="CharTheme.1" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffb396e2</item>
+        <item name="colorPrimaryDark">#ff905ae7</item>
+        <item name="colorAccent">#ff905ae7</item>
+    </style>
+
+    <style name="CharTheme.2" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff2f654b</item>
+        <item name="colorPrimaryDark">#ff155033</item>
+        <item name="colorAccent">#ff155033</item>
+    </style>
+
+    <style name="CharTheme.3" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffced327</item>
+        <item name="colorPrimaryDark">#ff828602</item>
+        <item name="colorAccent">#ff828602</item>
+    </style>
+
+    <style name="CharTheme.4" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff997de6</item>
+        <item name="colorPrimaryDark">#FF6648B7</item>
+        <item name="colorAccent">#FF6648B7</item>
+    </style>
+
+    <style name="CharTheme.5" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe6571c</item>
+        <item name="colorPrimaryDark">#FF9C3307</item>
+        <item name="colorAccent">#FF9C3307</item>
+    </style>
+
+    <style name="CharTheme.6" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff1e9989</item>
+        <item name="colorPrimaryDark">#FF096054</item>
+        <item name="colorAccent">#FF096054</item>
+    </style>
+
+    <style name="CharTheme.7" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff2cabc1</item>
+        <item name="colorPrimaryDark">#FF0D798C</item>
+        <item name="colorAccent">#FF0D798C</item>
+    </style>
+
+    <style name="CharTheme.8" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffa334d3</item>
+        <item name="colorPrimaryDark">#FF7B14A7</item>
+        <item name="colorAccent">#FF7B14A7</item>
+    </style>
+
+    <style name="CharTheme.9" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe65445</item>
+        <item name="colorPrimaryDark">#FFAC1D0F</item>
+        <item name="colorAccent">#FFAC1D0F</item>
+    </style>
+
+    <style name="CharTheme.10" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe6d91C</item>
+        <item name="colorPrimaryDark">#FF968D07</item>
+        <item name="colorAccent">#FF968D07</item>
+    </style>
+
+    <style name="CharTheme.11" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffdf4557</item>
+        <item name="colorPrimaryDark">#FFB31225</item>
+        <item name="colorAccent">#FFB31225</item>
+    </style>
+
+    <style name="CharTheme.12" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff814520</item>
+        <item name="colorPrimaryDark">#602805</item>
+        <item name="colorAccent">#602805</item>
+    </style>
+
+    <style name="CharTheme.13" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff23a6d0</item>
+        <item name="colorPrimaryDark">#FF0D7191</item>
+        <item name="colorAccent">#FF0D7191</item>
+    </style>
+
+    <style name="CharTheme.14" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff205acb</item>
+        <item name="colorPrimaryDark">#FF0E3B94</item>
+        <item name="colorAccent">#FF0E3B94</item>
+    </style>
+
+    <style name="CharTheme.15" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff7a6b93</item>
+        <item name="colorPrimaryDark">#FF614A87</item>
+        <item name="colorAccent">#FF614A87</item>
+    </style>
+
+    <style name="CharTheme.16" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff345193</item>
+        <item name="colorPrimaryDark">#FF1B397E</item>
+        <item name="colorAccent">#FF1B397E</item>
+    </style>
+
+    <style name="CharTheme.17" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffc73f31</item>
+        <item name="colorPrimaryDark">#FF8E2015</item>
+        <item name="colorAccent">#FF8E2015</item>
+    </style>
+
+    <style name="CharTheme.18" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe581e0</item>
+        <item name="colorPrimaryDark">#FFA73EA2</item>
+        <item name="colorAccent">#FFA73EA2</item>
+    </style>
+
+    <style name="CharTheme.19" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe9cf79</item>
+        <item name="colorPrimaryDark">#FFC19E2B</item>
+        <item name="colorAccent">#FFC19E2B</item>
+    </style>
+
+    <style name="CharTheme.20" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe4c5c7</item>
+        <item name="colorPrimaryDark">#FFB16065</item>
+        <item name="colorAccent">#FFB16065</item>
+    </style>
+
+    <style name="CharTheme.21" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffc7d34b</item>
+        <item name="colorPrimaryDark">#FF7F8918</item>
+        <item name="colorAccent">#FF7F8918</item>
+    </style>
+
+    <style name="CharTheme.22" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff2a7d51</item>
+        <item name="colorPrimaryDark">#FF155935</item>
+        <item name="colorAccent">#FF155935</item>
+    </style>
+
+    <style name="CharTheme.23" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffa8d6e4</item>
+        <item name="colorPrimaryDark">#FF46889C</item>
+        <item name="colorAccent">#FF46889C</item>
+    </style>
+
+    <style name="CharTheme.24" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe66b1c</item>
+        <item name="colorPrimaryDark">#FFA74A0E</item>
+        <item name="colorAccent">#FFA74A0E</item>
+    </style>
+
+    <style name="CharTheme.25" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff4b89b8</item>
+        <item name="colorPrimaryDark">#FF205781</item>
+        <item name="colorAccent">#FF205781</item>
+    </style>
+
+    <style name="CharTheme.26" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff45b834</item>
+        <item name="colorPrimaryDark">#FF1A7B0C</item>
+        <item name="colorAccent">#FF1A7B0C</item>
+    </style>
+
+    <style name="CharTheme.27" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffdf3f45</item>
+        <item name="colorPrimaryDark">#FFA11C21</item>
+        <item name="colorAccent">#FFA11C21</item>
+    </style>
+
+    <style name="CharTheme.28" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff2ca3c7</item>
+        <item name="colorPrimaryDark">#FF106D89</item>
+        <item name="colorAccent">#FF106D89</item>
+    </style>
+
+    <style name="CharTheme.29" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff61b8d3</item>
+        <item name="colorPrimaryDark">#FF2E819B</item>
+        <item name="colorAccent">#FF2E819B</item>
+    </style>
+
+    <style name="CharTheme.30" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff344585</item>
+        <item name="colorPrimaryDark">#FF213068</item>
+        <item name="colorAccent">#FF213068</item>
+    </style>
+
+    <style name="CharTheme.31" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff9042d7</item>
+        <item name="colorPrimaryDark">#FF6522A3</item>
+        <item name="colorAccent">#FF6522A3</item>
+    </style>
+
+    <style name="CharTheme.32" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff1eb3d5</item>
+        <item name="colorPrimaryDark">#FF0F829C</item>
+        <item name="colorAccent">#FF0F829C</item>
+    </style>
+
+    <style name="CharTheme.33" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff1eb3d5</item>
+        <item name="colorPrimaryDark">#FF0D809B</item>
+        <item name="colorAccent">#FF0D809B</item>
+    </style>
+
+    <style name="CharTheme.34" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff1eb3d5</item>
+        <item name="colorPrimaryDark">#FF0F7F99</item>
+        <item name="colorAccent">#FF0F7F99</item>
+    </style>
+
+    <style name="CharTheme.35" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffa3a089</item>
+        <item name="colorPrimaryDark">#FF807A4F</item>
+        <item name="colorAccent">#FF807A4F</item>
+    </style>
+
+    <style name="CharTheme.36" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe42020</item>
+        <item name="colorPrimaryDark">#FF940F0F</item>
+        <item name="colorAccent">#FF940F0F</item>
+    </style>
+
+    <style name="CharTheme.37" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffcee590</item>
+        <item name="colorPrimaryDark">#FF817D5C</item>
+        <item name="colorAccent">#FF817D5C</item>
+    </style>
+
+    <style name="CharTheme.38" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffdd9f22</item>
+        <item name="colorPrimaryDark">#FF9B6D10</item>
+        <item name="colorAccent">#FF9B6D10</item>
+    </style>
+
+    <style name="CharTheme.39" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff42e2b8</item>
+        <item name="colorPrimaryDark">#FF1A8E6F</item>
+        <item name="colorAccent">#FF1A8E6F</item>
+    </style>
+
+    <style name="CharTheme.40" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe4bdd6</item>
+        <item name="colorPrimaryDark">#FFB66097</item>
+        <item name="colorAccent">#FFB66097</item>
+    </style>
+
+    <style name="CharTheme.41" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe6bb1c</item>
+        <item name="colorPrimaryDark">#FF96780B</item>
+        <item name="colorAccent">#FF96780B</item>
+    </style>
+
+    <style name="CharTheme.42" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff5eb1ce</item>
+        <item name="colorPrimaryDark">#FF257693</item>
+        <item name="colorAccent">#FF257693</item>
+    </style>
+
+    <style name="CharTheme.43" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffb1b3b8</item>
+        <item name="colorPrimaryDark">#FF777C89</item>
+        <item name="colorAccent">#FF777C89</item>
+    </style>
+
+    <style name="CharTheme.44" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffcc6ed3</item>
+        <item name="colorPrimaryDark">#FFB940C2</item>
+        <item name="colorAccent">#FFB940C2</item>
+    </style>
+
+    <style name="CharTheme.45" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff1ce6dd</item>
+        <item name="colorPrimaryDark">#FF039B94</item>
+        <item name="colorAccent">#FF039B94</item>
+    </style>
+
+    <style name="CharTheme.46" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff6fe448</item>
+        <item name="colorPrimaryDark">#FF2B890B</item>
+        <item name="colorAccent">#FF2B890B</item>
+    </style>
+
+    <style name="CharTheme.47" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffd73434</item>
+        <item name="colorPrimaryDark">#FF8F1818</item>
+        <item name="colorAccent">#FF8F1818</item>
+    </style>
+
+    <style name="CharTheme.48" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff2a3f57</item>
+        <item name="colorPrimaryDark">#FF172A3E</item>
+        <item name="colorAccent">#FF172A3E</item>
+    </style>
+
+    <style name="CharTheme.49" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff8168d7</item>
+        <item name="colorPrimaryDark">#FF6349BA</item>
+        <item name="colorAccent">#FF6349BA</item>
+    </style>
+
+    <style name="CharTheme.50" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffdc5a6f</item>
+        <item name="colorPrimaryDark">#FFA42E41</item>
+        <item name="colorAccent">#FFA42E41</item>
+    </style>
+
+    <style name="CharTheme.51" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff2793e4</item>
+        <item name="colorPrimaryDark">#FF105E99</item>
+        <item name="colorAccent">#FF105E99</item>
+    </style>
+
+    <style name="CharTheme.52" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff9abc63</item>
+        <item name="colorPrimaryDark">#FF618031</item>
+        <item name="colorAccent">#FF618031</item>
+    </style>
+
+    <style name="CharTheme.53" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff4ebd76</item>
+        <item name="colorPrimaryDark">#FF257B44</item>
+        <item name="colorAccent">#FF257B44</item>
+    </style>
+
+    <style name="CharTheme.54" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffe2b71d</item>
+        <item name="colorPrimaryDark">#FF8F730E</item>
+        <item name="colorAccent">#FF8F730E</item>
+    </style>
+
+    <style name="CharTheme.55" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff99dd76</item>
+        <item name="colorPrimaryDark">#FF569734</item>
+        <item name="colorAccent">#FF569734</item>
+    </style>
+
+    <style name="CharTheme.56" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff57d334</item>
+        <item name="colorPrimaryDark">#FF2E8317</item>
+        <item name="colorAccent">#FF2E8317</item>
+    </style>
+
+    <style name="CharTheme.57" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ffb16fb3</item>
+        <item name="colorPrimaryDark">#FF7E3D80</item>
+        <item name="colorAccent">#FF7E3D80</item>
+    </style>
+
+    <style name="CharTheme.58" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#ff1e42b1</item>
+        <item name="colorPrimaryDark">#FF0E2980</item>
+        <item name="colorAccent">#FF0E2980</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="textAppearanceCollapsingToolbarLayout">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:shadowColor">#f000</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="DetailsTabStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/tab_text_size</item>
+    </style>
+
+</resources>

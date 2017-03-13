@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_main_sort">Sort by</string>
+    <string name="menu_main_compare">Compare</string>
+    <string name="menu_sort_by_name">Name</string>
+    <string name="menu_sort_by_weight">Weight</string>
+    <string name="menu_sort_by_run_speed">Run Speed</string>
+    <string name="menu_sort_by_walk_speed">Walk Speed</string>
+    <string name="menu_sort_by_max_jumps">Max Jumps</string>
+    <string name="menu_sort_by_wall_cling">Wall Cling</string>
+    <string name="menu_sort_by_wall_jump">Wall Jump</string>
+    <string name="menu_sort_by_air_speed">Air Speed</string>
+    <string name="menu_sort_by_crawl">Crawl</string>
+    <string name="menu_sort_by_tether">Tether</string>
+    <string name="menu_sort_by_jumpsquat">Jumpsquat</string>
+    <string name="menu_sort_by_air_acceleration">Air Acceleration</string>
+    <string name="menu_sort_by_soft_landing_lag">Soft Landing Lag</string>
+    <string name="menu_sort_by_hard_landing_lag">Hard Landing Lag</string>
+    <string name="menu_sort_by_gravity">Gravity</string>
+    <string name="menu_sort_by_fall_speed">Fall Speed</string>
+    <string name="menu_sort_by_fast_fall_speed">Fast Fall Speed</string>
+    <string name="menu_sort_by_sh_air_time">SH Air Time</string>
+    <string name="menu_sort_by_fh_air_time">FH Air Time</string>
+    <string name="menu_sort_by_char">Character</string>
+    <string name="menu_sort_by_move">Move</string>
+    <string name="menu_main_reverse">Reverse</string>
+    <string name="menu_main_grid_view">Grid view</string>
+    <string name="menu_main_linear_view">Linear view</string>
+    <string name="menu_open_in_browser">Open in browser</string>
+
+    <string name="pref_open_source">Open source licenses</string>
+</resources>

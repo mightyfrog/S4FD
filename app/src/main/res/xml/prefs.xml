@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="open_source"
+        android:title="@string/pref_open_source" />
+
+    <!--<SwitchPreferenceCompat-->
+    <!--android:defaultValue="false"-->
+    <!--android:key="immersive_mode"-->
+    <!--android:title="Test" />-->
+
+</PreferenceScreen>

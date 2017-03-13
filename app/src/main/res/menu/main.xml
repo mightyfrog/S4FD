@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+
+    <item
+        android:id="@+id/reverse"
+        android:icon="@drawable/ic_swap_vert"
+        android:title="@string/menu_main_reverse"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/sort_by_holder"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/menu_main_sort"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/sort_by_name"
+                android:title="@string/menu_sort_by_name"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_weight"
+                android:title="@string/menu_sort_by_weight"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_run_speed"
+                android:title="@string/menu_sort_by_run_speed"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_walk_speed"
+                android:title="@string/menu_sort_by_walk_speed"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_max_jumps"
+                android:title="@string/menu_sort_by_max_jumps"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_wall_cling"
+                android:title="@string/menu_sort_by_wall_cling"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_wall_jump"
+                android:title="@string/menu_sort_by_wall_jump"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_air_speed"
+                android:title="@string/menu_sort_by_air_speed"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_crawl"
+                android:title="@string/menu_sort_by_crawl"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_tether"
+                android:title="@string/menu_sort_by_tether"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_jumpsquat"
+                android:title="@string/menu_sort_by_jumpsquat"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_air_acceleration"
+                android:title="@string/menu_sort_by_air_acceleration"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_soft_landing_lag"
+                android:title="@string/menu_sort_by_soft_landing_lag"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_hard_landing_lag"
+                android:title="@string/menu_sort_by_hard_landing_lag"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_gravity"
+                android:title="@string/menu_sort_by_gravity"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_fall_speed"
+                android:title="@string/menu_sort_by_fall_speed"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_fast_fall_speed"
+                android:title="@string/menu_sort_by_fast_fall_speed"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_sh_air_time"
+                android:title="@string/menu_sort_by_sh_air_time"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_fh_air_time"
+                android:title="@string/menu_sort_by_fh_air_time"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/grid_view"
+        android:icon="@drawable/ic_view_module"
+        android:title="@string/menu_main_grid_view"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/linear_view"
+        android:icon="@drawable/ic_view_stream"
+        android:title="@string/menu_main_linear_view"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/menu_settings"
+        app:showAsAction="never" />
+</menu>

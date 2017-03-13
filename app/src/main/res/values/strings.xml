@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">S4FD</string>
+
+    <string name="loading_chars">Loading characters…\n%1$s OK!</string>
+    <string name="loading_moves">Loading moves…</string>
+    <string name="loading_attr_types">Loading attribute types…</string>
+
+    <string name="details_tab_0">Attributes</string>
+    <string name="details_tab_1">Attacks</string>
+    <string name="details_tab_2">Miscs</string>
+    <string name="details_tab_3">KH Web</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="compare">Compare</string>
+    <string name="settings">Settings</string>
+
+    <string name="type_aerial">aerial</string>
+    <string name="type_ground">ground</string>
+    <string name="type_special">special</string>
+    <string name="type_throw">throw</string>
+
+    <string name="connection_timeout">KH is under heavy load or not responding. Use a pre-populated database?</string>
+    <string name="database_copied">Database copied. Restart required.</string>
+    <string name="close_app">Close app</string>
+    <string name="no_char_data_found">No character data found :(</string>
+
+    <string name="attr_compare">%1$s ⇄ %2$s</string>
+    <string name="attr_compare_subtitle">(%1$s)</string>
+    <string name="attack_frame_data_0">Hitbox active: %1$s\nFAF: %2$s, Base damage: %3$s, KBG: %8$s\nAngle: %4$s, BKB/WBKB: %5$s\nLanding lag: %6$s, Auto cancel: %7$s</string>
+    <string name="attack_frame_data_1">Hitbox active: %1$s\nFAF: %2$s, Base damage: %3$s, KBG: %6$s\nAngle: %4$s, BKB/WBKB: %5$s</string>
+    <string name="attack_frame_data_1b">Hitbox active: %1$s\nFAF: %2$s</string>
+    <string name="attack_frame_data_3">Base damage: %1$s\nAngle: %2$s, BKB/WBKB: %3$s\nKBG: %4$s</string>
+    <string name="attack_frame_data">Hitbox active: %1$s\nFAF: %2$s, Base damage: %3$s, KBG: %8$s\nAngle: %4$s, BKB/WBKB: %5$s\nLanding lag: %6$s, Auto cancel: %7$s</string>
+    <string name="misc_data">Intangibility: %1$s\nFAF: %2$s</string>
+
+    <string name="sql_misc_data">select a.id as "id", a.name as "cName", b.name as "sName", a.rank, a.ownerId, a.value from CharacterAttributeDatum a, SmashAttributeType b where a.smashAttributeTypeId = b.id and a.ownerId=$id and b.name=%1$s</string>
+</resources>
