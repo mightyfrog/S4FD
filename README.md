@@ -1,16 +1,22 @@
 # S4FD
 Smash 4 frame data app
 
-![.apk download](https://github.com/mightyfrog/S4FD/raw/master/static/s4fd_1.0.0.apk)
+[.apk download](https://github.com/mightyfrog/S4FD/raw/master/static/s4fd_1.0.0.apk)
+
 <br>
-<br>
+
 ![](static/screenshot_01.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](static/screenshot_02.png)
 
 ![](static/screenshot_03.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](static/screenshot_04.png)
 
 ![](static/screenshot_05.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](static/screenshot_06.png)
-
 ![](static/screenshot_07.png)
+
+<br>
+
+This app is made possible by [FrannHammer Api](https://github.com/Frannsoft/FrannHammer).
+
+<br>
 
 License
 --------
