@@ -14,7 +14,7 @@ Smash 4 frame data app
 
 <br>
 
-This app is made possible by [FrannHammer Api](https://github.com/Frannsoft/FrannHammer).
+This app is made possible by [FrannHammer - The KuroganeHammer.com API](https://github.com/Frannsoft/FrannHammer).
 
 <br>
 
