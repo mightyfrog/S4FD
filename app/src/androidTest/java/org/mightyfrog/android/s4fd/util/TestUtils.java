@@ -180,7 +180,7 @@ public class TestUtils {
     }
 
     private static class ElapsedTimeIdlingResource implements IdlingResource {
-        private long startTime;
+        private final long startTime;
         private final long waitingTime;
         private ResourceCallback resourceCallback;
 
