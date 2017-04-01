@@ -263,7 +263,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 mPrefs.edit().putInt("view_mode", CharacterAdapter.MODE_GRID).apply()
             }
         }
-        layoutManager.setInitialPrefetchItemCount(Const.CHARACTER_COUNT)
+        layoutManager.initialPrefetchItemCount = Const.CHARACTER_COUNT
         mRecyclerView.layoutManager = layoutManager
         (mRecyclerView.adapter as CharacterAdapter).setMode(mode)
         mRecyclerView.addItemDecoration(mItemDecor)
