@@ -16,11 +16,8 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.Toast
-import com.crashlytics.android.Crashlytics
-import io.fabric.sdk.android.Fabric
 import org.mightyfrog.android.s4fd.App
 import org.mightyfrog.android.s4fd.BuildConfig
-import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.AppDatabase
 import org.mightyfrog.android.s4fd.data.KHCharacter
 import org.mightyfrog.android.s4fd.details.DetailsActivity
@@ -64,10 +61,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        if (BuildConfig.DEBUG) {
-            Fabric.with(this, Crashlytics())
-        }
 
         DaggerMainComponent.builder()
                 .appComponent((application as App).getAppComponent())

@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 25
@@ -13,7 +12,6 @@ android {
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [fabric_api_key:fabric_api_key]
     }
     buildTypes {
         release {
@@ -67,10 +65,6 @@ dependencies {
     compile "org.mightyfrog.centeringrecyclerview:centeringrecyclerview:1.1.6"
 
     compile "com.tbruyelle.rxpermissions:rxpermissions:0.9.2@aar"
-
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
-        transitive = true;
-    }
 
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version", {
         exclude group: "com.android.support"

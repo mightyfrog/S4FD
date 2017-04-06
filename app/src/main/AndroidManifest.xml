@@ -46,14 +46,6 @@
             android:launchMode="singleTop"
             android:theme="@style/SettingsTheme" />
 
-        <!--<meta-data-->
-            <!--android:name="io.fabric.ApiKey"-->
-            <!--android:value="${fabric_api_key}" />-->
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="YOUR API KEY HERE" />
-
     </application>
 
 </manifest>
