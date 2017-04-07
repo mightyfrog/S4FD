@@ -18,6 +18,7 @@ import android.view.*
 import android.widget.Toast
 import org.mightyfrog.android.s4fd.App
 import org.mightyfrog.android.s4fd.BuildConfig
+import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.AppDatabase
 import org.mightyfrog.android.s4fd.data.KHCharacter
 import org.mightyfrog.android.s4fd.details.DetailsActivity

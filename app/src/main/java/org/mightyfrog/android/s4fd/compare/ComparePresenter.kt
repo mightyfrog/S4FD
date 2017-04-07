@@ -1,7 +1,7 @@
 package org.mightyfrog.android.s4fd.compare
 
 import android.content.SharedPreferences
-import com.raizlabs.android.dbflow.sql.language.ConditionGroup
+import com.raizlabs.android.dbflow.sql.language.OperatorGroup
 import com.raizlabs.android.dbflow.sql.language.Select
 import org.mightyfrog.android.s4fd.data.Move
 import org.mightyfrog.android.s4fd.data.Move_Table
@@ -21,14 +21,14 @@ class ComparePresenter @Inject constructor(val mView: CompareContract.View, val 
         if (charToCompareId != 0) {
             list = (Select().from(Move::class.java)
                     .where()
-                    .and(ConditionGroup.clause().or(Move_Table.name.like(name + "%")).or(Move_Table.name.like("% $name%")))
-                    .and(ConditionGroup.clause().or(Move_Table.ownerId.eq(charId)).or(Move_Table.ownerId.eq(charToCompareId)))
+                    .and(OperatorGroup.clause().or(Move_Table.name.like(name + "%")).or(Move_Table.name.like("% $name%")))
+                    .and(OperatorGroup.clause().or(Move_Table.ownerId.eq(charId)).or(Move_Table.ownerId.eq(charToCompareId)))
                     .orderBy(Move_Table.id, true)
                     .queryList())
         } else {
             list = (Select().from(Move::class.java)
                     .where()
-                    .and(ConditionGroup.clause().or(Move_Table.name.like(name + "%")).or(Move_Table.name.like("% $name%")))
+                    .and(OperatorGroup.clause().or(Move_Table.name.like(name + "%")).or(Move_Table.name.like("% $name%")))
                     .orderBy(Move_Table.id, true)
                     .queryList())
         }
