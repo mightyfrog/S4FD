@@ -1,10 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = "1.1.1"
+    ext.kotlin_version = "1.1.2-3"
     ext.support_lib_version = "25.3.1"
     ext.retrofit_version = "2.2.0"
-    ext.dbflow_version = "4.0.0-beta6"
+    ext.dbflow_version = "4.0.0-beta7"
     ext.dagger2_version = "2.10"
     ext.espresso_version = "2.2.2"
     repositories {
