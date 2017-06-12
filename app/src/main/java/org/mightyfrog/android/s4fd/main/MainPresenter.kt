@@ -116,7 +116,7 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                 .subscribe(object : SingleSubscriber<List<SmashAttributeType>>() {
                     override fun onSuccess(attrTypes: List<SmashAttributeType>?) {
                         attrTypes?.let {
-                            for (attrType in attrTypes) {
+                            for (attrType in it) {
                                 attrType.save()
                             }
                         }
