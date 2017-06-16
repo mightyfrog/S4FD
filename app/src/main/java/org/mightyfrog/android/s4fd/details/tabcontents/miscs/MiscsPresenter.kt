@@ -12,7 +12,9 @@ class MiscsPresenter(val mView: MiscsContract.View) : MiscsContract.Presenter {
         mView.setPresenter(this)
     }
 
-    override fun compare(name: String, ownerId: Int) {
+    override fun compare(name: String?, ownerId: Int) {
+        name ?: return
+
         mView.showAttributes(name, ownerId, mCharToCompare?.id)
     }
 

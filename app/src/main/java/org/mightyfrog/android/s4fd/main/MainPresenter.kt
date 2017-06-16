@@ -106,7 +106,9 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                 .where(Move_Table.id.eq(1))
                 .querySingle()
 
-        test ?: return
+        test?.let {
+            return
+        }
 
         mView.showProgressDialog((mView as Activity).getString(R.string.loading_attr_types))
         mCompositeSubscription.add(mKHService.getSmashAttributeTypes()
@@ -135,7 +137,9 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                 .where(Move_Table.id.eq(1))
                 .querySingle()
 
-        test ?: return
+        test?.let {
+            return
+        }
 
         mView.showProgressDialog((mView as Activity).getString(R.string.loading_moves))
         mCompositeSubscription.add(mKHService.getMoves()
@@ -161,25 +165,29 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
 
     private fun loadDetails(list: List<KHCharacter>?) { // TODO: rewrite me
         mCompositeSubscription.add(Observable.from(list)
-                .filter({ character ->
+                .filter {
                     val metadata = SQLite.select()
                             .from(Metadata::class.java)
-                            .where(Metadata_Table.id.eq(character!!.id))
+                            .where(Metadata_Table.id.eq(it.id))
                             .querySingle()
                     metadata == null
-                })
+                }
                 .concatMap({ character ->
                     val res = mKHService.getDetails(character.id).execute()
                     if (res.isSuccessful && res.code() == 200) {
                         val details = res.body()
-                        if (details != null) {
+                        details?.apply {
                             FlowManager.getDatabase(AppDatabase::class.java).executeTransaction {
-                                details.metadata!!.save()
-                                for (move in details.movementData!!) {
-                                    move.save()
+                                metadata?.save()
+                                movementData?.apply {
+                                    for (move in this) {
+                                        move.save()
+                                    }
                                 }
-                                for (attr in details.characterAttributeData!!) {
-                                    attr.save()
+                                characterAttributeData?.apply {
+                                    for (attr in this) {
+                                        attr.save()
+                                    }
                                 }
                             }
                         }
@@ -204,7 +212,9 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                     }
 
                     override fun onNext(t: CharacterDetails?) {
-                        mView.showProgressDialog((mView as Activity).getString(R.string.loading_chars, t!!.metadata!!.displayName))
+                        t?.apply {
+                            mView.showProgressDialog((mView as Activity).getString(R.string.loading_chars, metadata?.displayName))
+                        }
                     }
                 })
         )

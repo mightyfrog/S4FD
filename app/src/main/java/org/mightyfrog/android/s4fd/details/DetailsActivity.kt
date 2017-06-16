@@ -45,7 +45,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
     private lateinit var mFab: FloatingActionButton
 
-    private lateinit var mCharacter: KHCharacter
+    private var mCharacter: KHCharacter? = null
 
     private var mCharToCompare: KHCharacter? = null
 
@@ -62,7 +62,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
             return
         }
 
-        mCharacter = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(id)).querySingle()!!
+        mCharacter = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(id)).querySingle()
 
         setTheme(resources.getIdentifier("CharTheme." + id, "style", packageName))
 
@@ -77,7 +77,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = mCharacter.displayName?.trim()
+        supportActionBar?.title = mCharacter?.displayName?.trim()
 
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
 
@@ -113,7 +113,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
         mBackdrop = findViewById(R.id.backdrop) as ImageView
         Picasso.with(this)
-                .load(mCharacter.mainImageUrl)
+                .load(mCharacter?.mainImageUrl)
                 .into(mBackdrop)
 
         mViewPager.post({ mPresenter.setCharToCompareIfAny(id) })
@@ -155,7 +155,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-        val maxScroll = appBarLayout!!.totalScrollRange
+        appBarLayout ?: return
+
+        val maxScroll = appBarLayout.totalScrollRange
         val percentage = Math.abs(verticalOffset) / maxScroll.toFloat()
 
         if (percentage >= 0.7f && mIsAppBarCollapsed) {
@@ -170,9 +172,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
         mCharToCompare?.let {
             if (percentage == 1f) {
-                mCollapsingToolbarLayout.title = getString(R.string.attr_compare, mCharacter.displayName, it.displayName)
+                mCollapsingToolbarLayout.title = getString(R.string.attr_compare, mCharacter?.displayName, it.displayName)
             } else {
-                mCollapsingToolbarLayout.title = mCharacter.displayName?.trim()
+                mCollapsingToolbarLayout.title = mCharacter?.displayName?.trim()
             }
         }
     }
@@ -235,7 +237,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     private fun openInBrowser() {
         val i = Intent()
         i.action = Intent.ACTION_VIEW
-        i.data = Uri.parse(mCharacter.fullUrl)
+        i.data = Uri.parse(mCharacter?.fullUrl)
         try {
             startActivity(i)
         } catch (e: ActivityNotFoundException) {

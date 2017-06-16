@@ -23,7 +23,7 @@ class MiscsFragment : BaseFragment(), MiscsContract.View {
     private lateinit var mPresenter: MiscsPresenter
 
     private val mListener = object : OnItemClickListener {
-        override fun onItemClick(name: String, ownerId: Int) {
+        override fun onItemClick(name: String?, ownerId: Int) {
             mPresenter.compare(name, ownerId)
         }
     }
@@ -80,6 +80,6 @@ class MiscsFragment : BaseFragment(), MiscsContract.View {
     }
 
     interface OnItemClickListener {
-        fun onItemClick(name: String, ownerId: Int)
+        fun onItemClick(name: String?, ownerId: Int)
     }
 }

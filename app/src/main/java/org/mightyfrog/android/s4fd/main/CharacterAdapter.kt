@@ -87,10 +87,10 @@ class CharacterAdapter(var mList: List<KHCharacter>, val mListener: MainActivity
     }
 
     fun update(list: List<KHCharacter>?) {
-        list?.let {
-            mList = it
-            notifyDataSetChanged()
-        }
+        list ?: return
+
+        mList = list
+        notifyDataSetChanged()
     }
 
     fun reverse() {
@@ -194,7 +194,7 @@ class CharacterAdapter(var mList: List<KHCharacter>, val mListener: MainActivity
         val map = SparseArray<String>(list.size)
         for (datum in list) {
             map.put(datum.ownerId, datum.value)
-            mValueMap.put(datum.ownerId, datum.value!!.replace("frame", " frame"))
+            mValueMap.put(datum.ownerId, datum.value?.replace("frame", " frame"))
         }
         sortByName()
         Collections.sort(mList, { lhs, rhs ->

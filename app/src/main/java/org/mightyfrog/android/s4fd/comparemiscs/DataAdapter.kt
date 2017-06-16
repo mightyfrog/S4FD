@@ -56,15 +56,15 @@ class DataAdapter(var mName: String, ownerId: Int, charToCompareId: Int) : Recyc
         val list: List<MiscAttribute> = StringQuery(MiscAttribute::class.java, "select a.id as \"id\", a.name as \"cName\", b.name as \"sName\", a.rank, a.ownerId, a.value from CharacterAttributeDatum a, SmashAttributeType b where a.smashAttributeTypeId = b.id and a.ownerId=$id and b.name='$mName'").queryList()
         val misc1 = Misc()
         misc1.ownerId = id
-        misc1.name = list[0].sName!!
+        misc1.name = list[0].sName
         when (mName) {
             "AIRDODGE" -> misc1.displayName = "Air Dodge"
             "ROLLS" -> misc1.displayName = "Forward/Back Roll"
             "LEDGEROLL" -> misc1.displayName = "Ledge Roll"
             "SPOTDODGE" -> misc1.displayName = "Spot Dodge"
         }
-        misc1.intangibility = list[0].value!!
-        misc1.faf = list[1].value!!
+        misc1.intangibility = list[0].value
+        misc1.faf = list[1].value
         miscList.add(misc1)
 
         return miscList
@@ -94,9 +94,9 @@ class DataAdapter(var mName: String, ownerId: Int, charToCompareId: Int) : Recyc
 
     class Misc {
         var ownerId: Int = 0
-        lateinit var name: String
-        lateinit var displayName: String
-        lateinit var intangibility: String
-        lateinit var faf: String
+        var name: String? = "N/A"
+        var displayName: String? = "N/A"
+        var intangibility: String? = "N/A"
+        var faf: String? = "N/A"
     }
 }

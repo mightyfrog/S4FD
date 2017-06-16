@@ -14,7 +14,7 @@ interface MiscsContract {
     }
 
     interface Presenter {
-        fun compare(name: String, ownerId: Int)
+        fun compare(name: String?, ownerId: Int)
 
         fun setCharToCompare(char: KHCharacter?)
     }

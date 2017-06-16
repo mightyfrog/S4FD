@@ -146,8 +146,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 // ignore
             }
             else -> {
-                mAdapter.sort(item?.itemId)
-                updateSubtitle(item?.itemId!!)
+                item?.apply {
+                    mAdapter.sort(itemId)
+                    updateSubtitle(itemId)
+                }
             }
         }
         return super.onOptionsItemSelected(item)
