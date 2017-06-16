@@ -49,11 +49,11 @@ class DataAdapter(var mList: List<Move>) : RecyclerView.Adapter<DataAdapter.Move
         private val valueTv = this.itemView?.findViewById(R.id.value) as TextView
 
         fun bind(datum: Move) {
-            with(datum) {
+            datum.apply {
                 nameTv.text = name
                 var thumbnailUrl = mThumbnailUrlMap.get(ownerId)
                 if (thumbnailUrl == null) {
-                    thumbnailUrl = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(datum.ownerId)).querySingle()?.thumbnailUrl
+                    thumbnailUrl = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
                     mThumbnailUrlMap.put(ownerId, thumbnailUrl)
                 }
                 Picasso.with(itemView.context)

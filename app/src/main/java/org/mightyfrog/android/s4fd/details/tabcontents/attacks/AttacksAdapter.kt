@@ -57,7 +57,7 @@ class AttacksAdapter(var mList: List<Move>, val mListener: AttacksFragment.OnIte
         private val valueTv = this.itemView?.findViewById(R.id.value) as TextView
 
         fun bind(datum: Move) {
-            with(datum) {
+            datum.apply {
                 nameTv.text = name
                 val hitbox = fromHtml(hitboxActive)
                 val faf = fromHtml(firstActionableFrame)

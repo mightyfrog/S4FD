@@ -105,9 +105,9 @@ class MiscsAdapter(id: Int, val mListener: MiscsFragment.OnItemClickListener) : 
         private val valueTv = itemView?.findViewById(R.id.value) as TextView
 
         fun bind(datum: Misc) {
-            with(datum) {
+            datum.apply {
                 nameTv.text = displayName
-                valueTv.text = itemView.context.getString(R.string.misc_data, datum.intangibility, datum.faf)
+                valueTv.text = itemView.context.getString(R.string.misc_data, intangibility, faf)
             }
         }
     }

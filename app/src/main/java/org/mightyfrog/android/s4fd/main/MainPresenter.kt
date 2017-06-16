@@ -105,9 +105,8 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                 .from(SmashAttributeType::class.java)
                 .where(Move_Table.id.eq(1))
                 .querySingle()
-        test?.let {
-            return
-        }
+
+        test ?: return
 
         mView.showProgressDialog((mView as Activity).getString(R.string.loading_attr_types))
         mCompositeSubscription.add(mKHService.getSmashAttributeTypes()
@@ -135,9 +134,8 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                 .from(Move::class.java)
                 .where(Move_Table.id.eq(1))
                 .querySingle()
-        test?.let {
-            return
-        }
+
+        test ?: return
 
         mView.showProgressDialog((mView as Activity).getString(R.string.loading_moves))
         mCompositeSubscription.add(mKHService.getMoves()

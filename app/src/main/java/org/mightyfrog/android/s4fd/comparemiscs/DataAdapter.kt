@@ -76,10 +76,10 @@ class DataAdapter(var mName: String, ownerId: Int, charToCompareId: Int) : Recyc
         private val valueTv = itemView?.findViewById(R.id.value) as TextView
 
         fun bind(datum: Misc) {
-            with(datum) {
+            datum.apply {
                 var thumbnailUrl = mThumbnailUrlMap.get(ownerId)
                 if (thumbnailUrl == null) {
-                    thumbnailUrl = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(datum.ownerId)).querySingle()?.thumbnailUrl
+                    thumbnailUrl = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
                     mThumbnailUrlMap.put(ownerId, thumbnailUrl)
                 }
                 Picasso.with(thumbnailIv.context)
@@ -87,7 +87,7 @@ class DataAdapter(var mName: String, ownerId: Int, charToCompareId: Int) : Recyc
                         .placeholder(R.drawable.placeholder)
                         .into(thumbnailIv)
                 nameTv.text = displayName
-                valueTv.text = itemView.context.getString(R.string.misc_data, datum.intangibility, datum.faf)
+                valueTv.text = itemView.context.getString(R.string.misc_data, intangibility, faf)
             }
         }
     }
