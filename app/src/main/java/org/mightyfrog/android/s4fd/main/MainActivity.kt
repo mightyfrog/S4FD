@@ -114,39 +114,40 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        when (mPrefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR)) {
-            CharacterAdapter.MODE_LINEAR -> {
-                menu?.findItem(R.id.grid_view)?.isVisible = true
-                menu?.findItem(R.id.linear_view)?.isVisible = false
-            }
-            CharacterAdapter.MODE_GRID -> {
-                menu?.findItem(R.id.grid_view)?.isVisible = false
-                menu?.findItem(R.id.linear_view)?.isVisible = true
+        menu?.apply {
+            when (mPrefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR)) {
+                CharacterAdapter.MODE_LINEAR -> {
+                    findItem(R.id.grid_view)?.isVisible = true
+                    findItem(R.id.linear_view)?.isVisible = false
+                }
+                CharacterAdapter.MODE_GRID -> {
+                    findItem(R.id.grid_view)?.isVisible = false
+                    findItem(R.id.linear_view)?.isVisible = true
+                }
             }
         }
-
         return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
-            }
-            R.id.reverse -> {
-                mAdapter.reverse()
-            }
-            R.id.linear_view -> {
-                setViewMode(CharacterAdapter.MODE_LINEAR)
-            }
-            R.id.grid_view -> {
-                setViewMode(CharacterAdapter.MODE_GRID)
-            }
-            R.id.sort_by_holder -> {
-                // ignore
-            }
-            else -> {
-                item?.apply {
+        item?.apply {
+            when (itemId) {
+                R.id.settings -> {
+                    startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+                }
+                R.id.reverse -> {
+                    mAdapter.reverse()
+                }
+                R.id.linear_view -> {
+                    setViewMode(CharacterAdapter.MODE_LINEAR)
+                }
+                R.id.grid_view -> {
+                    setViewMode(CharacterAdapter.MODE_GRID)
+                }
+                R.id.sort_by_holder -> {
+                    // ignore
+                }
+                else -> {
                     mAdapter.sort(itemId)
                     updateSubtitle(itemId)
                 }
@@ -211,8 +212,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         AlertDialog.Builder(this)
                 .setCancelable(false)
                 .setMessage(R.string.database_copied)
-                .setPositiveButton(R.string.close_app) {
-                    dialog, which ->
+                .setPositiveButton(R.string.close_app) { dialog, which ->
                     android.os.Process.killProcess(android.os.Process.myPid())
                 }
                 .show()

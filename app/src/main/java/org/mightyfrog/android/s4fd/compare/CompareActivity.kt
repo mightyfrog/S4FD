@@ -72,12 +72,14 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if (mPrefs.getInt("compare_sort_type", DataAdapter.SORT_BY_CHAR) == DataAdapter.SORT_BY_CHAR) {
-            menu?.findItem(R.id.sort_by_char)?.isChecked = true
-            menu?.findItem(R.id.sort_by_move)?.isChecked = false
-        } else {
-            menu?.findItem(R.id.sort_by_char)?.isChecked = false
-            menu?.findItem(R.id.sort_by_move)?.isChecked = true
+        menu?.apply {
+            if (mPrefs.getInt("compare_sort_type", DataAdapter.SORT_BY_CHAR) == DataAdapter.SORT_BY_CHAR) {
+                findItem(R.id.sort_by_char)?.isChecked = true
+                findItem(R.id.sort_by_move)?.isChecked = false
+            } else {
+                findItem(R.id.sort_by_char)?.isChecked = false
+                findItem(R.id.sort_by_move)?.isChecked = true
+            }
         }
         return super.onPrepareOptionsMenu(menu)
     }

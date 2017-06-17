@@ -188,10 +188,12 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun showVsThumbnail(charToCompare: KHCharacter?) {
-        Picasso.with(this)
-                .load(charToCompare?.thumbnailUrl)
-                .into(mVsThumbnail)
-        (mVsThumbnail.parent as CardView).setCardBackgroundColor(Color.parseColor(charToCompare?.colorTheme))
+        charToCompare?.apply {
+            Picasso.with(this@DetailsActivity)
+                    .load(thumbnailUrl)
+                    .into(mVsThumbnail)
+            (mVsThumbnail.parent as CardView).setCardBackgroundColor(Color.parseColor(colorTheme))
+        }
         mVsThumbnail.visibility = View.VISIBLE
         mVsThumbnail.alpha = 0f
         mVsThumbnail.animate().setDuration(750L).alpha(1f).start()

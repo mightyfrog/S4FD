@@ -41,9 +41,9 @@ class DetailsPresenter @Inject constructor(val mView: DetailsContract.View, val 
     override fun setCharToCompare(ownerId: Int, charToCompare: KHCharacter?) {
         val f0 = (mView as AppCompatActivity).supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 0) as AttributesFragment
         f0.setCharToCompare(charToCompare)
-        val f1 = (mView).supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 1) as AttacksFragment
+        val f1 = mView.supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 1) as AttacksFragment
         f1.setCharToCompare(charToCompare)
-        val f2 = (mView).supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 2) as MiscsFragment
+        val f2 = mView.supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 2) as MiscsFragment
         f2.setCharToCompare(charToCompare)
 
         val displayName = Select().from(KHCharacter::class.java)
@@ -69,8 +69,8 @@ class DetailsPresenter @Inject constructor(val mView: DetailsContract.View, val 
 
     override fun setCharToCompareIfAny(ownerId: Int) {
         val character = mPrefs.getString("selectedCharToCompare", null)
-        if (character != null) {
-            setCharToCompare(ownerId, Select().from(KHCharacter::class.java).where(KHCharacter_Table.displayName.eq(character)).querySingle())
+        character?.apply {
+            setCharToCompare(ownerId, Select().from(KHCharacter::class.java).where(KHCharacter_Table.displayName.eq(this)).querySingle())
         }
     }
 }
