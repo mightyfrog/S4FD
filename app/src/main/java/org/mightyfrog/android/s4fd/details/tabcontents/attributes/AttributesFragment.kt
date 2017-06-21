@@ -42,7 +42,7 @@ class AttributesFragment : BaseFragment(), AttributesContract.View {
         val glm = GridLayoutManager(context, 6)
         glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (mSurfaceRotation === Surface.ROTATION_0 || mSurfaceRotation === Surface.ROTATION_180) 3 else 2
+                return if (mSurfaceRotation == Surface.ROTATION_0 || mSurfaceRotation == Surface.ROTATION_180) 3 else 2
             }
         }
         rv.layoutManager = glm

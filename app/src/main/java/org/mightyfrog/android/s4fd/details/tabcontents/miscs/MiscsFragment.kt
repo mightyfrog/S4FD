@@ -50,7 +50,7 @@ class MiscsFragment : BaseFragment(), MiscsContract.View {
         val glm = GridLayoutManager(context, 2)
         glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (mSurfaceRotation === ROTATION_0 || mSurfaceRotation === ROTATION_180) 2 else 1
+                return if (mSurfaceRotation == ROTATION_0 || mSurfaceRotation == ROTATION_180) 2 else 1
             }
         }
         rv.layoutManager = glm
