@@ -2,12 +2,13 @@
 
 buildscript {
     ext.kotlin_version = "1.1.2-5"
-    ext.support_lib_version = "25.3.1"
+    ext.support_lib_version = "25.4.0"
     ext.retrofit_version = "2.2.0"
-    ext.dbflow_version = "4.0.1"
+    ext.dbflow_version = "4.0.4"
     ext.dagger2_version = "2.10"
     ext.espresso_version = "2.2.2"
     repositories {
+        maven { url 'https://maven.google.com' }
         jcenter()
     }
     dependencies {
@@ -22,6 +23,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://maven.google.com' }
         maven { url "https://www.jitpack.io" }
     }
 }
