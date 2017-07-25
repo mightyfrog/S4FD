@@ -7,17 +7,17 @@ import javax.inject.Inject
 /**
  * @author Shigehiro Soejima
  */
-class SettingsPresenter @Inject constructor(val mView: SettingsContract.View, val mContext: Context) : SettingsContract.Presenter {
+class SettingsPresenter @Inject constructor(val view: SettingsContract.View, val context: Context) : SettingsContract.Presenter {
 
     init {
-        mView.setPresenter(this)
+        view.setPresenter(this)
     }
 
     override fun showOpenSourceInfo() {
         var scanner: Scanner? = null
         try {
-            scanner = Scanner(mContext.assets.open("licenses.txt")).useDelimiter("\\A")
-            mView.showOpenSourceInfo(scanner.next())
+            scanner = Scanner(context.assets.open("licenses.txt")).useDelimiter("\\A")
+            view.showOpenSourceInfo(scanner.next())
         } finally {
             scanner?.close()
         }

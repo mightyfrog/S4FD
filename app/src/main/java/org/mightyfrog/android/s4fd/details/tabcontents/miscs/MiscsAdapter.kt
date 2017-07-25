@@ -13,33 +13,33 @@ import java.util.*
 /**
  * @author Shigehiro Soejima
  */
-class MiscsAdapter(id: Int, val mListener: MiscsFragment.OnItemClickListener) : RecyclerView.Adapter<MiscsAdapter.MiscViewHolder>() {
-    private val mList: List<Misc>
+class MiscsAdapter(id: Int, val onItemClickListener: MiscsFragment.OnItemClickListener) : RecyclerView.Adapter<MiscsAdapter.MiscViewHolder>() {
+    private val list: List<Misc>
 
     init {
         setHasStableIds(true)
-        mList = getMiscList(id)
+        list = getMiscList(id)
     }
 
     override fun onBindViewHolder(holder: MiscViewHolder?, position: Int) {
         holder?.apply {
-            bind(mList[position])
+            bind(list[position])
         }
     }
 
-    override fun getItemCount(): Int = mList.size
+    override fun getItemCount() = list.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MiscViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.vh_misc, parent, false)
         val vh = MiscViewHolder(view)
         vh.itemView.setOnClickListener({
-            val misc = mList[vh.adapterPosition]
-            mListener.onItemClick(misc.name, misc.ownerId)
+            val misc = list[vh.adapterPosition]
+            onItemClickListener.onItemClick(misc.name, misc.ownerId)
         })
         return vh
     }
 
-    override fun getItemId(position: Int): Long = mList[position].id
+    override fun getItemId(position: Int) = list[position].id
 
     private fun getMiscList(id: Int): List<Misc> { // TODO: rewrite me :(
         val miscList = ArrayList<Misc>(4)
@@ -102,9 +102,9 @@ class MiscsAdapter(id: Int, val mListener: MiscsFragment.OnItemClickListener) : 
         return miscList
     }
 
-    class MiscViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        private val nameTv = itemView?.findViewById(R.id.name) as TextView
-        private val valueTv = itemView?.findViewById(R.id.value) as TextView
+    class MiscViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val nameTv = itemView.findViewById<TextView>(R.id.name)
+        private val valueTv = itemView.findViewById<TextView>(R.id.value)
 
         fun bind(datum: Misc) {
             datum.apply {

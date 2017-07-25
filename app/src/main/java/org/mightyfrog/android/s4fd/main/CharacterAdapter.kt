@@ -206,10 +206,10 @@ class CharacterAdapter(var mList: List<KHCharacter>, val mListener: MainActivity
         Collections.sort(mList, { lhs, rhs -> lhs.name!!.compareTo(rhs.name!!) })
     }
 
-    inner class LinearViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        private val thumbnailIv = itemView?.findViewById(R.id.thumbnail) as ImageView
-        private val nameTv = itemView?.findViewById(R.id.name) as TextView
-        private val valueTv = itemView?.findViewById(R.id.value) as TextView
+    inner class LinearViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val thumbnailIv = itemView.findViewById<ImageView>(R.id.thumbnail)
+        private val nameTv = itemView.findViewById<TextView>(R.id.name)
+        private val valueTv = itemView.findViewById<TextView>(R.id.value)
 
         fun bind(character: KHCharacter) {
             Picasso.with(itemView.context)
@@ -227,9 +227,9 @@ class CharacterAdapter(var mList: List<KHCharacter>, val mListener: MainActivity
         }
     }
 
-    inner class GridViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        private val thumbnailIv = itemView?.findViewById(R.id.thumbnail) as ImageView
-        private val valueTv = itemView?.findViewById(R.id.value) as TextView
+    inner class GridViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val thumbnailIv = itemView.findViewById<ImageView>(R.id.thumbnail)
+        private val valueTv = itemView.findViewById<TextView>(R.id.value)
 
         fun bind(character: KHCharacter) {
             Picasso.with(itemView.context)

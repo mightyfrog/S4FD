@@ -7,16 +7,16 @@ import org.mightyfrog.android.s4fd.data.MovementDatum_Table
 /**
  * @author Shigehiro Soejima
  */
-class AttributesPresenter(val mView: AttributesContract.View) : AttributesContract.Presenter {
+class AttributesPresenter(val view: AttributesContract.View) : AttributesContract.Presenter {
 
     init {
-        mView.setPresenter(this)
+        view.setPresenter(this)
     }
 
     override fun loadAttributes(id: Int) {
         val list = Select().from(MovementDatum::class.java)
                 .where(MovementDatum_Table.ownerId.eq(id))
                 .queryList()
-        mView.showAttributes(list)
+        view.showAttributes(list)
     }
 }

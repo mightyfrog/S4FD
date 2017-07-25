@@ -8,9 +8,9 @@ import org.mightyfrog.android.s4fd.util.ActivityScope
  * @author Shigehiro Soejima
  */
 @Module
-class MainModule(val mView: MainContract.View) {
+class MainModule(val view: MainContract.View) {
 
     @ActivityScope
     @Provides
-    fun provideMainContractView(): MainContract.View = mView
+    fun provideMainContractView(): MainContract.View = view
 }

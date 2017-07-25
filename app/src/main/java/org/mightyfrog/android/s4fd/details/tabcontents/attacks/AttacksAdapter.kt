@@ -51,10 +51,10 @@ class AttacksAdapter(var mList: List<Move>, val mListener: AttacksFragment.OnIte
         notifyDataSetChanged()
     }
 
-    class AttributeViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        private val nameTv = this.itemView?.findViewById(R.id.name) as TextView
-        private val typeTv = this.itemView?.findViewById(R.id.type) as TextView
-        private val valueTv = this.itemView?.findViewById(R.id.value) as TextView
+    class AttributeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val nameTv = itemView.findViewById<TextView>(R.id.name)
+        private val typeTv = itemView.findViewById<TextView>(R.id.type)
+        private val valueTv = itemView.findViewById<TextView>(R.id.value)
 
         fun bind(datum: Move) {
             datum.apply {

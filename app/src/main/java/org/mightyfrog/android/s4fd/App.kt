@@ -9,12 +9,12 @@ import com.raizlabs.android.dbflow.config.FlowManager
  * @author Shigehiro Soejima
  */
 class App : Application() {
-    private lateinit var mAppComponent: AppComponent
+    private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        mAppComponent = DaggerAppComponent.builder()
+        appComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .build()
 
@@ -27,5 +27,5 @@ class App : Application() {
         super.onTerminate()
     }
 
-    fun getAppComponent(): AppComponent = mAppComponent
+    fun getAppComponent(): AppComponent = appComponent
 }

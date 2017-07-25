@@ -2,6 +2,7 @@ package org.mightyfrog.android.s4fd.compare
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -21,14 +22,14 @@ import javax.inject.Inject
  */
 class CompareActivity : AppCompatActivity(), CompareContract.View {
     @Inject
-    lateinit var mPrefs: SharedPreferences
+    lateinit var comparePresenter: ComparePresenter
 
     @Inject
-    lateinit var mPresenter: ComparePresenter
+    lateinit var prefs: SharedPreferences
 
-    private lateinit var mRecyclerView: CenteringRecyclerView
+    private lateinit var recyclerView: CenteringRecyclerView
 
-    private val mAdapter = DataAdapter(ArrayList<Move>(0))
+    private val adapter = DataAdapter(ArrayList<Move>(0))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +47,19 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
         val name = intent.getStringExtra("name")
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = name
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        supportActionBar?.apply {
+            title = name
+            setDisplayHomeAsUpEnabled(true)
+        }
 
-        mRecyclerView = findViewById(R.id.recyclerView) as CenteringRecyclerView
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
-        mRecyclerView.adapter = mAdapter
-        mRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        recyclerView = findViewById<CenteringRecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         val charToCompareId = intent.getIntExtra("charToCompareId", 0)
-        mPresenter.loadMoves(name, ownerId, charToCompareId)
+        comparePresenter.loadMoves(name, ownerId, charToCompareId)
     }
 
     override fun finish() {
@@ -73,7 +75,7 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         menu?.apply {
-            if (mPrefs.getInt("compare_sort_type", DataAdapter.SORT_BY_CHAR) == DataAdapter.SORT_BY_CHAR) {
+            if (prefs.getInt("compare_sort_type", DataAdapter.SORT_BY_CHAR) == DataAdapter.SORT_BY_CHAR) {
                 findItem(R.id.sort_by_char)?.isChecked = true
                 findItem(R.id.sort_by_move)?.isChecked = false
             } else {
@@ -86,27 +88,29 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            android.R.id.home -> finish()
+            android.R.id.home -> {
+                finish()
+            }
             R.id.sort_by_char -> {
-                mPresenter.sort(DataAdapter.SORT_BY_CHAR)
+                comparePresenter.sort(DataAdapter.SORT_BY_CHAR)
             }
             R.id.sort_by_move -> {
-                mPresenter.sort(DataAdapter.SORT_BY_MOVE)
+                comparePresenter.sort(DataAdapter.SORT_BY_MOVE)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun showMoves(list: List<Move>, scrollPosition: Int) {
-        mAdapter.update(list)
-        mRecyclerView.post({
-            mRecyclerView.center(scrollPosition)
+        adapter.update(list)
+        recyclerView.post({
+            recyclerView.center(scrollPosition)
         })
     }
 
     override fun showSortedMoves(type: Int) {
-        mAdapter.sort(type)
-        supportInvalidateOptionsMenu()
+        adapter.sort(type)
+        ActivityCompat.invalidateOptionsMenu(this)
     }
 
     override fun showErrorMessage(msg: String) {
@@ -114,6 +118,6 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
     }
 
     override fun setPresenter(presenter: ComparePresenter) {
-        mPresenter = presenter
+        comparePresenter = presenter
     }
 }

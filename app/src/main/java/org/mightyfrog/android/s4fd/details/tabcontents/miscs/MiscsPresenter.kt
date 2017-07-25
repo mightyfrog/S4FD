@@ -5,17 +5,17 @@ import org.mightyfrog.android.s4fd.data.KHCharacter
 /**
  * @author Shigehiro Soejima
  */
-class MiscsPresenter(val mView: MiscsContract.View) : MiscsContract.Presenter {
+class MiscsPresenter(val view: MiscsContract.View) : MiscsContract.Presenter {
     private var mCharToCompare: KHCharacter? = null
 
     init {
-        mView.setPresenter(this)
+        view.setPresenter(this)
     }
 
     override fun compare(name: String?, ownerId: Int) {
         name ?: return
 
-        mView.showAttributes(name, ownerId, mCharToCompare?.id)
+        view.showAttributes(name, ownerId, mCharToCompare?.id)
     }
 
     override fun setCharToCompare(char: KHCharacter?) {

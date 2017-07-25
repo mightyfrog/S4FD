@@ -12,11 +12,11 @@ import org.mightyfrog.android.s4fd.details.tabcontents.web.WebFragment
 /**
  * @author Shigehiro Soejima
  */
-class TabContentAdapter(val mTitles: Array<String>, fm: FragmentManager, val mId: Int) : FragmentPagerAdapter(fm) {
+class TabContentAdapter(val titles: Array<String>, fm: FragmentManager, val id: Int) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         val b = Bundle().apply {
-            putInt("id", mId)
+            putInt("id", id)
         }
         return when (position) {
             0 -> {
@@ -35,9 +35,9 @@ class TabContentAdapter(val mTitles: Array<String>, fm: FragmentManager, val mId
         }
     }
 
-    override fun getCount(): Int = mTitles.size
+    override fun getCount() = titles.size
 
-    override fun getItemId(position: Int): Long = position.toLong()
+    override fun getItemId(position: Int) = position.toLong()
 
-    override fun getPageTitle(position: Int): CharSequence = mTitles[position]
+    override fun getPageTitle(position: Int) = titles[position]
 }

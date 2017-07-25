@@ -26,11 +26,11 @@ import javax.inject.Inject
  * TODO: rewrite data retrieval code, needs major refactoring
  * @author Shigehiro Soejima
  */
-class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHService: KHService) : MainContract.Presenter {
-    private val mCompositeSubscription: CompositeSubscription = CompositeSubscription()
+class MainPresenter @Inject constructor(val view: MainContract.View, val service: KHService) : MainContract.Presenter {
+    private val compositeSubscription: CompositeSubscription = CompositeSubscription()
 
     init {
-        mView.setPresenter(this)
+        view.setPresenter(this)
     }
 
     override fun loadCharacters() {
@@ -38,13 +38,13 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                 .where()
                 .queryList()
         if (characterList.size != Const.CHARACTER_COUNT) {
-            mCompositeSubscription.add(mKHService.getCharacters()
+            compositeSubscription.add(service.getCharacters()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(object : SingleSubscriber<List<KHCharacter>>() {
                         override fun onSuccess(list: List<KHCharacter>?) {
                             if (list == null) {
-                                mView.showErrorMessage((mView as Context).getString(R.string.no_char_data_found))
+                                view.showErrorMessage((view as Context).getString(R.string.no_char_data_found))
                                 return
                             }
                             FlowManager.getDatabase(AppDatabase::class.java).executeTransaction {
@@ -56,7 +56,7 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                         }
 
                         override fun onError(t: Throwable?) {
-                            mView.showFallbackDialog()
+                            view.showFallbackDialog()
                             Log.e(Const.TAG, t.toString())
                         }
                     }))
@@ -66,32 +66,32 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
     }
 
     override fun openCharacter(id: Int, position: Int) {
-        mView.showDetails(id, position)
+        view.showDetails(id, position)
     }
 
     override fun fallback() {
-        RxPermissions((mView as Activity))
+        RxPermissions((view as Activity))
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe({
+                .subscribe {
                     if (it) {
                         copyDatabase()
                     } else {
-                        mView.finish()
+                        view.finish()
                     }
-                })
+                }
     }
 
     override fun destroy() {
-        if (!mCompositeSubscription.isUnsubscribed) {
-            mCompositeSubscription.unsubscribe()
+        if (!compositeSubscription.isUnsubscribed) {
+            compositeSubscription.unsubscribe()
         }
     }
 
     private fun copyDatabase() {
-        (mView as Activity).assets.open("smash4data.db").use { input ->
-            input.toFile(mView.getDatabasePath(AppDatabase.NAME + ".db"))
+        (view as Activity).assets.open("smash4data.db").use { input ->
+            input.toFile(view.getDatabasePath(AppDatabase.NAME + ".db"))
         }
-        mView.showDatabaseCopiedDialog()
+        view.showDatabaseCopiedDialog()
     }
 
     fun InputStream.toFile(file: File) {
@@ -110,8 +110,8 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
             return
         }
 
-        mView.showProgressDialog((mView as Activity).getString(R.string.loading_attr_types))
-        mCompositeSubscription.add(mKHService.getSmashAttributeTypes()
+        view.showProgressDialog((view as Activity).getString(R.string.loading_attr_types))
+        compositeSubscription.add(service.getSmashAttributeTypes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : SingleSubscriber<List<SmashAttributeType>>() {
@@ -125,7 +125,7 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                     }
 
                     override fun onError(error: Throwable?) {
-                        mView.hideActivityCircle()
+                        view.hideActivityCircle()
                     }
                 })
         )
@@ -141,20 +141,20 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
             return
         }
 
-        mView.showProgressDialog((mView as Activity).getString(R.string.loading_moves))
-        mCompositeSubscription.add(mKHService.getMoves()
+        view.showProgressDialog((view as Activity).getString(R.string.loading_moves))
+        compositeSubscription.add(service.getMoves()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : SingleSubscriber<List<Move>>() {
                     override fun onError(error: Throwable?) {
-                        mView.hideProgressDialog()
+                        view.hideProgressDialog()
                     }
 
                     override fun onSuccess(moves: List<Move>?) {
-                        mView.hideProgressDialog()
-                        moves?.let {
+                        view.hideProgressDialog()
+                        moves?.apply {
                             FlowManager.getDatabase(AppDatabase::class.java).executeTransaction {
-                                for (move in moves) {
+                                for (move in this) {
                                     move.save()
                                 }
                             }
@@ -164,7 +164,7 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
     }
 
     private fun loadDetails(list: List<KHCharacter>?) { // TODO: rewrite me
-        mCompositeSubscription.add(Observable.from(list)
+        compositeSubscription.add(Observable.from(list)
                 .filter {
                     val metadata = SQLite.select()
                             .from(Metadata::class.java)
@@ -173,7 +173,7 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                     metadata == null
                 }
                 .concatMap({ character ->
-                    val res = mKHService.getDetails(character.id).execute()
+                    val res = service.getDetails(character.id).execute()
                     if (res.isSuccessful && res.code() == 200) {
                         val details = res.body()
                         details?.apply {
@@ -200,20 +200,20 @@ class MainPresenter @Inject constructor(val mView: MainContract.View, val mKHSer
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Subscriber<CharacterDetails>() {
                     override fun onCompleted() {
-                        mView.showCharacters(SQLite.select()
+                        view.showCharacters(SQLite.select()
                                 .from(KHCharacter::class.java)
                                 .queryList())
                         loadSmashAttributeTypes()
                     }
 
                     override fun onError(e: Throwable?) {
-                        mView.showErrorMessage(e.toString())
-                        mView.hideProgressDialog()
+                        view.showErrorMessage(e.toString())
+                        view.hideProgressDialog()
                     }
 
                     override fun onNext(t: CharacterDetails?) {
                         t?.apply {
-                            mView.showProgressDialog((mView as Activity).getString(R.string.loading_chars, metadata?.displayName))
+                            view.showProgressDialog((view as Activity).getString(R.string.loading_chars, metadata?.displayName))
                         }
                     }
                 })

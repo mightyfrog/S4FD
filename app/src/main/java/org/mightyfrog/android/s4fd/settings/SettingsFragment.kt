@@ -14,7 +14,7 @@ import javax.inject.Inject
  */
 class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
     @Inject
-    lateinit var mPresenter: SettingsPresenter
+    lateinit var settingsPresenter: SettingsPresenter
 
     companion object {
         val TAG: String = SettingsFragment::class.java.simpleName
@@ -40,7 +40,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         when (preference?.key) {
-            "open_source" -> mPresenter.showOpenSourceInfo()
+            "open_source" -> settingsPresenter.showOpenSourceInfo()
         }
 
         return super.onPreferenceTreeClick(preference)
@@ -54,10 +54,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
     }
 
     override fun setPresenter(presenter: SettingsPresenter) {
-        mPresenter = presenter
+        settingsPresenter = presenter
     }
 
     override fun showErrorMessage(msg: String) {
-        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+        activity?.apply {
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        }
     }
 }

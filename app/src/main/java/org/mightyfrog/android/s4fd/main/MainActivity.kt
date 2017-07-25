@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Environment
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -34,30 +35,30 @@ import javax.inject.Inject
  */
 class MainActivity : AppCompatActivity(), MainContract.View {
     @Inject
-    lateinit var mPresenter: MainPresenter
+    lateinit var mainPresenter: MainPresenter
 
     @Inject
-    lateinit var mPrefs: SharedPreferences
+    lateinit var prefs: SharedPreferences
 
-    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
-    private var mProgressDialog: ProgressDialog? = null
+    private var progressDialog: ProgressDialog? = null
 
-    private var mSurfaceRotation = Surface.ROTATION_0
+    private var surfaceRotation = Surface.ROTATION_0
 
-    private val mListener = object : OnItemClickListener {
+    private val onItemClickListener = object : OnItemClickListener {
         override fun onItemClick(id: Int, position: Int) {
-            mPresenter.openCharacter(id, position)
+            mainPresenter.openCharacter(id, position)
         }
 
         override fun onSorted() {
-            mRecyclerView.scrollToPosition(0)
+            recyclerView.scrollToPosition(0)
         }
     }
 
-    private var mAdapter = CharacterAdapter(ArrayList<KHCharacter>(0), mListener)
+    private var characterAdapter = CharacterAdapter(ArrayList<KHCharacter>(0), onItemClickListener)
 
-    private var mItemDecor: RecyclerView.ItemDecoration? = null
+    private var itemDecor: RecyclerView.ItemDecoration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,22 +70,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 .build()
                 .inject(this)
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
 
-        mRecyclerView = findViewById(R.id.recyclerView) as RecyclerView
-        mRecyclerView.adapter = mAdapter
-        setViewMode(mPrefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR))
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.adapter = characterAdapter
+        setViewMode(prefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR))
 
         updateSurfaceRotation()
 
-        mPresenter.loadCharacters()
+        mainPresenter.loadCharacters()
     }
 
     override fun onResume() {
         super.onResume()
 
-        mAdapter.clearLastAdapterPosition()
+        characterAdapter.clearLastAdapterPosition()
     }
 
     override fun onPause() {
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun onDestroy() {
-        mPresenter.destroy()
+        mainPresenter.destroy()
 
         super.onDestroy()
     }
@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         menu?.apply {
-            when (mPrefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR)) {
+            when (prefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR)) {
                 CharacterAdapter.MODE_LINEAR -> {
                     findItem(R.id.grid_view)?.isVisible = true
                     findItem(R.id.linear_view)?.isVisible = false
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                 }
                 R.id.reverse -> {
-                    mAdapter.reverse()
+                    characterAdapter.reverse()
                 }
                 R.id.linear_view -> {
                     setViewMode(CharacterAdapter.MODE_LINEAR)
@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     // ignore
                 }
                 else -> {
-                    mAdapter.sort(itemId)
+                    characterAdapter.sort(itemId)
                     updateSubtitle(itemId)
                 }
             }
@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showCharacters(list: List<KHCharacter>?) {
-        mAdapter.update(list)
+        characterAdapter.update(list)
         hideActivityCircle()
     }
 
@@ -170,37 +170,37 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun showErrorMessage(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
-        findViewById(R.id.activity_circle).visibility = View.GONE
+        findViewById<View>(R.id.activity_circle).visibility = View.GONE
     }
 
     override fun showActivityCircle() {
-        findViewById(R.id.activity_circle).visibility = View.VISIBLE
+        findViewById<View>(R.id.activity_circle).visibility = View.VISIBLE
     }
 
     override fun hideActivityCircle() {
-        findViewById(R.id.activity_circle).visibility = View.GONE
+        findViewById<View>(R.id.activity_circle).visibility = View.GONE
     }
 
     override fun showProgressDialog(msg: CharSequence) {
-        if (mProgressDialog == null) {
-            mProgressDialog = ProgressDialog(this)
-            mProgressDialog?.isIndeterminate = true
-            mProgressDialog?.setCancelable(false)
-            mProgressDialog?.show()
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog(this)
+            progressDialog?.isIndeterminate = true
+            progressDialog?.setCancelable(false)
+            progressDialog?.show()
             hideActivityCircle()
         }
-        mProgressDialog?.setMessage(msg)
+        progressDialog?.setMessage(msg)
     }
 
     override fun hideProgressDialog() {
-        mProgressDialog?.dismiss()
+        progressDialog?.dismiss()
     }
 
     override fun showFallbackDialog() {
         AlertDialog.Builder(this)
                 .setMessage(R.string.connection_timeout)
                 .setPositiveButton(android.R.string.ok) { dialog, which ->
-                    mPresenter.fallback()
+                    mainPresenter.fallback()
                 }
                 .setNegativeButton(android.R.string.cancel) { dialog, which ->
                     finish()
@@ -219,51 +219,51 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun setPresenter(presenter: MainPresenter) {
-        mPresenter = presenter
+        mainPresenter = presenter
     }
 
     private fun updateSurfaceRotation() {
         val display = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-        mSurfaceRotation = display.rotation
-        setViewMode(mPrefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR))
+        surfaceRotation = display.rotation
+        setViewMode(prefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR))
     }
 
     private fun getViewAtPosition(position: Int): View {
-        val view = mRecyclerView.layoutManager.findViewByPosition(position)
+        val view = recyclerView.layoutManager.findViewByPosition(position)
         return view.findViewById(R.id.thumbnail)
     }
 
     private fun setViewMode(mode: Int) { // TODO: refactor me
-        mRecyclerView.removeItemDecoration(mItemDecor)
+        recyclerView.removeItemDecoration(itemDecor)
         val layoutManager: RecyclerView.LayoutManager
         when (mode) {
             CharacterAdapter.MODE_LINEAR -> {
-                mItemDecor = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+                itemDecor = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
                 layoutManager = GridLayoutManager(this, 2)
                 layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return if (mSurfaceRotation == android.view.Surface.ROTATION_0
-                                || mSurfaceRotation == android.view.Surface.ROTATION_180) 2 else 1
+                        return if (surfaceRotation == android.view.Surface.ROTATION_0
+                                || surfaceRotation == android.view.Surface.ROTATION_180) 2 else 1
                     }
                 }
-                mPrefs.edit().putInt("view_mode", CharacterAdapter.MODE_LINEAR).apply()
+                prefs.edit().putInt("view_mode", CharacterAdapter.MODE_LINEAR).apply()
             }
             else -> {
-                val colCount = if (mSurfaceRotation == android.view.Surface.ROTATION_0
-                        || mSurfaceRotation == android.view.Surface.ROTATION_180) 8 else 5
-                mItemDecor = SimpleItemDecoration(1)
+                val colCount = if (surfaceRotation == android.view.Surface.ROTATION_0
+                        || surfaceRotation == android.view.Surface.ROTATION_180) 8 else 5
+                itemDecor = SimpleItemDecoration(1)
                 layoutManager = GridLayoutManager(this, 40)
                 layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int = colCount
                 }
-                mPrefs.edit().putInt("view_mode", CharacterAdapter.MODE_GRID).apply()
+                prefs.edit().putInt("view_mode", CharacterAdapter.MODE_GRID).apply()
             }
         }
         layoutManager.initialPrefetchItemCount = Const.CHARACTER_COUNT
-        mRecyclerView.layoutManager = layoutManager
-        (mRecyclerView.adapter as CharacterAdapter).setMode(mode)
-        mRecyclerView.addItemDecoration(mItemDecor)
-        supportInvalidateOptionsMenu()
+        recyclerView.layoutManager = layoutManager
+        (recyclerView.adapter as CharacterAdapter).setMode(mode)
+        recyclerView.addItemDecoration(itemDecor)
+        ActivityCompat.invalidateOptionsMenu(this)
     }
 
     private var mSortBy = -1
@@ -274,63 +274,66 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
 
         mSortBy = sortBy
-        when (sortBy) {
-            R.id.sort_by_name -> {
-                supportActionBar?.subtitle = null
-            }
-            R.id.sort_by_weight -> {
-                supportActionBar?.subtitle = "Weight"
-            }
-            R.id.sort_by_run_speed -> {
-                supportActionBar?.subtitle = "Run Speed"
-            }
-            R.id.sort_by_walk_speed -> {
-                supportActionBar?.subtitle = "Walk Speed"
-            }
-            R.id.sort_by_max_jumps -> {
-                supportActionBar?.subtitle = "Max Jumps"
-            }
-            R.id.sort_by_wall_cling -> {
-                supportActionBar?.subtitle = "Wall Cling"
-            }
-            R.id.sort_by_wall_jump -> {
-                supportActionBar?.subtitle = "Wall Jump"
-            }
-            R.id.sort_by_air_speed -> {
-                supportActionBar?.subtitle = "Air Speed"
-            }
-            R.id.sort_by_crawl -> {
-                supportActionBar?.subtitle = "Crawl"
-            }
-            R.id.sort_by_tether -> {
-                supportActionBar?.subtitle = "Tether"
-            }
-            R.id.sort_by_jumpsquat -> {
-                supportActionBar?.subtitle = "Jumpsquat"
-            }
-            R.id.sort_by_air_acceleration -> {
-                supportActionBar?.subtitle = "Air Acceleration"
-            }
-            R.id.sort_by_soft_landing_lag -> {
-                supportActionBar?.subtitle = "Soft Landing Lag"
-            }
-            R.id.sort_by_hard_landing_lag -> {
-                supportActionBar?.subtitle = "Hard Landing Lag"
-            }
-            R.id.sort_by_gravity -> {
-                supportActionBar?.subtitle = "Gravity"
-            }
-            R.id.sort_by_fall_speed -> {
-                supportActionBar?.subtitle = "Fall Speed"
-            }
-            R.id.sort_by_fast_fall_speed -> {
-                supportActionBar?.subtitle = "Fast Fall Speed"
-            }
-            R.id.sort_by_sh_air_time -> {
-                supportActionBar?.subtitle = "SH Air Time"
-            }
-            R.id.sort_by_fh_air_time -> {
-                supportActionBar?.subtitle = "FH Air Time"
+
+        supportActionBar?.apply {
+            when (sortBy) {
+                R.id.sort_by_name -> {
+                    subtitle = null
+                }
+                R.id.sort_by_weight -> {
+                    subtitle = "Weight"
+                }
+                R.id.sort_by_run_speed -> {
+                    subtitle = "Run Speed"
+                }
+                R.id.sort_by_walk_speed -> {
+                    subtitle = "Walk Speed"
+                }
+                R.id.sort_by_max_jumps -> {
+                    subtitle = "Max Jumps"
+                }
+                R.id.sort_by_wall_cling -> {
+                    subtitle = "Wall Cling"
+                }
+                R.id.sort_by_wall_jump -> {
+                    subtitle = "Wall Jump"
+                }
+                R.id.sort_by_air_speed -> {
+                    subtitle = "Air Speed"
+                }
+                R.id.sort_by_crawl -> {
+                    subtitle = "Crawl"
+                }
+                R.id.sort_by_tether -> {
+                    subtitle = "Tether"
+                }
+                R.id.sort_by_jumpsquat -> {
+                    subtitle = "Jumpsquat"
+                }
+                R.id.sort_by_air_acceleration -> {
+                    subtitle = "Air Acceleration"
+                }
+                R.id.sort_by_soft_landing_lag -> {
+                    subtitle = "Soft Landing Lag"
+                }
+                R.id.sort_by_hard_landing_lag -> {
+                    subtitle = "Hard Landing Lag"
+                }
+                R.id.sort_by_gravity -> {
+                    subtitle = "Gravity"
+                }
+                R.id.sort_by_fall_speed -> {
+                    subtitle = "Fall Speed"
+                }
+                R.id.sort_by_fast_fall_speed -> {
+                    subtitle = "Fast Fall Speed"
+                }
+                R.id.sort_by_sh_air_time -> {
+                    subtitle = "SH Air Time"
+                }
+                R.id.sort_by_fh_air_time -> {
+                    subtitle = "FH Air Time"
+                }
             }
         }
     }

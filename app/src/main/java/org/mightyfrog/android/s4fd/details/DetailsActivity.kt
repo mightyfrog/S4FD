@@ -9,6 +9,7 @@ import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
+import android.support.v4.app.ActivityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -33,25 +34,25 @@ import javax.inject.Inject
  */
 class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.OnOffsetChangedListener {
     @Inject
-    lateinit var mPresenter: DetailsPresenter
+    lateinit var detailsPresenter: DetailsPresenter
 
-    private lateinit var mTabLayout: TabLayout
+    private lateinit var tabLayout: TabLayout
 
-    private lateinit var mViewPager: ViewPager
+    private lateinit var viewPager: ViewPager
 
-    private lateinit var mBackdrop: ImageView
+    private lateinit var backdrop: ImageView
 
-    private lateinit var mVsThumbnail: ImageView
+    private lateinit var vsThumbnail: ImageView
 
-    private lateinit var mFab: FloatingActionButton
+    private lateinit var fab: FloatingActionButton
 
-    private var mCharacter: KHCharacter? = null
+    private var character: KHCharacter? = null
 
-    private var mCharToCompare: KHCharacter? = null
+    private var charToCompare: KHCharacter? = null
 
-    private lateinit var mCollapsingToolbarLayout: CollapsingToolbarLayout
+    private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
 
-    private var mIsAppBarCollapsed = false
+    private var isAppBarCollapsed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +63,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
             return
         }
 
-        mCharacter = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(id)).querySingle()
+        character = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(id)).querySingle()
 
         setTheme(resources.getIdentifier("CharTheme." + id, "style", packageName))
 
@@ -74,23 +75,24 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
                 .build()
                 .inject(this)
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = mCharacter?.displayName?.trim()
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        supportActionBar?.apply {
+            title = character?.displayName?.trim()
+            setDisplayHomeAsUpEnabled(true)
+        }
 
-        mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
+        collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
 
-        mVsThumbnail = findViewById(R.id.vsThumbnail) as ImageView
+        vsThumbnail = findViewById<ImageView>(R.id.vsThumbnail)
 
-        mViewPager = findViewById(R.id.viewPager) as ViewPager
+        viewPager = findViewById<ViewPager>(R.id.viewPager)
         val titles = resources.getStringArray(R.array.detail_tabs)
-        mViewPager.adapter = TabContentAdapter(titles, supportFragmentManager, id)
-        mViewPager.offscreenPageLimit = 3
+        viewPager.adapter = TabContentAdapter(titles, supportFragmentManager, id)
+        viewPager.offscreenPageLimit = 3
 
-        mTabLayout = findViewById(R.id.tabLayout) as TabLayout
-        mTabLayout.setupWithViewPager(mViewPager)
-        mTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        tabLayout.setupWithViewPager(viewPager)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 // no-op
             }
@@ -100,33 +102,33 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                supportInvalidateOptionsMenu()
+                ActivityCompat.invalidateOptionsMenu(this@DetailsActivity)
             }
         })
 
-        mFab = findViewById(R.id.fab) as FloatingActionButton
-        mFab.setOnClickListener { view ->
-            mPresenter.compare(id)
+        fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            detailsPresenter.compare(id)
         }
 
-        (findViewById(R.id.appbar) as AppBarLayout).addOnOffsetChangedListener(this)
+        findViewById<AppBarLayout>(R.id.appbar).addOnOffsetChangedListener(this)
 
-        mBackdrop = findViewById(R.id.backdrop) as ImageView
+        backdrop = findViewById<ImageView>(R.id.backdrop)
         Picasso.with(this)
-                .load(mCharacter?.mainImageUrl)
-                .into(mBackdrop)
+                .load(character?.mainImageUrl)
+                .into(backdrop)
 
-        mViewPager.post({ mPresenter.setCharToCompareIfAny(id) })
+        viewPager.post({ detailsPresenter.setCharToCompareIfAny(id) })
     }
 
     override fun onResume() {
         super.onResume()
 
-        mBackdrop.visibility = View.VISIBLE
+        backdrop.visibility = View.VISIBLE
     }
 
     override fun onPause() {
-        mBackdrop.visibility = View.GONE
+        backdrop.visibility = View.GONE
 
         super.onPause()
     }
@@ -137,7 +139,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menu?.findItem(R.id.open_in_browser)?.isVisible = mTabLayout.selectedTabPosition == 3
+        menu?.findItem(R.id.open_in_browser)?.isVisible = tabLayout.selectedTabPosition == 3
 
         return super.onPrepareOptionsMenu(menu)
     }
@@ -160,21 +162,21 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         val maxScroll = appBarLayout.totalScrollRange
         val percentage = Math.abs(verticalOffset) / maxScroll.toFloat()
 
-        if (percentage >= 0.7f && mIsAppBarCollapsed) {
-            mFab.hide()
-            (mVsThumbnail.parent as View).animate().setDuration(500L).alpha(0f).start()
-            mIsAppBarCollapsed = !mIsAppBarCollapsed
-        } else if (percentage < 0.7f && !mIsAppBarCollapsed) {
-            mFab.show()
-            (mVsThumbnail.parent as View).animate().setDuration(500L).alpha(1f).start()
-            mIsAppBarCollapsed = !mIsAppBarCollapsed
+        if (percentage >= 0.7f && isAppBarCollapsed) {
+            fab.hide()
+            (vsThumbnail.parent as View).animate().setDuration(500L).alpha(0f).start()
+            isAppBarCollapsed = !isAppBarCollapsed
+        } else if (percentage < 0.7f && !isAppBarCollapsed) {
+            fab.show()
+            (vsThumbnail.parent as View).animate().setDuration(500L).alpha(1f).start()
+            isAppBarCollapsed = !isAppBarCollapsed
         }
 
-        mCharToCompare?.let {
+        charToCompare?.let {
             if (percentage == 1f) {
-                mCollapsingToolbarLayout.title = getString(R.string.attr_compare, mCharacter?.displayName, it.displayName)
+                collapsingToolbarLayout.title = getString(R.string.attr_compare, character?.displayName, it.displayName)
             } else {
-                mCollapsingToolbarLayout.title = mCharacter?.displayName?.trim()
+                collapsingToolbarLayout.title = character?.displayName?.trim()
             }
         }
     }
@@ -184,23 +186,23 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun hideVsThumbnail() {
-        mVsThumbnail.visibility = View.GONE
+        vsThumbnail.visibility = View.GONE
     }
 
     override fun showVsThumbnail(charToCompare: KHCharacter?) {
         charToCompare?.apply {
             Picasso.with(this@DetailsActivity)
                     .load(thumbnailUrl)
-                    .into(mVsThumbnail)
-            (mVsThumbnail.parent as CardView).setCardBackgroundColor(Color.parseColor(colorTheme))
+                    .into(vsThumbnail)
+            (vsThumbnail.parent as CardView).setCardBackgroundColor(Color.parseColor(colorTheme))
         }
-        mVsThumbnail.visibility = View.VISIBLE
-        mVsThumbnail.alpha = 0f
-        mVsThumbnail.animate().setDuration(750L).alpha(1f).start()
+        vsThumbnail.visibility = View.VISIBLE
+        vsThumbnail.alpha = 0f
+        vsThumbnail.animate().setDuration(750L).alpha(1f).start()
     }
 
     override fun setCharToCompare(charToCompare: KHCharacter?) {
-        mCharToCompare = charToCompare
+        this.charToCompare = charToCompare
     }
 
     override fun showCompareDialog(list: List<KHCharacter>, displayNames: List<String>, scrollPosition: Int) {
@@ -208,11 +210,11 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         val dialog = AlertDialog.Builder(this)
                 .setTitle(R.string.compare)
                 .setSingleChoiceItems(displayNames.toTypedArray(), scrollPosition, { dialogInterface, which ->
-                    mPresenter.setCharToCompare(ownerId, list[which])
+                    detailsPresenter.setCharToCompare(ownerId, list[which])
                     dialogInterface.dismiss()
                 })
                 .setNeutralButton(R.string.clear, { dialogInterface, i ->
-                    mPresenter.setCharToCompare(ownerId, null)
+                    detailsPresenter.setCharToCompare(ownerId, null)
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .create()
@@ -221,15 +223,15 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun showActivityCircle() {
-        findViewById(R.id.activity_circle).visibility = View.VISIBLE
+        findViewById<View>(R.id.activity_circle).visibility = View.VISIBLE
     }
 
     override fun hideActivityCircle() {
-        findViewById(R.id.activity_circle).visibility = View.GONE
+        findViewById<View>(R.id.activity_circle).visibility = View.GONE
     }
 
     override fun setPresenter(presenter: DetailsPresenter) {
-        mPresenter = presenter
+        detailsPresenter = presenter
     }
 
     override fun showErrorMessage(msg: String) {
@@ -239,7 +241,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     private fun openInBrowser() {
         val i = Intent()
         i.action = Intent.ACTION_VIEW
-        i.data = Uri.parse(mCharacter?.fullUrl)
+        i.data = Uri.parse(character?.fullUrl)
         try {
             startActivity(i)
         } catch (e: ActivityNotFoundException) {

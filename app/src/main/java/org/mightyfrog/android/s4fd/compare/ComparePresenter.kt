@@ -10,10 +10,10 @@ import javax.inject.Inject
 /**
  * @author Shigehiro Soejima
  */
-class ComparePresenter @Inject constructor(val mView: CompareContract.View, val mPrefs: SharedPreferences) : CompareContract.Presenter {
+class ComparePresenter @Inject constructor(val view: CompareContract.View, val prefs: SharedPreferences) : CompareContract.Presenter {
 
     init {
-        mView.setPresenter(this)
+        view.setPresenter(this)
     }
 
     override fun loadMoves(name: String, charId: Int, charToCompareId: Int) {
@@ -35,14 +35,14 @@ class ComparePresenter @Inject constructor(val mView: CompareContract.View, val 
         val count = list
                 .takeWhile { it.ownerId != charId }
                 .count()
-        mView.showMoves(list, count)
-        if (mPrefs.getInt("compare_sort_type", DataAdapter.SORT_BY_CHAR) != DataAdapter.SORT_BY_CHAR) {
+        view.showMoves(list, count)
+        if (prefs.getInt("compare_sort_type", DataAdapter.SORT_BY_CHAR) != DataAdapter.SORT_BY_CHAR) {
             sort(DataAdapter.SORT_BY_MOVE)
         }
     }
 
     override fun sort(type: Int) {
-        mPrefs.edit().putInt("compare_sort_type", type).apply()
-        mView.showSortedMoves(type)
+        prefs.edit().putInt("compare_sort_type", type).apply()
+        view.showSortedMoves(type)
     }
 }

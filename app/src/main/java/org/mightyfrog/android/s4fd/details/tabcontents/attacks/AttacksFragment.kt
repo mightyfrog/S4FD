@@ -21,11 +21,11 @@ import java.util.*
  * @author Shigehiro Soejima
  */
 class AttacksFragment : BaseFragment(), AttacksContract.View {
-    private lateinit var mPresenter: AttacksPresenter
+    private lateinit var attackPresenter: AttacksPresenter
 
     private val mListener = object : OnItemClickListener {
         override fun onItemClick(name: String) {
-            mPresenter.compare(name)
+            attackPresenter.compare(name)
         }
     }
 
@@ -45,16 +45,18 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_tab_content, container, false)
-        val rv = view?.findViewById(R.id.recyclerView) as RecyclerView
-        rv.adapter = mAdapter
-        val glm = GridLayoutManager(context, 2)
-        glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (mSurfaceRotation == Surface.ROTATION_0 || mSurfaceRotation == Surface.ROTATION_180) 2 else 1
+        view?.apply {
+            val rv = findViewById<RecyclerView>(R.id.recyclerView)
+            rv.adapter = mAdapter
+            val glm = GridLayoutManager(context, 2)
+            glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (surfaceRotation == Surface.ROTATION_0 || surfaceRotation == Surface.ROTATION_180) 2 else 1
+                }
             }
+            rv.layoutManager = glm
+            rv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
-        rv.layoutManager = glm
-        rv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         return view
     }
@@ -62,7 +64,7 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mPresenter.loadMoves(arguments.getInt("id"))
+        attackPresenter.loadMoves(arguments.getInt("id"))
     }
 
     override fun showComparison(name: String, charToCompare: KHCharacter?) {
@@ -79,15 +81,17 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
     }
 
     override fun showErrorMessage(msg: String) {
-        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+        activity?.apply {
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun setPresenter(presenter: AttacksPresenter) {
-        mPresenter = presenter
+        attackPresenter = presenter
     }
 
     fun setCharToCompare(char: KHCharacter?) { // hmm...
-        mPresenter.setCharToCompare(char)
+        attackPresenter.setCharToCompare(char)
     }
 
     interface OnItemClickListener {

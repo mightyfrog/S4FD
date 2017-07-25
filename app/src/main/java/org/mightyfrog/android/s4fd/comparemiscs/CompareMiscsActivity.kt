@@ -22,11 +22,10 @@ class CompareMiscsActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_compare_miscs)
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
         initActionBar()
 
-        val rv = findViewById(R.id.recyclerView) as CenteringRecyclerView
+        val rv = findViewById<CenteringRecyclerView>(R.id.recyclerView)
         rv.layoutManager = GridLayoutManager(this, 1)
         rv.adapter = DataAdapter(intent.getStringExtra("name"), ownerId, intent.getIntExtra("charToCompareId", 0))
         rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -45,13 +44,15 @@ class CompareMiscsActivity : AppCompatActivity() {
     }
 
     private fun initActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val name = intent.getStringExtra("name")
-        when (name) {
-            "SPOTDODGE" -> supportActionBar?.title = "Spot Dodge"
-            "AIRDODGE" -> supportActionBar?.title = "Air Dodge"
-            "ROLLS" -> supportActionBar?.title = "Forward/Back Roll"
-            "LEDGEROLL" -> supportActionBar?.title = "Ledge Roll"
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            val name = intent.getStringExtra("name")
+            when (name) {
+                "SPOTDODGE" -> title = "Spot Dodge"
+                "AIRDODGE" -> title = "Air Dodge"
+                "ROLLS" -> title = "Forward/Back Roll"
+                "LEDGEROLL" -> title = "Ledge Roll"
+            }
         }
     }
 }

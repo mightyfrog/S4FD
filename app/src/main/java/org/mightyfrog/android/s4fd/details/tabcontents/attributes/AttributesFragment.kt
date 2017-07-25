@@ -19,9 +19,9 @@ import java.util.*
  * @author Shigehiro Soejima
  */
 class AttributesFragment : BaseFragment(), AttributesContract.View {
-    private lateinit var mPresenter: AttributesPresenter
+    private lateinit var attributesPresenter: AttributesPresenter
 
-    private val mAdapter = AttributesAdapter(ArrayList<MovementDatum>(0))
+    private val adapter = AttributesAdapter(ArrayList<MovementDatum>(0))
 
     companion object {
         fun newInstance(b: Bundle): AttributesFragment = AttributesFragment().apply {
@@ -37,16 +37,18 @@ class AttributesFragment : BaseFragment(), AttributesContract.View {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_tab_content, container, false)
-        val rv = view?.findViewById(R.id.recyclerView) as RecyclerView
-        rv.adapter = mAdapter
-        val glm = GridLayoutManager(context, 6)
-        glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (mSurfaceRotation == Surface.ROTATION_0 || mSurfaceRotation == Surface.ROTATION_180) 3 else 2
+        view?.apply {
+            val rv = findViewById<RecyclerView>(R.id.recyclerView)
+            rv.adapter = adapter
+            val glm = GridLayoutManager(context, 6)
+            glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (surfaceRotation == Surface.ROTATION_0 || surfaceRotation == Surface.ROTATION_180) 3 else 2
+                }
             }
+            rv.layoutManager = glm
+            rv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
-        rv.layoutManager = glm
-        rv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         return view
     }
@@ -54,22 +56,24 @@ class AttributesFragment : BaseFragment(), AttributesContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mPresenter.loadAttributes(arguments.getInt("id"))
+        attributesPresenter.loadAttributes(arguments.getInt("id"))
     }
 
     override fun showAttributes(list: List<MovementDatum>) {
-        mAdapter.update(list)
+        adapter.update(list)
     }
 
     override fun setCharToCompare(char: KHCharacter?) {
-        mAdapter.compare(char)
+        adapter.compare(char)
     }
 
     override fun showErrorMessage(msg: String) {
-        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+        activity?.apply {
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun setPresenter(presenter: AttributesPresenter) {
-        mPresenter = presenter
+        attributesPresenter = presenter
     }
 }

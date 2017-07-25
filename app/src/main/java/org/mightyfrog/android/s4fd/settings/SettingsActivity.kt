@@ -15,8 +15,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val f = SettingsFragment.newInstance(intent.extras)

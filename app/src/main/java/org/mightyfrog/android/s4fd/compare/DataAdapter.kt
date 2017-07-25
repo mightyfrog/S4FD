@@ -19,7 +19,7 @@ import java.util.*
 /**
  * @author Shigehiro Soejima
  */
-class DataAdapter(var mList: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveViewHolder>() {
+class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveViewHolder>() {
     companion object {
         val SORT_BY_CHAR: Int = 1
         val SORT_BY_MOVE: Int = 2
@@ -31,12 +31,12 @@ class DataAdapter(var mList: List<Move>) : RecyclerView.Adapter<DataAdapter.Move
         setHasStableIds(true)
     }
 
-    override fun getItemCount(): Int = mList.size
+    override fun getItemCount() = list.size
 
-    override fun getItemId(position: Int): Long = mList[position].id.toLong()
+    override fun getItemId(position: Int) = list[position].id.toLong()
 
     override fun onBindViewHolder(holder: MoveViewHolder?, position: Int) {
-        holder?.bind(mList[position])
+        holder?.bind(list[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MoveViewHolder {
@@ -44,9 +44,9 @@ class DataAdapter(var mList: List<Move>) : RecyclerView.Adapter<DataAdapter.Move
     }
 
     inner class MoveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val thumbnailIv = this.itemView?.findViewById(R.id.thumbnail) as ImageView
-        private val nameTv = this.itemView?.findViewById(R.id.name) as TextView
-        private val valueTv = this.itemView?.findViewById(R.id.value) as TextView
+        private val thumbnailIv = itemView.findViewById<ImageView>(R.id.thumbnail)
+        private val nameTv = itemView.findViewById<TextView>(R.id.name)
+        private val valueTv = itemView.findViewById<TextView>(R.id.value)
 
         fun bind(datum: Move) {
             datum.apply {
@@ -94,19 +94,19 @@ class DataAdapter(var mList: List<Move>) : RecyclerView.Adapter<DataAdapter.Move
     }
 
     fun update(list: List<Move>) {
-        mList = list
+        this.list = list
         notifyDataSetChanged()
     }
 
     fun sort(sortBy: Int) {
         when (sortBy) {
             SORT_BY_CHAR -> {
-                Collections.sort(mList, { lhs, rhs ->
+                Collections.sort(list, { lhs, rhs ->
                     lhs.ownerId.compareTo(rhs.ownerId)
                 })
             }
             SORT_BY_MOVE -> {
-                Collections.sort(mList, { lhs, rhs ->
+                Collections.sort(list, { lhs, rhs ->
                     lhs.name.compareTo(rhs.name)
                 })
             }

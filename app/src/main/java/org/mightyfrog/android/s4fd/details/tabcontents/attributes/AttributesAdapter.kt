@@ -14,44 +14,44 @@ import org.mightyfrog.android.s4fd.data.MovementDatum_Table
 /**
  * @author Shigehiro Soejima
  */
-class AttributesAdapter(var mList: List<MovementDatum>) : RecyclerView.Adapter<AttributesAdapter.AttributeViewHolder>() {
-    private var mCharToCompare: KHCharacter? = null
+class AttributesAdapter(var list: List<MovementDatum>) : RecyclerView.Adapter<AttributesAdapter.AttributeViewHolder>() {
+    private var charToCompare: KHCharacter? = null
 
     init {
         setHasStableIds(true)
     }
 
-    override fun getItemCount(): Int = mList.size
+    override fun getItemCount() = list.size
 
-    override fun getItemId(position: Int): Long = mList[position].id.toLong()
+    override fun getItemId(position: Int) = list[position].id.toLong()
 
     override fun onBindViewHolder(holder: AttributeViewHolder?, position: Int) {
-        holder?.bind(mList[position])
+        holder?.bind(list[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): AttributeViewHolder
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int)
             = AttributeViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_attribute, parent, false))
 
     fun update(list: List<MovementDatum>) {
-        mList = list
+        this.list = list
         notifyDataSetChanged()
     }
 
     fun compare(char: KHCharacter?) {
-        mCharToCompare = char
+        charToCompare = char
         notifyDataSetChanged()
     }
 
-    inner class AttributeViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        private val nameTv = itemView?.findViewById(R.id.name) as TextView
-        private val valueTv = itemView?.findViewById(R.id.value) as TextView
+    inner class AttributeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val nameTv = itemView.findViewById<TextView>(R.id.name)
+        private val valueTv = itemView.findViewById<TextView>(R.id.value)
 
         fun bind(datum: MovementDatum) {
             nameTv.text = datum.name
             val value = datum.value?.replace("frame", " frame")
-            if (mCharToCompare != null) {
+            if (charToCompare != null) {
                 val datumToComp = Select().from(MovementDatum::class.java)
-                        .where(MovementDatum_Table.ownerId.eq(mCharToCompare!!.id))
+                        .where(MovementDatum_Table.ownerId.eq(charToCompare!!.id))
                         .and(MovementDatum_Table.name.eq(datum.name))
                         .querySingle()
                 if (datum.ownerId != datumToComp?.ownerId) {

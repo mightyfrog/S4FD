@@ -33,25 +33,27 @@ class WebFragment : Fragment() {
                 .fullUrl
 
         val view = inflater?.inflate(R.layout.fragment_tab_web, container, false)
-        val wv = view?.findViewById(R.id.webView) as WebView
-        wv.setWebViewClient(object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                view?.loadUrl(view.url)
-                return true
-            }
-
-            override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
-                if (wv.settings.cacheMode != WebSettings.LOAD_CACHE_ELSE_NETWORK) {
-                    wv.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-                    wv.loadUrl(fullUrl)
+        view?.apply {
+            val wv = findViewById<WebView>(R.id.webView)
+            wv.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                    view?.loadUrl(view.url)
+                    return true
                 }
-                super.onReceivedError(view, errorCode, description, failingUrl)
+
+                override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
+                    if (wv.settings.cacheMode != WebSettings.LOAD_CACHE_ELSE_NETWORK) {
+                        wv.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+                        wv.loadUrl(fullUrl)
+                    }
+                    super.onReceivedError(view, errorCode, description, failingUrl)
+                }
             }
-        })
-        wv.settings.loadWithOverviewMode = true
-        wv.settings.useWideViewPort = true
-        wv.settings.cacheMode = WebSettings.LOAD_DEFAULT
-        wv.loadUrl(fullUrl)
+            wv.settings.loadWithOverviewMode = true
+            wv.settings.useWideViewPort = true
+            wv.settings.cacheMode = WebSettings.LOAD_DEFAULT
+            wv.loadUrl(fullUrl)
+        }
 
         return view
     }

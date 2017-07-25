@@ -10,7 +10,7 @@ import android.view.WindowManager
  * @author Shigehiro Soejima
  */
 open class BaseFragment : Fragment() {
-    var mSurfaceRotation = ROTATION_0
+    var surfaceRotation = ROTATION_0
 
     override fun onResume() {
         super.onResume()
@@ -26,6 +26,6 @@ open class BaseFragment : Fragment() {
 
     private fun updateSurfaceRotation() {
         val display = (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-        mSurfaceRotation = display.rotation
+        surfaceRotation = display.rotation
     }
 }
