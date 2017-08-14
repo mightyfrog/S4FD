@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "org.mightyfrog.android.s4fd"
         minSdkVersion 21
@@ -80,8 +80,8 @@ dependencies {
     })
     androidTestCompile "org.mockito:mockito-android:2.7.14"
 
-    testCompile "org.mockito:mockito-core:2.7.14"
-    testCompile "org.robolectric:robolectric:3.3"
+    testCompile "org.mockito:mockito-core:2.7.22"
+    testCompile "org.robolectric:robolectric:3.3.2"
     testCompile "org.khronos:opengl-api:gl1.1-android-2.1_r1"
     testCompile "junit:junit:4.12"
 }
