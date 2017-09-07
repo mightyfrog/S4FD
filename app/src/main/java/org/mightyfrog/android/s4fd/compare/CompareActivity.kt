@@ -6,7 +6,6 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -29,7 +28,7 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
     private lateinit var recyclerView: CenteringRecyclerView
 
-    private val adapter = DataAdapter(ArrayList<Move>(0))
+    private val adapter = DataAdapter(ArrayList(0))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,13 +46,13 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
         val name = intent.getStringExtra("name")
 
-        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.apply {
             title = name
             setDisplayHomeAsUpEnabled(true)
         }
 
-        recyclerView = findViewById<CenteringRecyclerView>(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))

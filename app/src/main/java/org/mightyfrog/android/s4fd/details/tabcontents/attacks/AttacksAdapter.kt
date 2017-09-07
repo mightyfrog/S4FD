@@ -13,7 +13,7 @@ import org.mightyfrog.android.s4fd.data.Move
 /**
  * @author Shigehiro Soejima
  */
-class AttacksAdapter(var mList: List<Move>, val mListener: AttacksFragment.OnItemClickListener) : RecyclerView.Adapter<AttacksAdapter.AttributeViewHolder>() {
+class AttacksAdapter(private var mList: List<Move>, private val mListener: AttacksFragment.OnItemClickListener) : RecyclerView.Adapter<AttacksAdapter.AttributeViewHolder>() {
 
     init {
         setHasStableIds(true)

@@ -21,7 +21,7 @@ import java.util.*
 class AttributesFragment : BaseFragment(), AttributesContract.View {
     private lateinit var attributesPresenter: AttributesPresenter
 
-    private val adapter = AttributesAdapter(ArrayList<MovementDatum>(0))
+    private val adapter = AttributesAdapter(ArrayList(0))
 
     companion object {
         fun newInstance(b: Bundle): AttributesFragment = AttributesFragment().apply {

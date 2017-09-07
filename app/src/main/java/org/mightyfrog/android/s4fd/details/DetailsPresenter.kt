@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * @author Shigehiro Soejima
  */
-class DetailsPresenter @Inject constructor(val view: DetailsContract.View, val prefs: SharedPreferences) : DetailsContract.Presenter {
+class DetailsPresenter @Inject constructor(val view: DetailsContract.View, private val prefs: SharedPreferences) : DetailsContract.Presenter {
 
     init {
         view.setPresenter(this)

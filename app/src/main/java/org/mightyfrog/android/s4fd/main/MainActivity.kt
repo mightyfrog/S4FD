@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.Toast
 import org.mightyfrog.android.s4fd.App
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    private var characterAdapter = CharacterAdapter(ArrayList<KHCharacter>(0), onItemClickListener)
+    private var characterAdapter = CharacterAdapter(ArrayList(0), onItemClickListener)
 
     private var itemDecor: RecyclerView.ItemDecoration? = null
 
@@ -70,9 +69,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 .build()
                 .inject(this)
 
-        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
 
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         recyclerView.adapter = characterAdapter
         setViewMode(prefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR))
 

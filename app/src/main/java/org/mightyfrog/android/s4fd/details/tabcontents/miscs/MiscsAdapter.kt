@@ -13,7 +13,7 @@ import java.util.*
 /**
  * @author Shigehiro Soejima
  */
-class MiscsAdapter(id: Int, val onItemClickListener: MiscsFragment.OnItemClickListener) : RecyclerView.Adapter<MiscsAdapter.MiscViewHolder>() {
+class MiscsAdapter(id: Int, private val onItemClickListener: MiscsFragment.OnItemClickListener) : RecyclerView.Adapter<MiscsAdapter.MiscViewHolder>() {
     private val list: List<Misc>
 
     init {

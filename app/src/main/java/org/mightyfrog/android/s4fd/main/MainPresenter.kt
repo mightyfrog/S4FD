@@ -26,7 +26,7 @@ import javax.inject.Inject
  * TODO: rewrite data retrieval code, needs major refactoring
  * @author Shigehiro Soejima
  */
-class MainPresenter @Inject constructor(val view: MainContract.View, val service: KHService) : MainContract.Presenter {
+class MainPresenter @Inject constructor(val view: MainContract.View, private val service: KHService) : MainContract.Presenter {
     private val compositeSubscription: CompositeSubscription = CompositeSubscription()
 
     init {
@@ -94,7 +94,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, val service
         view.showDatabaseCopiedDialog()
     }
 
-    fun InputStream.toFile(file: File) {
+    private fun InputStream.toFile(file: File) {
         use { input ->
             file.outputStream().use { input.copyTo(it) }
         }

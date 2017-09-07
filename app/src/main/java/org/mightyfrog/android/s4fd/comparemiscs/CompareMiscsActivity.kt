@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.widget.CenteringRecyclerView
@@ -22,7 +21,7 @@ class CompareMiscsActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_compare_miscs)
 
-        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
         initActionBar()
 
         val rv = findViewById<CenteringRecyclerView>(R.id.recyclerView)

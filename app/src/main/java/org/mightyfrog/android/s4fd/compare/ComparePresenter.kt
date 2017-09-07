@@ -10,23 +10,22 @@ import javax.inject.Inject
 /**
  * @author Shigehiro Soejima
  */
-class ComparePresenter @Inject constructor(val view: CompareContract.View, val prefs: SharedPreferences) : CompareContract.Presenter {
+class ComparePresenter @Inject constructor(val view: CompareContract.View, private val prefs: SharedPreferences) : CompareContract.Presenter {
 
     init {
         view.setPresenter(this)
     }
 
     override fun loadMoves(name: String, charId: Int, charToCompareId: Int) {
-        val list: List<Move>
-        if (charToCompareId != 0) {
-            list = (Select().from(Move::class.java)
+        val list = if (charToCompareId != 0) {
+            (Select().from(Move::class.java)
                     .where()
                     .and(OperatorGroup.clause().or(Move_Table.name.like(name + "%")).or(Move_Table.name.like("% $name%")))
                     .and(OperatorGroup.clause().or(Move_Table.ownerId.eq(charId)).or(Move_Table.ownerId.eq(charToCompareId)))
                     .orderBy(Move_Table.id, true)
                     .queryList())
         } else {
-            list = (Select().from(Move::class.java)
+            (Select().from(Move::class.java)
                     .where()
                     .and(OperatorGroup.clause().or(Move_Table.name.like(name + "%")).or(Move_Table.name.like("% $name%")))
                     .orderBy(Move_Table.id, true)

@@ -19,7 +19,7 @@ import java.util.*
 /**
  * @author Shigehiro Soejima
  */
-class CharacterAdapter(var mList: List<KHCharacter>, val mListener: MainActivity.OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CharacterAdapter(private var mList: List<KHCharacter>, private val mListener: MainActivity.OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         val MODE_LINEAR = 1
         val MODE_GRID = 2

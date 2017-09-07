@@ -29,7 +29,7 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
         }
     }
 
-    private val mAdapter = AttacksAdapter(ArrayList<Move>(0), mListener)
+    private val mAdapter = AttacksAdapter(ArrayList(0), mListener)
 
     companion object {
         fun newInstance(b: Bundle): AttacksFragment = AttacksFragment().apply {

@@ -7,7 +7,7 @@ import android.view.View
 /**
  * @author Shigehiro Soejima
  */
-class SimpleItemDecoration(val mSpacing: Int) : RecyclerView.ItemDecoration() {
+class SimpleItemDecoration(private val mSpacing: Int) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         outRect.left = mSpacing

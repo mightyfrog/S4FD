@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -75,22 +74,22 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
                 .build()
                 .inject(this)
 
-        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.apply {
             title = character?.displayName?.trim()
             setDisplayHomeAsUpEnabled(true)
         }
 
-        collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar)
 
-        vsThumbnail = findViewById<ImageView>(R.id.vsThumbnail)
+        vsThumbnail = findViewById(R.id.vsThumbnail)
 
-        viewPager = findViewById<ViewPager>(R.id.viewPager)
+        viewPager = findViewById(R.id.viewPager)
         val titles = resources.getStringArray(R.array.detail_tabs)
         viewPager.adapter = TabContentAdapter(titles, supportFragmentManager, id)
         viewPager.offscreenPageLimit = 3
 
-        tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        tabLayout = findViewById(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -106,14 +105,14 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
             }
         })
 
-        fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab = findViewById(R.id.fab)
         fab.setOnClickListener {
             detailsPresenter.compare(id)
         }
 
         findViewById<AppBarLayout>(R.id.appbar).addOnOffsetChangedListener(this)
 
-        backdrop = findViewById<ImageView>(R.id.backdrop)
+        backdrop = findViewById(R.id.backdrop)
         Picasso.with(this)
                 .load(character?.mainImageUrl)
                 .into(backdrop)
