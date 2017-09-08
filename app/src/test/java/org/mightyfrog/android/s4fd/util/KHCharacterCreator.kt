@@ -7,7 +7,7 @@ import java.util.*
  * @author Shigehiro Soejima
  */
 object KHCharacterCreator {
-    val list: List<KHCharacter> = ArrayList(58)
+    private val list: List<KHCharacter> = ArrayList(58)
 
     init {
         for (i in 1..58) {

@@ -8,7 +8,7 @@ import org.mightyfrog.android.s4fd.data.Move_Table
 /**
  * @author Shigehiro Soejima
  */
-class AttacksPresenter(val mView: AttacksContract.View) : AttacksContract.Presenter {
+class AttacksPresenter(private val mView: AttacksContract.View) : AttacksContract.Presenter {
     private var mCharToCompare: KHCharacter? = null
 
     init {

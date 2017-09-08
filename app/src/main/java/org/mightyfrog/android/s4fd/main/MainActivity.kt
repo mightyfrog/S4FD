@@ -343,7 +343,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         fun onSorted()
     }
 
-    fun dump() {
+    private fun dump() {
         getDatabasePath(AppDatabase.NAME + ".db")
                 .copyTo(File(Environment.getExternalStorageDirectory(), "smash4data.db"))
     }

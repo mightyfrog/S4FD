@@ -12,7 +12,7 @@ import org.mightyfrog.android.s4fd.details.tabcontents.web.WebFragment
 /**
  * @author Shigehiro Soejima
  */
-class TabContentAdapter(val titles: Array<String>, fm: FragmentManager, val id: Int) : FragmentPagerAdapter(fm) {
+class TabContentAdapter(private val titles: Array<String>, fm: FragmentManager, val id: Int) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         val b = Bundle().apply {

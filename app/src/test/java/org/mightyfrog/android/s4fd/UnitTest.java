@@ -56,14 +56,14 @@ public class UnitTest {
         @Test
         public void validateMainActivityTitle() {
             MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-            Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+            Toolbar toolbar = activity.findViewById(R.id.toolbar);
             assertTrue("MainActivity title is S4FD.", toolbar.getTitle().equals(activity.getString(R.string.app_name)));
         }
 
         @Test
         public void validateInitialMenuItemVisibilities() {
             MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-            Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+            Toolbar toolbar = activity.findViewById(R.id.toolbar);
             ShadowActivity shadow = shadowOf(activity);
             shadow.onCreateOptionsMenu(toolbar.getMenu());
             assertTrue("Reverse menu is visible.", shadow.getOptionsMenu().findItem(R.id.reverse).isVisible());
@@ -182,7 +182,7 @@ public class UnitTest {
                     .resume()
                     .get();
             Toolbar toolbar = (Toolbar) shadowOf(activity).findViewById(R.id.toolbar);
-            TabLayout tabLayout = (TabLayout) activity.findViewById(R.id.tabLayout);
+            TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
             ShadowActivity shadow = shadowOf(activity);
             shadow.onCreateOptionsMenu(toolbar.getMenu());
             assertTrue("Open in browser menu is not visible when Attributes tab is selected.", !shadow.getOptionsMenu().findItem(R.id.open_in_browser).isVisible());
