@@ -21,8 +21,8 @@ import java.util.*
  */
 class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveViewHolder>() {
     companion object {
-        val SORT_BY_CHAR: Int = 1
-        val SORT_BY_MOVE: Int = 2
+        const val SORT_BY_CHAR: Int = 1
+        const val SORT_BY_MOVE: Int = 2
     }
 
     private val mThumbnailUrlMap = SparseArray<String?>()

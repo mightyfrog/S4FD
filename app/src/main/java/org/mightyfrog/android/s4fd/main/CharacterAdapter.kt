@@ -21,8 +21,8 @@ import java.util.*
  */
 class CharacterAdapter(private var mList: List<KHCharacter>, private val mListener: MainActivity.OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
-        val MODE_LINEAR = 1
-        val MODE_GRID = 2
+        const val MODE_LINEAR = 1
+        const val MODE_GRID = 2
     }
 
     private var mMode = MODE_LINEAR
