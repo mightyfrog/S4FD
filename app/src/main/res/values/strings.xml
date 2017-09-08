@@ -31,8 +31,6 @@
     <string name="attack_frame_data_1">Hitbox active: %1$s\nFAF: %2$s, Base damage: %3$s, KBG: %6$s\nAngle: %4$s, BKB/WBKB: %5$s</string>
     <string name="attack_frame_data_1b">Hitbox active: %1$s\nFAF: %2$s</string>
     <string name="attack_frame_data_3">Base damage: %1$s\nAngle: %2$s, BKB/WBKB: %3$s\nKBG: %4$s</string>
-    <string name="attack_frame_data">Hitbox active: %1$s\nFAF: %2$s, Base damage: %3$s, KBG: %8$s\nAngle: %4$s, BKB/WBKB: %5$s\nLanding lag: %6$s, Auto cancel: %7$s</string>
     <string name="misc_data">Intangibility: %1$s\nFAF: %2$s</string>
 
-    <string name="sql_misc_data">select a.id as "id", a.name as "cName", b.name as "sName", a.rank, a.ownerId, a.value from CharacterAttributeDatum a, SmashAttributeType b where a.smashAttributeTypeId = b.id and a.ownerId=$id and b.name=%1$s</string>
 </resources>

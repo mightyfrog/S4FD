@@ -1,6 +1,5 @@
 package org.mightyfrog.android.s4fd.details
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -241,11 +240,15 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         val i = Intent()
         i.action = Intent.ACTION_VIEW
         i.data = Uri.parse(character?.fullUrl)
-        try {
-            startActivity(i)
-        } catch (e: ActivityNotFoundException) {
-            // just in case
-            Toast.makeText(this, "No browser found :(", Toast.LENGTH_LONG).show()
+        i.apply {
+            when (resolveActivity(packageManager)) {
+                null -> {
+                    Toast.makeText(this@DetailsActivity, "No browser found :(", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    startActivity(this)
+                }
+            }
         }
     }
 }

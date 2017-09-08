@@ -2,7 +2,6 @@
 <resources>
     <string name="menu_settings">Settings</string>
     <string name="menu_main_sort">Sort by</string>
-    <string name="menu_main_compare">Compare</string>
     <string name="menu_sort_by_name">Name</string>
     <string name="menu_sort_by_weight">Weight</string>
     <string name="menu_sort_by_run_speed">Run Speed</string>
