@@ -1,20 +1,16 @@
 package org.mightyfrog.android.s4fd.settings
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
-import android.widget.Toast
-import org.mightyfrog.android.s4fd.App
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import org.mightyfrog.android.s4fd.R
-import javax.inject.Inject
 
 /**
  * @author Shigehiro Soejima
  */
-class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
-    @Inject
-    lateinit var settingsPresenter: SettingsPresenter
+class SettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
         val TAG: String = SettingsFragment::class.java.simpleName
@@ -24,42 +20,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        DaggerSettingsComponent.builder()
-                .appComponent((activity.application as App).getAppComponent())
-                .settingsModule(SettingsModule(this))
-                .build()
-                .inject(this)
-    }
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.prefs)
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         when (preference?.key) {
-            "open_source" -> settingsPresenter.showOpenSourceInfo()
+            "open_source" -> {
+                startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+            }
         }
 
         return super.onPreferenceTreeClick(preference)
-    }
-
-    override fun showOpenSourceInfo(license: String) {
-        AlertDialog.Builder(context)
-                .setMessage(license)
-                .setPositiveButton(android.R.string.ok, null)
-                .show()
-    }
-
-    override fun setPresenter(presenter: SettingsPresenter) {
-        settingsPresenter = presenter
-    }
-
-    override fun showErrorMessage(msg: String) {
-        activity?.apply {
-            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
-        }
     }
 }
