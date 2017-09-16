@@ -13,24 +13,24 @@ import org.mightyfrog.android.s4fd.data.Move
 /**
  * @author Shigehiro Soejima
  */
-class AttacksAdapter(private var mList: List<Move>, private val mListener: AttacksFragment.OnItemClickListener) : RecyclerView.Adapter<AttacksAdapter.AttributeViewHolder>() {
+class AttacksAdapter(private var list: List<Move>, private val listener: AttacksFragment.OnItemClickListener) : RecyclerView.Adapter<AttacksAdapter.AttributeViewHolder>() {
 
     init {
         setHasStableIds(true)
     }
 
-    override fun getItemCount(): Int = mList.size
+    override fun getItemCount(): Int = list.size
 
-    override fun getItemId(position: Int): Long = mList[position].id.toLong()
+    override fun getItemId(position: Int): Long = list[position].id.toLong()
 
     override fun onBindViewHolder(holder: AttributeViewHolder?, position: Int) {
-        holder?.bind(mList[position])
+        holder?.bind(list[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): AttributeViewHolder {
         val vh = AttributeViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_attack, parent, false))
         vh.itemView.setOnClickListener {
-            var name = mList[vh.adapterPosition].name
+            var name = list[vh.adapterPosition].name
             var counter = 0
             for (c in name.toCharArray()) {
                 if (c.isLetter() || c == ' ') {
@@ -41,13 +41,13 @@ class AttacksAdapter(private var mList: List<Move>, private val mListener: Attac
                 break
             }
             name = name.subSequence(0, counter).toString()
-            mListener.onItemClick(name)
+            listener.onItemClick(name)
         }
         return vh
     }
 
     fun update(list: List<Move>) {
-        mList = list
+        this.list = list
         notifyDataSetChanged()
     }
 

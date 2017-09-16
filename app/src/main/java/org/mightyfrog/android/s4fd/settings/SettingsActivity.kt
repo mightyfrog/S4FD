@@ -17,9 +17,10 @@ class SettingsActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val f = SettingsFragment.newInstance(intent.extras)
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.content, f, SettingsFragment.TAG).commit()
+        SettingsFragment.newInstance(intent.extras).apply {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.content, this, SettingsFragment.TAG).commit()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

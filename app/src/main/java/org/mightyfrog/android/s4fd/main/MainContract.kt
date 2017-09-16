@@ -7,6 +7,7 @@ import org.mightyfrog.android.s4fd.data.KHCharacter
  * @author Shigehiro Soejima
  */
 interface MainContract {
+
     interface View : BaseView<MainPresenter> {
         fun showCharacters(list: List<KHCharacter>?)
 

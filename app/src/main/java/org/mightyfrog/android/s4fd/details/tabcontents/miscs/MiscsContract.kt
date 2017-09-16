@@ -7,6 +7,7 @@ import org.mightyfrog.android.s4fd.data.KHCharacter
  * @author Shigehiro Soejima
  */
 interface MiscsContract {
+
     interface View : BaseView<MiscsPresenter> {
         fun showAttributes(name: String, ownerId: Int, charToCompareId: Int?)
 

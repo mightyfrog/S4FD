@@ -8,6 +8,7 @@ import org.mightyfrog.android.s4fd.data.Move
  * @author Shigehiro Soejima
  */
 interface AttacksContract {
+
     interface View : BaseView<AttacksPresenter> {
         fun showMoves(list: List<Move>)
 

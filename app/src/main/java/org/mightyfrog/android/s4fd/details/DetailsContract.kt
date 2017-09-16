@@ -7,6 +7,7 @@ import org.mightyfrog.android.s4fd.data.KHCharacter
  * @author Shigehiro Soejima
  */
 interface DetailsContract {
+
     interface View : BaseView<DetailsPresenter> {
         fun showActivityCircle()
 

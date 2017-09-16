@@ -19,48 +19,48 @@ import java.util.*
 /**
  * @author Shigehiro Soejima
  */
-class CharacterAdapter(private var mList: List<KHCharacter>, private val mListener: MainActivity.OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CharacterAdapter(private var list: List<KHCharacter>, private val listener: MainActivity.OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         const val MODE_LINEAR = 1
         const val MODE_GRID = 2
     }
 
-    private var mMode = MODE_LINEAR
+    private var mode = MODE_LINEAR
 
-    private val mValueMap = SparseArray<String>()
+    private val valueMap = SparseArray<String>()
 
     init {
         setHasStableIds(true)
     }
 
-    override fun getItemCount(): Int = mList.size
+    override fun getItemCount(): Int = list.size
 
-    override fun getItemId(position: Int): Long = mList[position].id.toLong()
+    override fun getItemId(position: Int): Long = list[position].id.toLong()
 
-    override fun getItemViewType(position: Int): Int = mMode
+    override fun getItemViewType(position: Int): Int = mode
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        when (mMode) {
+        when (mode) {
             MODE_LINEAR -> {
-                (holder as LinearViewHolder).bind(mList[position])
+                (holder as LinearViewHolder).bind(list[position])
             }
             MODE_GRID -> {
-                (holder as GridViewHolder).bind(mList[position])
+                (holder as GridViewHolder).bind(list[position])
             }
         }
     }
 
-    private var mLastAdapterPosition = -1
+    private var lastAdapterPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        when (mMode) {
+        when (mode) {
             MODE_LINEAR -> {
                 val vh = LinearViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_main_linear, parent, false))
                 vh.itemView.setOnClickListener {
                     val pos = vh.adapterPosition
-                    if (mLastAdapterPosition != pos) {
-                        mLastAdapterPosition = pos
-                        mListener.onItemClick(mList[pos].id, pos)
+                    if (lastAdapterPosition != pos) {
+                        lastAdapterPosition = pos
+                        listener.onItemClick(list[pos].id, pos)
                     }
                 }
                 return vh
@@ -69,9 +69,9 @@ class CharacterAdapter(private var mList: List<KHCharacter>, private val mListen
                 val vh = GridViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_main_grid, parent, false))
                 vh.itemView.setOnClickListener {
                     val pos = vh.adapterPosition
-                    if (mLastAdapterPosition != pos) {
-                        mLastAdapterPosition = pos
-                        mListener.onItemClick(mList[pos].id, pos)
+                    if (lastAdapterPosition != pos) {
+                        lastAdapterPosition = pos
+                        listener.onItemClick(list[pos].id, pos)
                     }
                 }
                 return vh
@@ -82,19 +82,19 @@ class CharacterAdapter(private var mList: List<KHCharacter>, private val mListen
     }
 
     fun setMode(mode: Int) {
-        mMode = mode
+        this.mode = mode
         notifyDataSetChanged()
     }
 
     fun update(list: List<KHCharacter>?) {
         list ?: return
 
-        mList = list
+        this.list = list
         notifyDataSetChanged()
     }
 
     fun reverse() {
-        Collections.reverse(mList)
+        Collections.reverse(list)
         notifyDataSetChanged()
     }
 
@@ -158,12 +158,12 @@ class CharacterAdapter(private var mList: List<KHCharacter>, private val mListen
                 sortString("FH Air Time")
             }
         }
-        mListener.onSorted()
+        listener.onSorted()
         notifyDataSetChanged()
     }
 
     fun clearLastAdapterPosition() {
-        mLastAdapterPosition = -1
+        lastAdapterPosition = -1
     }
 
     private fun sortInt(by: String) {
@@ -172,9 +172,9 @@ class CharacterAdapter(private var mList: List<KHCharacter>, private val mListen
         val map = SparseIntArray(list.size)
         for (datum in list) {
             map.put(datum.ownerId, datum.value!!.toInt())
-            mValueMap.put(datum.ownerId, datum.value)
+            valueMap.put(datum.ownerId, datum.value)
         }
-        Collections.sort(mList, { lhs, rhs -> map.get(rhs.id).compareTo(map.get(lhs.id)) })
+        Collections.sort(this.list, { lhs, rhs -> map.get(rhs.id).compareTo(map.get(lhs.id)) })
     }
 
     private fun sortFloat(by: String) {
@@ -183,9 +183,9 @@ class CharacterAdapter(private var mList: List<KHCharacter>, private val mListen
         val map = SparseArray<Float>(list.size)
         for (datum in list) {
             map.put(datum.ownerId, datum.value!!.toFloat())
-            mValueMap.put(datum.ownerId, datum.value)
+            valueMap.put(datum.ownerId, datum.value)
         }
-        Collections.sort(mList, { lhs, rhs -> map.get(rhs.id).compareTo(map.get(lhs.id)) })
+        Collections.sort(this.list, { lhs, rhs -> map.get(rhs.id).compareTo(map.get(lhs.id)) })
     }
 
     private fun sortString(by: String) {
@@ -194,16 +194,16 @@ class CharacterAdapter(private var mList: List<KHCharacter>, private val mListen
         val map = SparseArray<String>(list.size)
         for (datum in list) {
             map.put(datum.ownerId, datum.value)
-            mValueMap.put(datum.ownerId, datum.value?.replace("frame", " frame"))
+            valueMap.put(datum.ownerId, datum.value?.replace("frame", " frame"))
         }
         sortByName()
-        Collections.sort(mList, { lhs, rhs ->
+        Collections.sort(this.list, { lhs, rhs ->
             map.get(rhs.id).compareTo(map.get(lhs.id))
         })
     }
 
     private fun sortByName() {
-        Collections.sort(mList, { lhs, rhs -> lhs.name!!.compareTo(rhs.name!!) })
+        Collections.sort(list, { lhs, rhs -> lhs.name!!.compareTo(rhs.name!!) })
     }
 
     inner class LinearViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -217,7 +217,7 @@ class CharacterAdapter(private var mList: List<KHCharacter>, private val mListen
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)
             nameTv.text = character.displayName?.trim()
-            val value = mValueMap.get(character.id)
+            val value = valueMap.get(character.id)
             if (value == null) {
                 valueTv.visibility = View.GONE
             } else {
@@ -236,7 +236,7 @@ class CharacterAdapter(private var mList: List<KHCharacter>, private val mListen
                     .load(character.thumbnailUrl)
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)
-            val value = mValueMap.get(character.id)
+            val value = valueMap.get(character.id)
             if (value == null) {
                 valueTv.visibility = View.GONE
             } else {

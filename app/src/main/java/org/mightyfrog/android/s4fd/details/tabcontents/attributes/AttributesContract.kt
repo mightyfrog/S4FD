@@ -8,6 +8,7 @@ import org.mightyfrog.android.s4fd.data.MovementDatum
  * @author Shigehiro Soejima
  */
 interface AttributesContract {
+
     interface View : BaseView<AttributesPresenter> {
         fun showAttributes(list: List<MovementDatum>)
 

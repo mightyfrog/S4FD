@@ -20,6 +20,7 @@ import java.util.*
  * @author Shigehiro Soejima
  */
 class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveViewHolder>() {
+
     companion object {
         const val SORT_BY_CHAR: Int = 1
         const val SORT_BY_MOVE: Int = 2

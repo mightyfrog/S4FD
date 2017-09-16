@@ -23,13 +23,13 @@ import java.util.*
 class AttacksFragment : BaseFragment(), AttacksContract.View {
     private lateinit var attackPresenter: AttacksPresenter
 
-    private val mListener = object : OnItemClickListener {
+    private val listener = object : OnItemClickListener {
         override fun onItemClick(name: String) {
             attackPresenter.compare(name)
         }
     }
 
-    private val mAdapter = AttacksAdapter(ArrayList(0), mListener)
+    private val adapter = AttacksAdapter(ArrayList(0), listener)
 
     companion object {
         fun newInstance(b: Bundle): AttacksFragment = AttacksFragment().apply {
@@ -47,7 +47,7 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
         val view = inflater?.inflate(R.layout.fragment_tab_content, container, false)
         view?.apply {
             val rv = findViewById<RecyclerView>(R.id.recyclerView)
-            rv.adapter = mAdapter
+            rv.adapter = adapter
             val glm = GridLayoutManager(context, 2)
             glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
@@ -77,7 +77,7 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
     }
 
     override fun showMoves(list: List<Move>) {
-        mAdapter.update(list)
+        adapter.update(list)
     }
 
     override fun showErrorMessage(msg: String) {
@@ -90,7 +90,7 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
         attackPresenter = presenter
     }
 
-    fun setCharToCompare(char: KHCharacter?) { // hmm...
+    fun setCharToCompare(char: KHCharacter?) { // hmmm...
         attackPresenter.setCharToCompare(char)
     }
 

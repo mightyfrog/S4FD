@@ -265,14 +265,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         ActivityCompat.invalidateOptionsMenu(this)
     }
 
-    private var mSortBy = -1
+    private var sortBy = -1
 
     private fun updateSubtitle(sortBy: Int) {
-        if (sortBy == mSortBy) {
+        if (sortBy == this.sortBy) {
             return
         }
 
-        mSortBy = sortBy
+        this.sortBy = sortBy
 
         supportActionBar?.apply {
             when (sortBy) {
