@@ -212,7 +212,7 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
         private val valueTv = itemView.findViewById<TextView>(R.id.value)
 
         fun bind(character: KHCharacter) {
-            Picasso.with(itemView.context)
+            Picasso.with(thumbnailIv.context)
                     .load(character.thumbnailUrl)
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)
@@ -232,7 +232,7 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
         private val valueTv = itemView.findViewById<TextView>(R.id.value)
 
         fun bind(character: KHCharacter) {
-            Picasso.with(itemView.context)
+            Picasso.with(thumbnailIv.context)
                     .load(character.thumbnailUrl)
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)

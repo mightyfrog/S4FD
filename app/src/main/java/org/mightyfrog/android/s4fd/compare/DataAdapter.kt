@@ -57,7 +57,7 @@ class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveV
                     thumbnailUrl = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
                     mThumbnailUrlMap.put(ownerId, thumbnailUrl)
                 }
-                Picasso.with(itemView.context)
+                Picasso.with(thumbnailIv.context)
                         .load(thumbnailUrl)
                         .placeholder(R.drawable.placeholder)
                         .into(thumbnailIv)

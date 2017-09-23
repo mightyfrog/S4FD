@@ -68,12 +68,13 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
     }
 
     override fun showComparison(name: String, charToCompare: KHCharacter?) {
-        val intent = Intent(activity, CompareActivity::class.java)
-        intent.putExtra("name", name)
-        intent.putExtra("ownerId", arguments.getInt("id"))
-        intent.putExtra("charToCompareId", charToCompare?.id)
-        startActivity(intent)
+        Intent(activity, CompareActivity::class.java).apply {
+            putExtra("name", name)
+            putExtra("ownerId", arguments.getInt("id"))
+            putExtra("charToCompareId", charToCompare?.id)
+            startActivity(this)
 //        activity.overridePendingTransition(R.anim.slide_in_up, 0)
+        }
     }
 
     override fun showMoves(list: List<Move>) {

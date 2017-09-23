@@ -65,10 +65,6 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
         }
     }
 
-    override fun openCharacter(id: Int, position: Int) {
-        view.showDetails(id, position)
-    }
-
     override fun fallback() {
         RxPermissions((view as Activity))
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)

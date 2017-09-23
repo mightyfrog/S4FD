@@ -24,10 +24,11 @@ class CompareMiscsActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         initActionBar()
 
-        val rv = findViewById<CenteringRecyclerView>(R.id.recyclerView)
-        rv.layoutManager = GridLayoutManager(this, 1)
-        rv.adapter = DataAdapter(intent.getStringExtra("name"), ownerId, intent.getIntExtra("charToCompareId", 0))
-        rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        findViewById<CenteringRecyclerView>(R.id.recyclerView).let {
+            it.layoutManager = GridLayoutManager(this, 1)
+            it.adapter = DataAdapter(intent.getStringExtra("name"), ownerId, intent.getIntExtra("charToCompareId", 0))
+            it.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        }
     }
 
     override fun finish() {

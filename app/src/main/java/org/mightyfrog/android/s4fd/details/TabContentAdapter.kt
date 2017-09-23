@@ -37,7 +37,5 @@ class TabContentAdapter(private val titles: Array<String>, fm: FragmentManager, 
 
     override fun getCount() = titles.size
 
-    override fun getItemId(position: Int) = position.toLong()
-
     override fun getPageTitle(position: Int) = titles[position]
 }

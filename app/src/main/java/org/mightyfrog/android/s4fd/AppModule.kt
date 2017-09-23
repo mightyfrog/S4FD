@@ -17,11 +17,11 @@ import javax.inject.Singleton
  * @author Shigehiro Soejima
  */
 @Module
-class AppModule(private val mApplication: Application) {
+class AppModule(private val application: Application) {
 
     @Singleton
     @Provides
-    fun getApplicationContext(): Context = mApplication.applicationContext
+    fun getApplicationContext(): Context = application.applicationContext
 
     @Singleton
     @Provides
@@ -35,5 +35,5 @@ class AppModule(private val mApplication: Application) {
     @Singleton
     @Provides
     fun getSharedPreferences(): SharedPreferences
-            = PreferenceManager.getDefaultSharedPreferences(mApplication.applicationContext)
+            = PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
 }

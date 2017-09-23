@@ -189,7 +189,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
     override fun showVsThumbnail(charToCompare: KHCharacter?) {
         charToCompare?.apply {
-            Picasso.with(this@DetailsActivity)
+            Picasso.with(vsThumbnail.context)
                     .load(thumbnailUrl)
                     .into(vsThumbnail)
             (vsThumbnail.parent as CardView).setCardBackgroundColor(Color.parseColor(colorTheme))
@@ -237,10 +237,8 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     private fun openInBrowser() {
-        val i = Intent()
-        i.action = Intent.ACTION_VIEW
-        i.data = Uri.parse(character?.fullUrl)
-        i.apply {
+        Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(character?.fullUrl)
             when (resolveActivity(packageManager)) {
                 null -> {
                     Toast.makeText(this@DetailsActivity, "No browser found :(", Toast.LENGTH_LONG).show()

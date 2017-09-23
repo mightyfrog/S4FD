@@ -65,11 +65,12 @@ class MiscsFragment : BaseFragment(), MiscsContract.View {
 
     override fun showAttributes(name: String, ownerId: Int, charToCompareId: Int?) {
         activity?.apply {
-            val intent = Intent(this, CompareMiscsActivity::class.java)
-            intent.putExtra("name", name)
-            intent.putExtra("ownerId", ownerId)
-            intent.putExtra("charToCompareId", charToCompareId)
-            startActivity(intent)
+            Intent(this, CompareMiscsActivity::class.java).apply {
+                putExtra("name", name)
+                putExtra("ownerId", ownerId)
+                putExtra("charToCompareId", charToCompareId)
+                startActivity(this)
+            }
         }
     }
 

@@ -29,8 +29,6 @@ interface MainContract {
     interface Presenter {
         fun loadCharacters()
 
-        fun openCharacter(id: Int, position: Int)
-
         fun destroy()
 
         fun fallback()

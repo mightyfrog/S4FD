@@ -34,7 +34,7 @@ class DataAdapter(var name: String, ownerId: Int, charToCompareId: Int) : Recycl
                 list.addAll(getMiscList(charToCompareId))
             }
         } else {
-            for (id in 1..Const.CHARACTER_COUNT) {
+            for (id in 1..Const.CHARACTER_COUNT) { // 1 to 58
                 list.addAll(getMiscList(id))
             }
         }

@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val onItemClickListener = object : OnItemClickListener {
         override fun onItemClick(id: Int, position: Int) {
-            mainPresenter.openCharacter(id, position)
+            showDetails(id, position)
         }
 
         override fun onSorted() {
@@ -161,10 +161,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showDetails(id: Int, position: Int) {
-        val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra("id", id)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, getViewAtPosition(position), "thumbnail")
-        startActivity(intent, options.toBundle())
+        Intent(this, DetailsActivity::class.java).let {
+            it.putExtra("id", id)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, getViewAtPosition(position), "thumbnail")
+            startActivity(it, options.toBundle())
+        }
     }
 
     override fun showErrorMessage(msg: String) {
