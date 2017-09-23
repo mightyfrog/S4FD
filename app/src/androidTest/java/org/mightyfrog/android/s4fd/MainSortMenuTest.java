@@ -152,8 +152,8 @@ public class MainSortMenuTest implements TestConst {
         }
 
         @Test
-        public void clickOnSortIconAndSelectGravityMovesSamusToTheTop() {
-            validateSortResult(14, SAMUS);
+        public void clickOnSortIconAndSelectGravityMovesFoxToTheTop() {
+            validateSortResult(14, FOX);
         }
 
         @Test
@@ -354,8 +354,8 @@ public class MainSortMenuTest implements TestConst {
         }
 
         @Test
-        public void clickOnSortIconAndSelectGravityMovesSamusToTheTop() {
-            validateSortByAirTimeResult(14, SAMUS);
+        public void clickOnSortIconAndSelectGravityMovesFoxToTheTop() {
+            validateSortByAirTimeResult(14, FOX);
         }
 
         @Test
