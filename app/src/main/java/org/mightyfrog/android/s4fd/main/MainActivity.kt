@@ -1,5 +1,6 @@
 package org.mightyfrog.android.s4fd.main
 
+import android.Manifest
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -16,6 +17,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.Toast
+import com.tbruyelle.rxpermissions.RxPermissions
 import org.mightyfrog.android.s4fd.App
 import org.mightyfrog.android.s4fd.BuildConfig
 import org.mightyfrog.android.s4fd.R
@@ -181,7 +183,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         findViewById<View>(R.id.activity_circle).visibility = View.GONE
     }
 
-    override fun showProgressDialog(msg: CharSequence) {
+    override fun showProgressDialog(resId: Int, arg: String?) {
         if (progressDialog == null) {
             progressDialog = ProgressDialog(this)
             progressDialog?.isIndeterminate = true
@@ -189,7 +191,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             progressDialog?.show()
             hideActivityCircle()
         }
-        progressDialog?.setMessage(msg)
+        if (arg == null) {
+            progressDialog?.setMessage(getString(resId))
+        } else {
+            progressDialog?.setMessage(getString(resId, arg))
+        }
     }
 
     override fun hideProgressDialog() {
@@ -200,12 +206,24 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         AlertDialog.Builder(this)
                 .setMessage(R.string.connection_timeout)
                 .setPositiveButton(android.R.string.ok) { dialog, which ->
-                    mainPresenter.fallback()
+                    fallback()
                 }
                 .setNegativeButton(android.R.string.cancel) { dialog, which ->
                     finish()
                 }
                 .show()
+    }
+
+    private fun fallback() {
+        RxPermissions(this)
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe {
+                    if (it) {
+                        mainPresenter.copyDatabase(assets.open("smash4data.db"), getDatabasePath(AppDatabase.NAME + ".db"))
+                    } else {
+                        finish()
+                    }
+                }
     }
 
     override fun showDatabaseCopiedDialog() {

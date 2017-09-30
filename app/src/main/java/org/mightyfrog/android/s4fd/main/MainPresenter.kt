@@ -1,13 +1,10 @@
 package org.mightyfrog.android.s4fd.main
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.util.Log
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.raizlabs.android.dbflow.sql.language.Select
-import com.tbruyelle.rxpermissions.RxPermissions
 import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.*
 import org.mightyfrog.android.s4fd.util.Const
@@ -65,27 +62,15 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
         }
     }
 
-    override fun fallback() {
-        RxPermissions((view as Activity))
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe {
-                    if (it) {
-                        copyDatabase()
-                    } else {
-                        view.finish()
-                    }
-                }
-    }
-
     override fun destroy() {
         if (!compositeSubscription.isUnsubscribed) {
             compositeSubscription.unsubscribe()
         }
     }
 
-    private fun copyDatabase() {
-        (view as Activity).assets.open("smash4data.db").use { input ->
-            input.toFile(view.getDatabasePath(AppDatabase.NAME + ".db"))
+    override fun copyDatabase(input: InputStream, dbFile: File) {
+        input.use { input ->
+            input.toFile(dbFile)
         }
         view.showDatabaseCopiedDialog()
     }
@@ -106,7 +91,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
             return
         }
 
-        view.showProgressDialog((view as Activity).getString(R.string.loading_attr_types))
+        view.showProgressDialog(R.string.loading_attr_types)
         compositeSubscription.add(service.getSmashAttributeTypes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -137,7 +122,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
             return
         }
 
-        view.showProgressDialog((view as Activity).getString(R.string.loading_moves))
+        view.showProgressDialog(R.string.loading_moves)
         compositeSubscription.add(service.getMoves()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -209,7 +194,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
 
                     override fun onNext(t: CharacterDetails?) {
                         t?.apply {
-                            view.showProgressDialog((view as Activity).getString(R.string.loading_chars, metadata?.displayName))
+                            view.showProgressDialog(R.string.loading_chars, metadata?.displayName)
                         }
                     }
                 })
