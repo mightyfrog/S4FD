@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         findViewById<View>(R.id.activity_circle).visibility = View.GONE
     }
 
-    override fun showProgressDialog(resId: Int, arg: String?) {
+    override fun showProgressDialog(resId: Int, vararg arg: String?) {
         if (progressDialog == null) {
             progressDialog = ProgressDialog(this)
             progressDialog?.isIndeterminate = true
@@ -191,11 +191,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             progressDialog?.show()
             hideActivityCircle()
         }
-        if (arg == null) {
-            progressDialog?.setMessage(getString(resId))
-        } else {
-            progressDialog?.setMessage(getString(resId, arg))
-        }
+        progressDialog?.setMessage(getString(resId, arg))
     }
 
     override fun hideProgressDialog() {

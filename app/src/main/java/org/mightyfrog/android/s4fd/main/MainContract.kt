@@ -19,7 +19,7 @@ interface MainContract {
 
         fun hideActivityCircle()
 
-        fun showProgressDialog(resId: Int, arg: String? = null)
+        fun showProgressDialog(resId: Int, vararg arg: String?)
 
         fun hideProgressDialog()
 

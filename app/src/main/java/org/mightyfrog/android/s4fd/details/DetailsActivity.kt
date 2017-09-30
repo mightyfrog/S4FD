@@ -24,6 +24,9 @@ import org.mightyfrog.android.s4fd.App
 import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.KHCharacter
 import org.mightyfrog.android.s4fd.data.KHCharacter_Table
+import org.mightyfrog.android.s4fd.details.tabcontents.attacks.AttacksFragment
+import org.mightyfrog.android.s4fd.details.tabcontents.attributes.AttributesFragment
+import org.mightyfrog.android.s4fd.details.tabcontents.miscs.MiscsFragment
 import org.mightyfrog.android.s4fd.util.Const
 import javax.inject.Inject
 
@@ -179,8 +182,12 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         }
     }
 
-    override fun updateSubtitle(subtitle: CharSequence?) {
-        supportActionBar?.subtitle = subtitle
+    override fun setSubtitle(resId: Int, vararg args: String?) {
+        supportActionBar?.subtitle = getString(resId, args)
+    }
+
+    override fun clearSubtitle() {
+        supportActionBar?.subtitle = null
     }
 
     override fun hideVsThumbnail() {
@@ -201,6 +208,12 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
     override fun setCharToCompare(charToCompare: KHCharacter?) {
         this.charToCompare = charToCompare
+        val f0 = supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 0) as AttributesFragment
+        f0.setCharToCompare(charToCompare)
+        val f1 = supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 1) as AttacksFragment
+        f1.setCharToCompare(charToCompare)
+        val f2 = supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 2) as MiscsFragment
+        f2.setCharToCompare(charToCompare)
     }
 
     override fun showCompareDialog(list: List<KHCharacter>, displayNames: List<String>, scrollPosition: Int) {

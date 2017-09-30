@@ -69,8 +69,8 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
     }
 
     override fun copyDatabase(input: InputStream, dbFile: File) {
-        input.use { input ->
-            input.toFile(dbFile)
+        input.use {
+            it.toFile(dbFile)
         }
         view.showDatabaseCopiedDialog()
     }

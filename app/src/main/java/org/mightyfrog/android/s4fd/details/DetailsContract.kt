@@ -15,7 +15,9 @@ interface DetailsContract {
 
         fun showCompareDialog(list: List<KHCharacter>, displayNames: List<String>, scrollPosition: Int)
 
-        fun updateSubtitle(subtitle: CharSequence?)
+        fun setSubtitle(resId: Int, vararg args: String?)
+
+        fun clearSubtitle()
 
         fun showVsThumbnail(charToCompare: KHCharacter?)
 
