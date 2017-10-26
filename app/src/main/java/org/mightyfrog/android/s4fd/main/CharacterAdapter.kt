@@ -14,7 +14,6 @@ import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.KHCharacter
 import org.mightyfrog.android.s4fd.data.MovementDatum
 import org.mightyfrog.android.s4fd.data.MovementDatum_Table
-import java.util.*
 
 /**
  * @author Shigehiro Soejima
@@ -94,7 +93,7 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
     }
 
     fun reverse() {
-        Collections.reverse(list)
+        list = list.reversed()
         notifyDataSetChanged()
     }
 
@@ -167,43 +166,41 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
     }
 
     private fun sortInt(by: String) {
-        val list = Select().from(MovementDatum::class.java).where(MovementDatum_Table.name.eq(by)).queryList()
-        Collections.sort(list, { lhs, rhs -> lhs.value!!.compareTo(rhs.value!!) })
+        var list = Select().from(MovementDatum::class.java).where(MovementDatum_Table.name.eq(by)).queryList()
+        list = list.sortedBy { it.value }
         val map = SparseIntArray(list.size)
         for (datum in list) {
             map.put(datum.ownerId, datum.value!!.toInt())
             valueMap.put(datum.ownerId, datum.value)
         }
-        Collections.sort(this.list, { lhs, rhs -> map.get(rhs.id).compareTo(map.get(lhs.id)) })
+        this.list = this.list.sortedByDescending { map[it.id] }
     }
 
     private fun sortFloat(by: String) {
-        val list = Select().from(MovementDatum::class.java).where(MovementDatum_Table.name.eq(by)).queryList()
-        Collections.sort(list, { lhs, rhs -> lhs.value!!.compareTo(rhs.value!!) })
+        var list = Select().from(MovementDatum::class.java).where(MovementDatum_Table.name.eq(by)).queryList()
+        list = list.sortedBy { it.value }
         val map = SparseArray<Float>(list.size)
         for (datum in list) {
             map.put(datum.ownerId, datum.value!!.toFloat())
             valueMap.put(datum.ownerId, datum.value)
         }
-        Collections.sort(this.list, { lhs, rhs -> map.get(rhs.id).compareTo(map.get(lhs.id)) })
+        this.list = this.list.sortedByDescending { map[it.id] }
     }
 
     private fun sortString(by: String) {
-        val list = Select().from(MovementDatum::class.java).where(MovementDatum_Table.name.eq(by)).queryList()
-        Collections.sort(list, { lhs, rhs -> lhs.value!!.compareTo(rhs.value!!) })
+        var list = Select().from(MovementDatum::class.java).where(MovementDatum_Table.name.eq(by)).queryList()
+        list = list.sortedBy { it.value }
         val map = SparseArray<String>(list.size)
         for (datum in list) {
             map.put(datum.ownerId, datum.value)
             valueMap.put(datum.ownerId, datum.value?.replace("frame", " frame"))
         }
         sortByName()
-        Collections.sort(this.list, { lhs, rhs ->
-            map.get(rhs.id).compareTo(map.get(lhs.id))
-        })
+        this.list = this.list.sortedBy { map[it.id] }
     }
 
     private fun sortByName() {
-        Collections.sort(list, { lhs, rhs -> lhs.name!!.compareTo(rhs.name!!) })
+        list = list.sortedBy { it.name }
     }
 
     inner class LinearViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

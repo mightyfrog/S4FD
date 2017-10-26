@@ -14,7 +14,6 @@ import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.KHCharacter
 import org.mightyfrog.android.s4fd.data.KHCharacter_Table
 import org.mightyfrog.android.s4fd.data.Move
-import java.util.*
 
 /**
  * @author Shigehiro Soejima
@@ -102,14 +101,10 @@ class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveV
     fun sort(sortBy: Int) {
         when (sortBy) {
             SORT_BY_CHAR -> {
-                Collections.sort(list, { lhs, rhs ->
-                    lhs.ownerId.compareTo(rhs.ownerId)
-                })
+                list = list.sortedBy { it.ownerId }
             }
             SORT_BY_MOVE -> {
-                Collections.sort(list, { lhs, rhs ->
-                    lhs.name.compareTo(rhs.name)
-                })
+                list = list.sortedBy { it.name }
             }
         }
         notifyDataSetChanged()
