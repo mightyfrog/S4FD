@@ -40,16 +40,14 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(object : SingleSubscriber<List<KHCharacter>>() {
                         override fun onSuccess(list: List<KHCharacter>?) {
-                            if (list == null) {
-                                view.showErrorMessage((view as Context).getString(R.string.no_char_data_found))
-                                return
-                            }
-                            FlowManager.getDatabase(AppDatabase::class.java).executeTransaction {
-                                for (char in list) {
-                                    char.save()
+                            list?.let {
+                                it.forEach { character ->
+                                    character.save()
                                 }
+                                loadDetails(list)
+                            } ?: run {
+                                view.showErrorMessage((view as Context).getString(R.string.no_char_data_found))
                             }
-                            loadDetails(list)
                         }
 
                         override fun onError(t: Throwable?) {

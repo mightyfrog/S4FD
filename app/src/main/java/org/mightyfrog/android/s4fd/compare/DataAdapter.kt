@@ -51,11 +51,8 @@ class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveV
         fun bind(datum: Move) {
             datum.apply {
                 nameTv.text = name
-                var thumbnailUrl = mThumbnailUrlMap.get(ownerId)
-                if (thumbnailUrl == null) {
-                    thumbnailUrl = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
-                    mThumbnailUrlMap.put(ownerId, thumbnailUrl)
-                }
+                val thumbnailUrl = mThumbnailUrlMap.get(ownerId) ?: Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
+                mThumbnailUrlMap.put(ownerId, thumbnailUrl)
                 Picasso.with(thumbnailIv.context)
                         .load(thumbnailUrl)
                         .placeholder(R.drawable.placeholder)

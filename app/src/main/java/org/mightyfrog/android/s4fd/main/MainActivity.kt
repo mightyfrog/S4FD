@@ -184,14 +184,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showProgressDialog(resId: Int, vararg arg: String?) {
-        if (progressDialog == null) {
+        progressDialog ?: run {
             progressDialog = ProgressDialog(this)
             progressDialog?.isIndeterminate = true
             progressDialog?.setCancelable(false)
             progressDialog?.show()
             hideActivityCircle()
         }
-        progressDialog?.setMessage(getString(resId, arg))
+        progressDialog?.setMessage(getString(resId, if (arg.isEmpty()) null else arg[0]))
     }
 
     override fun hideProgressDialog() {

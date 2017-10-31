@@ -22,12 +22,10 @@ class DetailsPresenter @Inject constructor(val view: DetailsContract.View, priva
         val displayNames = ArrayList<String>(list.size)
         list.mapTo(displayNames) { it.displayName!! }
         var position = 0
-        val selectedCharToCompare = prefs.getString("selectedCharToCompare", null)
-        if (selectedCharToCompare != null) {
-            displayNames
-                    .takeWhile { selectedCharToCompare != it }
+        prefs.getString("selectedCharToCompare", null)?.let { selectedCharToCompare ->
+            displayNames.takeWhile { selectedCharToCompare != it }
                     .forEach { position++ }
-        } else {
+        } ?: run {
             position = -1
         }
         view.showCompareDialog(list, displayNames, position)
@@ -44,12 +42,12 @@ class DetailsPresenter @Inject constructor(val view: DetailsContract.View, priva
             view.showVsThumbnail(charToCompare)
         }
 
-        if (charToCompare == null) {
-            view.setSubtitle(R.string.attr_compare_subtitle, null)
-            prefs.edit().remove("selectedCharToCompare").apply()
-        } else {
+        charToCompare?.let {
             view.setSubtitle(R.string.attr_compare_subtitle, charToCompare.displayName)
             prefs.edit().putString("selectedCharToCompare", charToCompare.displayName).apply()
+        } ?: run {
+            view.setSubtitle(R.string.attr_compare_subtitle, null)
+            prefs.edit().remove("selectedCharToCompare").apply()
         }
 
         view.setCharToCompare(charToCompare)

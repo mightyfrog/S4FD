@@ -215,11 +215,11 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
                     .into(thumbnailIv)
             nameTv.text = character.displayName?.trim()
             val value = valueMap.get(character.id)
-            if (value == null) {
-                valueTv.visibility = View.GONE
-            } else {
+            value?.let {
                 valueTv.visibility = View.VISIBLE
                 valueTv.text = value
+            } ?: run {
+                valueTv.visibility = View.GONE
             }
         }
     }
@@ -234,11 +234,11 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)
             val value = valueMap.get(character.id)
-            if (value == null) {
-                valueTv.visibility = View.GONE
-            } else {
+            value?.let {
                 valueTv.visibility = View.VISIBLE
                 valueTv.text = value
+            } ?: run {
+                valueTv.visibility = View.GONE
             }
         }
     }

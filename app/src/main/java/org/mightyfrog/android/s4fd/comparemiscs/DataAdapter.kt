@@ -77,11 +77,8 @@ class DataAdapter(var name: String, ownerId: Int, charToCompareId: Int) : Recycl
 
         fun bind(datum: Misc) {
             datum.apply {
-                var thumbnailUrl = thumbnailUrlMap.get(ownerId)
-                if (thumbnailUrl == null) {
-                    thumbnailUrl = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
-                    thumbnailUrlMap.put(ownerId, thumbnailUrl)
-                }
+                val thumbnailUrl = thumbnailUrlMap.get(ownerId) ?: Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
+                thumbnailUrlMap.put(ownerId, thumbnailUrl)
                 Picasso.with(thumbnailIv.context)
                         .load(thumbnailUrl)
                         .placeholder(R.drawable.placeholder)
