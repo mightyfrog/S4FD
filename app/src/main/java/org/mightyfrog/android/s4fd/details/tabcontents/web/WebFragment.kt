@@ -24,37 +24,36 @@ class WebFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val id = arguments.getInt("id")
-        val fullUrl = Select(KHCharacter_Table.fullUrl)
-                .from(KHCharacter::class.java)
-                .where(KHCharacter_Table.id.eq(id))
-                .querySingle()!!
-                .fullUrl
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        arguments ?: return null
 
-        val view = inflater?.inflate(R.layout.fragment_tab_web, container, false)
-        view?.apply {
-            val wv = findViewById<WebView>(R.id.webView)
-            wv.webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    view?.loadUrl(view.url)
-                    return true
-                }
+        return inflater.inflate(R.layout.fragment_tab_web, container, false)?.apply {
+            val fullUrl = Select(KHCharacter_Table.fullUrl)
+                    .from(KHCharacter::class.java)
+                    .where(KHCharacter_Table.id.eq(arguments?.getInt("id")))
+                    .querySingle()!!
+                    .fullUrl
 
-                override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
-                    if (wv.settings.cacheMode != WebSettings.LOAD_CACHE_ELSE_NETWORK) {
-                        wv.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-                        wv.loadUrl(fullUrl)
+            with(findViewById<WebView>(R.id.webView)) {
+                webViewClient = object : WebViewClient() {
+                    override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                        view?.loadUrl(view.url)
+                        return true
                     }
-                    super.onReceivedError(view, errorCode, description, failingUrl)
-                }
-            }
-            wv.settings.loadWithOverviewMode = true
-            wv.settings.useWideViewPort = true
-            wv.settings.cacheMode = WebSettings.LOAD_DEFAULT
-            wv.loadUrl(fullUrl)
-        }
 
-        return view
+                    override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
+                        if (settings.cacheMode != WebSettings.LOAD_CACHE_ELSE_NETWORK) {
+                            settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+                            loadUrl(fullUrl)
+                        }
+                        super.onReceivedError(view, errorCode, description, failingUrl)
+                    }
+                }
+                settings.loadWithOverviewMode = true
+                settings.useWideViewPort = true
+                settings.cacheMode = WebSettings.LOAD_DEFAULT
+                loadUrl(fullUrl)
+            }
+        }
     }
 }

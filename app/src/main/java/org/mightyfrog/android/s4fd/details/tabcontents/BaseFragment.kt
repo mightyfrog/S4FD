@@ -25,7 +25,7 @@ open class BaseFragment : Fragment() {
     }
 
     private fun updateSurfaceRotation() {
-        val display = (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+        val display = (activity?.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
         surfaceRotation = display.rotation
     }
 }

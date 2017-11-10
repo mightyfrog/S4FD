@@ -43,8 +43,8 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
         AttacksPresenter(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_tab_content, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_tab_content, container, false)
         view?.apply {
             val rv = findViewById<RecyclerView>(R.id.recyclerView)
             rv.adapter = adapter
@@ -64,13 +64,15 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        attackPresenter.loadMoves(arguments.getInt("id"))
+        arguments?.apply {
+            attackPresenter.loadMoves(getInt("id"))
+        }
     }
 
     override fun showComparison(name: String, charToCompare: KHCharacter?) {
         Intent(activity, CompareActivity::class.java).apply {
             putExtra("name", name)
-            putExtra("ownerId", arguments.getInt("id"))
+            putExtra("ownerId", arguments?.getInt("id"))
             putExtra("charToCompareId", charToCompare?.id)
             startActivity(this)
 //        activity.overridePendingTransition(R.anim.slide_in_up, 0)

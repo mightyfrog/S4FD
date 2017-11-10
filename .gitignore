@@ -11,3 +11,5 @@
 /app/fabric.properties
 /app/src/main/assets/smash4data.db
 /gradle.properties
+third_party_license_metadata
+third_party_licenses

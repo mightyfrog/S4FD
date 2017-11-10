@@ -16,10 +16,9 @@ class AttacksPresenter(private val view: AttacksContract.View) : AttacksContract
     }
 
     override fun loadMoves(id: Int) {
-        val list = Select().from(Move::class.java)
+        view.showMoves(Select().from(Move::class.java)
                 .where(Move_Table.ownerId.eq(id))
-                .queryList()
-        view.showMoves(list)
+                .queryList())
     }
 
     override fun compare(name: String) {

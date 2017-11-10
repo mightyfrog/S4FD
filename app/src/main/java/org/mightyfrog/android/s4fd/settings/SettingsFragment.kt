@@ -27,7 +27,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         when (preference?.key) {
             "open_source" -> {
-                startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+                Intent(context, OssLicensesMenuActivity::class.java).apply {
+                    startActivity(this)
+                }
             }
         }
 

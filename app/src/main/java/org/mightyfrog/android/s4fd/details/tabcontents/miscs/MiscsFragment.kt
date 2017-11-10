@@ -39,11 +39,12 @@ class MiscsFragment : BaseFragment(), MiscsContract.View {
         MiscsPresenter(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_tab_content, container, false)
-        view?.apply {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        arguments ?: return null
+
+        return inflater.inflate(R.layout.fragment_tab_content, container, false)?.apply {
             val rv = findViewById<RecyclerView>(R.id.recyclerView)
-            rv.adapter = MiscsAdapter(arguments.getInt("id"), onItemClickListener)
+            rv.adapter = MiscsAdapter(arguments?.getInt("id")!!, onItemClickListener)
             val glm = GridLayoutManager(context, 2)
             glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
@@ -53,8 +54,6 @@ class MiscsFragment : BaseFragment(), MiscsContract.View {
             rv.layoutManager = glm
             rv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
-
-        return view
     }
 
     override fun showErrorMessage(msg: String) {

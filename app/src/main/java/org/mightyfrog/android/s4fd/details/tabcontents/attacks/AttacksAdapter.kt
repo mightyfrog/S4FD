@@ -19,31 +19,31 @@ class AttacksAdapter(private var list: List<Move>, private val listener: Attacks
         setHasStableIds(true)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount() = list.size
 
-    override fun getItemId(position: Int): Long = list[position].id.toLong()
+    override fun getItemId(position: Int) = list[position].id.toLong()
 
     override fun onBindViewHolder(holder: AttributeViewHolder?, position: Int) {
         holder?.bind(list[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): AttributeViewHolder {
-        val vh = AttributeViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_attack, parent, false))
-        vh.itemView.setOnClickListener {
-            var name = list[vh.adapterPosition].name
-            var counter = 0
-            for (c in name.toCharArray()) {
-                if (c.isLetter() || c == ' ') {
-                    counter++
-                    continue
+        return AttributeViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_attack, parent, false)).apply {
+            itemView.setOnClickListener {
+                var name = list[adapterPosition].name
+                var counter = 0
+                for (c in name.toCharArray()) {
+                    if (c.isLetter() || c == ' ') {
+                        counter++
+                        continue
+                    }
+                    counter--
+                    break
                 }
-                counter--
-                break
+                name = name.subSequence(0, counter).toString()
+                listener.onItemClick(name)
             }
-            name = name.subSequence(0, counter).toString()
-            listener.onItemClick(name)
         }
-        return vh
     }
 
     fun update(list: List<Move>) {

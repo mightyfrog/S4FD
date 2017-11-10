@@ -27,19 +27,18 @@ class MiscsAdapter(id: Int, private val onItemClickListener: MiscsFragment.OnIte
         }
     }
 
+    override fun getItemId(position: Int) = list[position].id
+
     override fun getItemCount() = list.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MiscViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.vh_misc, parent, false)
-        val vh = MiscViewHolder(view)
-        vh.itemView.setOnClickListener({
-            val misc = list[vh.adapterPosition]
-            onItemClickListener.onItemClick(misc.name, misc.ownerId)
-        })
-        return vh
+        return MiscViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_misc, parent, false)).apply {
+            itemView.setOnClickListener({
+                val misc = list[adapterPosition]
+                onItemClickListener.onItemClick(misc.name, misc.ownerId)
+            })
+        }
     }
-
-    override fun getItemId(position: Int) = list[position].id
 
     private fun getMiscList(id: Int): List<Misc> { // TODO: rewrite me :(
         val miscList = ArrayList<Misc>(4)

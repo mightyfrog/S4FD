@@ -35,8 +35,8 @@ class AttributesFragment : BaseFragment(), AttributesContract.View {
         AttributesPresenter(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_tab_content, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_tab_content, container, false)
         view?.apply {
             val rv = findViewById<RecyclerView>(R.id.recyclerView)
             rv.adapter = adapter
@@ -56,7 +56,9 @@ class AttributesFragment : BaseFragment(), AttributesContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        attributesPresenter.loadAttributes(arguments.getInt("id"))
+        arguments?.apply {
+            attributesPresenter.loadAttributes(getInt("id"))
+        }
     }
 
     override fun showAttributes(list: List<MovementDatum>) {

@@ -75,7 +75,6 @@ class Move : BaseModel() {
     var id: Int = 0
 
     override fun toString(): String {
-        return "Move(hitboxActive=$hitboxActive, firstActionableFrame=$firstActionableFrame, baseDamage=$baseDamage, angle=$angle, baseKnockBackSetKnockback=$baseKnockBackSetKnockback, landingLag=$landingLag, autoCancel=$autoCancel, knockbackGrowth=$knockbackGrowth, type=$type, name=$name, ownerId=$ownerId, id=$id)"
+        return "Move(hitboxActive=$hitboxActive, firstActionableFrame=$firstActionableFrame, baseDamage=$baseDamage, angle=$angle, baseKnockBackSetKnockback=$baseKnockBackSetKnockback, landingLag=$landingLag, autoCancel=$autoCancel, knockbackGrowth=$knockbackGrowth, type=$type, name='$name', ownerId=$ownerId, id=$id)"
     }
-
 }
