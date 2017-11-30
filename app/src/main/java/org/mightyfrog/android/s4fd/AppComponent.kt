@@ -10,7 +10,7 @@ import javax.inject.Singleton
  * @author Shigehiro Soejima
  */
 @Singleton
-@Component(modules = arrayOf(AppModule::class))
+@Component(modules = [(AppModule::class)])
 interface AppComponent {
 
     fun exposeApplicationContext(): Context

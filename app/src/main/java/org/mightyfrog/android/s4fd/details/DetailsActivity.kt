@@ -8,7 +8,6 @@ import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
-import android.support.v4.app.ActivityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -103,7 +102,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                ActivityCompat.invalidateOptionsMenu(this@DetailsActivity)
+                invalidateOptionsMenu()
             }
         })
 

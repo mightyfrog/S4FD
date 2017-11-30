@@ -34,7 +34,7 @@ class WebFragment : Fragment() {
                     .querySingle()!!
                     .fullUrl
 
-            with(findViewById<WebView>(R.id.webView)) {
+            findViewById<WebView>(R.id.webView).apply {
                 webViewClient = object : WebViewClient() {
                     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                         view?.loadUrl(view.url)

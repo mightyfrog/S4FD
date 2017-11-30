@@ -2,7 +2,6 @@ package org.mightyfrog.android.s4fd.compare
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -109,7 +108,7 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
     override fun showSortedMoves(type: Int) {
         adapter.sort(type)
-        ActivityCompat.invalidateOptionsMenu(this)
+        invalidateOptionsMenu()
     }
 
     override fun showErrorMessage(msg: String) {

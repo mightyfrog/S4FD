@@ -8,7 +8,6 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Environment
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -277,7 +276,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         recyclerView.layoutManager = layoutManager
         (recyclerView.adapter as CharacterAdapter).setMode(mode)
         recyclerView.addItemDecoration(itemDecor)
-        ActivityCompat.invalidateOptionsMenu(this)
+        invalidateOptionsMenu()
     }
 
     private var sortBy = -1
