@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = "1.2.0"
-    ext.support_lib_version = "27.0.1"
+    ext.support_lib_version = "27.0.2"
     ext.retrofit_version = "2.3.0"
     ext.dbflow_version = "4.1.2"
     ext.dagger2_version = "2.13"
