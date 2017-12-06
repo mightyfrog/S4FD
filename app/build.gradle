@@ -32,10 +32,6 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 dependencies {
     implementation fileTree(include: ["*.jar"], dir: "libs")
 
@@ -91,6 +87,6 @@ dependencies {
     testCompile "junit:junit:4.12"
 }
 
-repositories {
-    mavenCentral()
+kapt {
+    generateStubs = true
 }
