@@ -1,11 +1,11 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.gms.oss.licenses.plugin'
+apply plugin: "com.android.application"
+apply plugin: "com.google.gms.oss.licenses.plugin"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "org.mightyfrog.android.s4fd"
         minSdkVersion 21
@@ -18,15 +18,9 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-//    testOptions {
-//        unitTests.returnDefaultValues = true
-//    }
     lintOptions {
         abortOnError false
     }
@@ -81,8 +75,8 @@ dependencies {
     })
     androidTestCompile "org.mockito:mockito-android:2.7.14"
 
-    testCompile "org.mockito:mockito-core:2.7.22"
-    testCompile "org.robolectric:robolectric:3.3.2"
+    testCompile "org.mockito:mockito-core:2.10.0"
+    testCompile "org.robolectric:robolectric:3.4.2"
     testCompile "org.khronos:opengl-api:gl1.1-android-2.1_r1"
     testCompile "junit:junit:4.12"
 }

@@ -5,20 +5,17 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_details.*
 import org.mightyfrog.android.s4fd.App
 import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.KHCharacter
@@ -36,21 +33,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     @Inject
     lateinit var detailsPresenter: DetailsPresenter
 
-    private lateinit var tabLayout: TabLayout
-
-    private lateinit var viewPager: ViewPager
-
-    private lateinit var backdrop: ImageView
-
-    private lateinit var vsThumbnail: ImageView
-
-    private lateinit var fab: FloatingActionButton
-
     private var character: KHCharacter? = null
 
     private var charToCompare: KHCharacter? = null
-
-    private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
 
     private var isAppBarCollapsed = false
 
@@ -75,22 +60,16 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
                 .build()
                 .inject(this)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(toolbar)
         supportActionBar?.apply {
             title = character?.displayName?.trim()
             setDisplayHomeAsUpEnabled(true)
         }
 
-        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar)
-
-        vsThumbnail = findViewById(R.id.vsThumbnail)
-
-        viewPager = findViewById(R.id.viewPager)
         val titles = resources.getStringArray(R.array.detail_tabs)
         viewPager.adapter = TabContentAdapter(titles, supportFragmentManager, id)
         viewPager.offscreenPageLimit = 3
 
-        tabLayout = findViewById(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -106,14 +85,12 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
             }
         })
 
-        fab = findViewById(R.id.fab)
         fab.setOnClickListener {
             detailsPresenter.compare(id)
         }
 
         findViewById<AppBarLayout>(R.id.appbar).addOnOffsetChangedListener(this)
 
-        backdrop = findViewById(R.id.backdrop)
         Picasso.with(this)
                 .load(character?.mainImageUrl)
                 .into(backdrop)
@@ -233,11 +210,11 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun showActivityCircle() {
-        findViewById<View>(R.id.activity_circle).visibility = View.VISIBLE
+        activity_circle.visibility = View.VISIBLE
     }
 
     override fun hideActivityCircle() {
-        findViewById<View>(R.id.activity_circle).visibility = View.GONE
+        activity_circle.visibility = View.GONE
     }
 
     override fun setPresenter(presenter: DetailsPresenter) {

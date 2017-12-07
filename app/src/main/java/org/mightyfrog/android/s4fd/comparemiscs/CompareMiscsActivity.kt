@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.view.MenuItem
+import kotlinx.android.synthetic.main.activity_compare_miscs.*
 import org.mightyfrog.android.s4fd.R
-import org.mightyfrog.widget.CenteringRecyclerView
 
 /**
  * @author Shigehiro Soejima
@@ -21,10 +21,10 @@ class CompareMiscsActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_compare_miscs)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(toolbar)
         initActionBar()
 
-        findViewById<CenteringRecyclerView>(R.id.recyclerView).let {
+        recyclerView.let {
             it.layoutManager = GridLayoutManager(this, 1)
             it.adapter = DataAdapter(intent.getStringExtra("name"), ownerId, intent.getIntExtra("charToCompareId", 0))
             it.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -40,6 +40,7 @@ class CompareMiscsActivity : AppCompatActivity() {
         when (item?.itemId) {
             android.R.id.home -> finish()
         }
+
         return super.onOptionsItemSelected(item)
     }
 

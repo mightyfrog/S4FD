@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.Toast
 import com.tbruyelle.rxpermissions.RxPermissions
+import kotlinx.android.synthetic.main.activity_main.*
 import org.mightyfrog.android.s4fd.App
 import org.mightyfrog.android.s4fd.BuildConfig
 import org.mightyfrog.android.s4fd.R
@@ -39,8 +40,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     @Inject
     lateinit var prefs: SharedPreferences
-
-    private lateinit var recyclerView: RecyclerView
 
     private var progressDialog: ProgressDialog? = null
 
@@ -70,9 +69,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 .build()
                 .inject(this)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(toolbar)
 
-        recyclerView = findViewById(R.id.recyclerView)
         recyclerView.adapter = characterAdapter
         setViewMode(prefs.getInt("view_mode", CharacterAdapter.MODE_LINEAR))
 
@@ -171,15 +169,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun showErrorMessage(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
-        findViewById<View>(R.id.activity_circle).visibility = View.GONE
+        activity_circle.visibility = View.GONE
     }
 
     override fun showActivityCircle() {
-        findViewById<View>(R.id.activity_circle).visibility = View.VISIBLE
+        activity_circle.visibility = View.VISIBLE
     }
 
     override fun hideActivityCircle() {
-        findViewById<View>(R.id.activity_circle).visibility = View.GONE
+        activity_circle.visibility = View.GONE
     }
 
     override fun showProgressDialog(resId: Int, vararg arg: String?) {

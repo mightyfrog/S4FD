@@ -8,10 +8,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_compare.*
 import org.mightyfrog.android.s4fd.App
 import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.Move
-import org.mightyfrog.widget.CenteringRecyclerView
 import java.util.*
 import javax.inject.Inject
 
@@ -24,8 +24,6 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
     @Inject
     lateinit var prefs: SharedPreferences
-
-    private lateinit var recyclerView: CenteringRecyclerView
 
     private val adapter = DataAdapter(ArrayList(0))
 
@@ -45,13 +43,12 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
         val name = intent.getStringExtra("name")
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(toolbar)
         supportActionBar?.apply {
             title = name
             setDisplayHomeAsUpEnabled(true)
         }
 
-        recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
