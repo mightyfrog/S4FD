@@ -75,6 +75,10 @@ class AttributesFragment : BaseFragment(), AttributesContract.View {
         }
     }
 
+    override fun showErrorMessage(resId: Int) {
+        showErrorMessage(getString(resId))
+    }
+
     override fun setPresenter(presenter: AttributesPresenter) {
         attributesPresenter = presenter
     }

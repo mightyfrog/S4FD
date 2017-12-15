@@ -1,7 +1,5 @@
 package org.mightyfrog.android.s4fd.main
 
-import android.content.Context
-import android.util.Log
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.raizlabs.android.dbflow.sql.language.Select
@@ -46,13 +44,12 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                                 }
                                 loadDetails(list)
                             } ?: run {
-                                view.showErrorMessage((view as Context).getString(R.string.no_char_data_found))
+                                view.showErrorMessage(R.string.no_char_data_found)
                             }
                         }
 
                         override fun onError(t: Throwable?) {
                             view.showFallbackDialog()
-                            Log.e(Const.TAG, t.toString())
                         }
                     }))
         } else {

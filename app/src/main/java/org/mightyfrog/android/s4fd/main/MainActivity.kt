@@ -172,6 +172,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         activity_circle.visibility = View.GONE
     }
 
+    override fun showErrorMessage(resId: Int) {
+        showErrorMessage(getString(resId))
+    }
+
     override fun showActivityCircle() {
         activity_circle.visibility = View.VISIBLE
     }

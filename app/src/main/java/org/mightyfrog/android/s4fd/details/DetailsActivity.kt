@@ -225,6 +225,10 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
+    override fun showErrorMessage(resId: Int) {
+        showErrorMessage(getString(resId))
+    }
+
     private fun openInBrowser() {
         Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(character?.fullUrl)

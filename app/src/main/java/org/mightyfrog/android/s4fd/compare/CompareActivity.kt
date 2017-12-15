@@ -112,6 +112,10 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
+    override fun showErrorMessage(resId: Int) {
+        showErrorMessage(getString(resId))
+    }
+
     override fun setPresenter(presenter: ComparePresenter) {
         comparePresenter = presenter
     }

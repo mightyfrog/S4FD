@@ -62,6 +62,10 @@ class MiscsFragment : BaseFragment(), MiscsContract.View {
         }
     }
 
+    override fun showErrorMessage(resId: Int) {
+        showErrorMessage(getString(resId))
+    }
+
     override fun showAttributes(name: String, ownerId: Int, charToCompareId: Int?) {
         activity?.apply {
             Intent(this, CompareMiscsActivity::class.java).apply {

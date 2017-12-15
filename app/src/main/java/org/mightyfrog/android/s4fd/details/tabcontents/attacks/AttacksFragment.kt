@@ -89,6 +89,10 @@ class AttacksFragment : BaseFragment(), AttacksContract.View {
         }
     }
 
+    override fun showErrorMessage(resId: Int) {
+        showErrorMessage(getString(resId))
+    }
+
     override fun setPresenter(presenter: AttacksPresenter) {
         attackPresenter = presenter
     }

@@ -7,4 +7,6 @@ interface BaseView<in T> {
     fun setPresenter(presenter: T)
 
     fun showErrorMessage(msg: String)
+
+    fun showErrorMessage(resId: Int)
 }
