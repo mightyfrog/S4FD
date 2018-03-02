@@ -32,13 +32,13 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
         setHasStableIds(true)
     }
 
-    override fun getItemCount(): Int = list.size
-
     override fun getItemId(position: Int): Long = list[position].id.toLong()
+
+    override fun getItemCount(): Int = list.size
 
     override fun getItemViewType(position: Int): Int = mode
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (mode) {
             MODE_LINEAR -> {
                 (holder as LinearViewHolder).bind(list[position])
@@ -51,10 +51,10 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
 
     private var lastAdapterPosition = -1
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (mode) {
             MODE_LINEAR -> {
-                val vh = LinearViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_main_linear, parent, false))
+                val vh = LinearViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.vh_main_linear, parent, false))
                 vh.itemView.setOnClickListener {
                     val pos = vh.adapterPosition
                     if (lastAdapterPosition != pos) {
@@ -65,7 +65,7 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
                 return vh
             }
             MODE_GRID -> {
-                val vh = GridViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_main_grid, parent, false))
+                val vh = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.vh_main_grid, parent, false))
                 vh.itemView.setOnClickListener {
                     val pos = vh.adapterPosition
                     if (lastAdapterPosition != pos) {

@@ -21,16 +21,16 @@ class AttributesAdapter(var list: List<MovementDatum>) : RecyclerView.Adapter<At
         setHasStableIds(true)
     }
 
-    override fun getItemCount() = list.size
-
     override fun getItemId(position: Int) = list[position].id.toLong()
 
-    override fun onBindViewHolder(holder: AttributeViewHolder?, position: Int) {
-        holder?.bind(list[position])
+    override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(holder: AttributeViewHolder, position: Int) {
+        holder.bind(list[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int)
-            = AttributeViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_attribute, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            = AttributeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.vh_attribute, parent, false))
 
     fun update(list: List<MovementDatum>) {
         this.list = list

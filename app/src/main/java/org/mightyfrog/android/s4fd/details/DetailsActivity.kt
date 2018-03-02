@@ -95,7 +95,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
                 .load(character?.mainImageUrl)
                 .into(backdrop)
 
-        viewPager.post({ detailsPresenter.setCharToCompareIfAny(id) })
+        viewPager.post {
+            detailsPresenter.setCharToCompareIfAny(id)
+        }
     }
 
     override fun onResume() {

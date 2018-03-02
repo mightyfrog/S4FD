@@ -19,16 +19,16 @@ class AttacksAdapter(private var list: List<Move>, private val listener: Attacks
         setHasStableIds(true)
     }
 
-    override fun getItemCount() = list.size
-
     override fun getItemId(position: Int) = list[position].id.toLong()
 
-    override fun onBindViewHolder(holder: AttributeViewHolder?, position: Int) {
-        holder?.bind(list[position])
+    override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(holder: AttributeViewHolder, position: Int) {
+        holder.bind(list[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): AttributeViewHolder {
-        return AttributeViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_attack, parent, false)).apply {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttributeViewHolder {
+        return AttributeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.vh_attack, parent, false)).apply {
             itemView.setOnClickListener {
                 var name = list[adapterPosition].name
                 var counter = 0

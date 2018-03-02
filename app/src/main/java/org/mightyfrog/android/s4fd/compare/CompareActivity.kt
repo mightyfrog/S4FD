@@ -98,9 +98,9 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
 
     override fun showMoves(list: List<Move>, scrollPosition: Int) {
         adapter.update(list)
-        recyclerView.post({
+        recyclerView.post {
             recyclerView.center(scrollPosition)
-        })
+        }
     }
 
     override fun showSortedMoves(type: Int) {

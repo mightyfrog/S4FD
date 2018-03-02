@@ -40,16 +40,16 @@ class DataAdapter(var name: String, ownerId: Int, charToCompareId: Int) : Recycl
         }
     }
 
-    override fun getItemCount() = list.size
-
     override fun getItemId(position: Int) = list[position].ownerId.toLong()
 
-    override fun onBindViewHolder(holder: MiscViewHolder?, position: Int) {
-        holder?.bind(list[position])
+    override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(holder: MiscViewHolder, position: Int) {
+        holder.bind(list[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int)
-            = MiscViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_comparison, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            = MiscViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.vh_comparison, parent, false))
 
     private fun getMiscList(id: Int): List<Misc> { // TODO: rewrite me :(
         val miscList: ArrayList<Misc> = ArrayList(1)

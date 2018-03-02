@@ -31,16 +31,16 @@ class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveV
         setHasStableIds(true)
     }
 
-    override fun getItemCount() = list.size
-
     override fun getItemId(position: Int) = list[position].id.toLong()
 
-    override fun onBindViewHolder(holder: MoveViewHolder?, position: Int) {
-        holder?.bind(list[position])
+    override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(holder: MoveViewHolder, position: Int) {
+        holder.bind(list[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MoveViewHolder {
-        return MoveViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.vh_comparison, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoveViewHolder {
+        return MoveViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.vh_comparison, parent, false))
     }
 
     inner class MoveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

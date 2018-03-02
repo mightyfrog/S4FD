@@ -148,7 +148,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                             .querySingle()
                     metadata == null
                 }
-                .concatMap({ character ->
+                .concatMap { character ->
                     val res = service.getDetails(character.id).execute()
                     if (res.isSuccessful && res.code() == 200) {
                         val details = res.body()
@@ -171,7 +171,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                     } else {
                         Observable.error(RuntimeException("Unable to retrieve data"))
                     }
-                })
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Subscriber<CharacterDetails>() {
