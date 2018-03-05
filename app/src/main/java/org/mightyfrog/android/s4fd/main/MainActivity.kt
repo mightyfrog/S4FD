@@ -291,64 +291,27 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         this.sortBy = sortBy
 
         supportActionBar?.apply {
-            when (sortBy) {
-                R.id.sort_by_name -> {
-                    subtitle = null
-                }
-                R.id.sort_by_weight -> {
-                    subtitle = "Weight"
-                }
-                R.id.sort_by_run_speed -> {
-                    subtitle = "Run Speed"
-                }
-                R.id.sort_by_walk_speed -> {
-                    subtitle = "Walk Speed"
-                }
-                R.id.sort_by_max_jumps -> {
-                    subtitle = "Max Jumps"
-                }
-                R.id.sort_by_wall_cling -> {
-                    subtitle = "Wall Cling"
-                }
-                R.id.sort_by_wall_jump -> {
-                    subtitle = "Wall Jump"
-                }
-                R.id.sort_by_air_speed -> {
-                    subtitle = "Air Speed"
-                }
-                R.id.sort_by_crawl -> {
-                    subtitle = "Crawl"
-                }
-                R.id.sort_by_tether -> {
-                    subtitle = "Tether"
-                }
-                R.id.sort_by_jumpsquat -> {
-                    subtitle = "Jumpsquat"
-                }
-                R.id.sort_by_air_acceleration -> {
-                    subtitle = "Air Acceleration"
-                }
-                R.id.sort_by_soft_landing_lag -> {
-                    subtitle = "Soft Landing Lag"
-                }
-                R.id.sort_by_hard_landing_lag -> {
-                    subtitle = "Hard Landing Lag"
-                }
-                R.id.sort_by_gravity -> {
-                    subtitle = "Gravity"
-                }
-                R.id.sort_by_fall_speed -> {
-                    subtitle = "Fall Speed"
-                }
-                R.id.sort_by_fast_fall_speed -> {
-                    subtitle = "Fast Fall Speed"
-                }
-                R.id.sort_by_sh_air_time -> {
-                    subtitle = "SH Air Time"
-                }
-                R.id.sort_by_fh_air_time -> {
-                    subtitle = "FH Air Time"
-                }
+            subtitle = when (sortBy) {
+                R.id.sort_by_name -> null
+                R.id.sort_by_weight -> "Weight"
+                R.id.sort_by_run_speed -> "Run Speed"
+                R.id.sort_by_walk_speed -> "Walk Speed"
+                R.id.sort_by_max_jumps -> "Max Jumps"
+                R.id.sort_by_wall_cling -> "Wall Cling"
+                R.id.sort_by_wall_jump -> "Wall Jump"
+                R.id.sort_by_air_speed -> "Air Speed"
+                R.id.sort_by_crawl -> "Crawl"
+                R.id.sort_by_tether -> "Tether"
+                R.id.sort_by_jumpsquat -> "Jumpsquat"
+                R.id.sort_by_air_acceleration -> "Air Acceleration"
+                R.id.sort_by_soft_landing_lag -> "Soft Landing Lag"
+                R.id.sort_by_hard_landing_lag -> "Hard Landing Lag"
+                R.id.sort_by_gravity -> "Gravity"
+                R.id.sort_by_fall_speed -> "Fall Speed"
+                R.id.sort_by_fast_fall_speed -> "Fast Fall Speed"
+                R.id.sort_by_sh_air_time -> "SH Air Time"
+                R.id.sort_by_fh_air_time -> "FH Air Time"
+                else -> null
             }
         }
     }

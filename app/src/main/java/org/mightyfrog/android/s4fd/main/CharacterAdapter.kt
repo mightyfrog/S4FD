@@ -40,12 +40,8 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (mode) {
-            MODE_LINEAR -> {
-                (holder as LinearViewHolder).bind(list[position])
-            }
-            MODE_GRID -> {
-                (holder as GridViewHolder).bind(list[position])
-            }
+            MODE_LINEAR -> (holder as LinearViewHolder).bind(list[position])
+            MODE_GRID -> (holder as GridViewHolder).bind(list[position])
         }
     }
 
@@ -99,63 +95,25 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
 
     fun sort(sortBy: Int?) {
         when (sortBy) {
-            R.id.sort_by_name -> {
-                sortByName()
-            }
-            R.id.sort_by_weight -> {
-                sortInt("Weight")
-            }
-            R.id.sort_by_run_speed -> {
-                sortFloat("Run Speed")
-            }
-            R.id.sort_by_walk_speed -> {
-                sortFloat("Walk Speed")
-            }
-            R.id.sort_by_max_jumps -> {
-                sortInt("Max Jumps")
-            }
-            R.id.sort_by_wall_cling -> {
-                sortString("Wall Cling")
-            }
-            R.id.sort_by_wall_jump -> {
-                sortString("Wall Jump")
-            }
-            R.id.sort_by_air_speed -> {
-                sortFloat("Air Speed")
-            }
-            R.id.sort_by_crawl -> {
-                sortString("Crawl")
-            }
-            R.id.sort_by_tether -> {
-                sortString("Tether")
-            }
-            R.id.sort_by_jumpsquat -> {
-                sortString("Jumpsquat")
-            }
-            R.id.sort_by_air_acceleration -> {
-                sortFloat("Air Acceleration")
-            }
-            R.id.sort_by_soft_landing_lag -> {
-                sortString("Soft Landing Lag")
-            }
-            R.id.sort_by_hard_landing_lag -> {
-                sortString("Hard Landing Lag")
-            }
-            R.id.sort_by_gravity -> {
-                sortFloat("Gravity")
-            }
-            R.id.sort_by_fall_speed -> {
-                sortFloat("Fall Speed")
-            }
-            R.id.sort_by_fast_fall_speed -> {
-                sortFloat("Fast Fall Speed")
-            }
-            R.id.sort_by_sh_air_time -> {
-                sortString("SH Air Time")
-            }
-            R.id.sort_by_fh_air_time -> {
-                sortString("FH Air Time")
-            }
+            R.id.sort_by_name -> sortByName()
+            R.id.sort_by_weight -> sortInt("Weight")
+            R.id.sort_by_run_speed -> sortFloat("Run Speed")
+            R.id.sort_by_walk_speed -> sortFloat("Walk Speed")
+            R.id.sort_by_max_jumps -> sortInt("Max Jumps")
+            R.id.sort_by_wall_cling -> sortString("Wall Cling")
+            R.id.sort_by_wall_jump -> sortString("Wall Jump")
+            R.id.sort_by_air_speed -> sortFloat("Air Speed")
+            R.id.sort_by_crawl -> sortString("Crawl")
+            R.id.sort_by_tether -> sortString("Tether")
+            R.id.sort_by_jumpsquat -> sortString("Jumpsquat")
+            R.id.sort_by_air_acceleration -> sortFloat("Air Acceleration")
+            R.id.sort_by_soft_landing_lag -> sortString("Soft Landing Lag")
+            R.id.sort_by_hard_landing_lag -> sortString("Hard Landing Lag")
+            R.id.sort_by_gravity -> sortFloat("Gravity")
+            R.id.sort_by_fall_speed -> sortFloat("Fall Speed")
+            R.id.sort_by_fast_fall_speed -> sortFloat("Fast Fall Speed")
+            R.id.sort_by_sh_air_time -> sortString("SH Air Time")
+            R.id.sort_by_fh_air_time -> sortString("FH Air Time")
         }
         listener.onSorted()
         notifyDataSetChanged()
@@ -214,10 +172,9 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)
             nameTv.text = character.displayName?.trim()
-            val value = valueMap.get(character.id)
-            value?.let {
+            valueMap.get(character.id)?.let {
                 valueTv.visibility = View.VISIBLE
-                valueTv.text = value
+                valueTv.text = it
             } ?: run {
                 valueTv.visibility = View.GONE
             }
@@ -233,10 +190,9 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
                     .load(character.thumbnailUrl)
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)
-            val value = valueMap.get(character.id)
-            value?.let {
+            valueMap.get(character.id)?.let {
                 valueTv.visibility = View.VISIBLE
-                valueTv.text = value
+                valueTv.text = it
             } ?: run {
                 valueTv.visibility = View.GONE
             }
