@@ -50,7 +50,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
         character = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(id)).querySingle()
 
-        setTheme(resources.getIdentifier("CharTheme." + id, "style", packageName))
+        setTheme(resources.getIdentifier("CharTheme.$id", "style", packageName))
 
         setContentView(R.layout.activity_details)
 

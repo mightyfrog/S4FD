@@ -36,8 +36,7 @@ class AttributesFragment : BaseFragment(), AttributesContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_tab_content, container, false)
-        view?.apply {
+        return inflater.inflate(R.layout.fragment_tab_content, container, false)?.apply {
             val rv = findViewById<RecyclerView>(R.id.recyclerView)
             rv.adapter = adapter
             val glm = GridLayoutManager(context, 6)
@@ -49,8 +48,6 @@ class AttributesFragment : BaseFragment(), AttributesContract.View {
             rv.layoutManager = glm
             rv.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
-
-        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

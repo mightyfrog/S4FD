@@ -42,7 +42,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                                 it.forEach { character ->
                                     character.save()
                                 }
-                                loadDetails(list)
+                                loadDetails(it)
                             } ?: run {
                                 view.showErrorMessage(R.string.no_char_data_found)
                             }
