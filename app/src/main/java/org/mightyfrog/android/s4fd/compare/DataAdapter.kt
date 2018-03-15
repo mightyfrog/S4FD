@@ -18,7 +18,7 @@ import org.mightyfrog.android.s4fd.data.Move
 /**
  * @author Shigehiro Soejima
  */
-class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveViewHolder>() {
+class DataAdapter(val list: MutableList<Move>) : RecyclerView.Adapter<DataAdapter.MoveViewHolder>() {
 
     companion object {
         const val SORT_BY_CHAR: Int = 1
@@ -51,7 +51,8 @@ class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveV
         fun bind(datum: Move) {
             datum.apply {
                 nameTv.text = name
-                val thumbnailUrl = mThumbnailUrlMap.get(ownerId) ?: Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
+                val thumbnailUrl = mThumbnailUrlMap.get(ownerId)
+                        ?: Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(ownerId)).querySingle()?.thumbnailUrl
                 mThumbnailUrlMap.put(ownerId, thumbnailUrl)
                 Picasso.with(thumbnailIv.context)
                         .load(thumbnailUrl)
@@ -90,18 +91,19 @@ class DataAdapter(var list: List<Move>) : RecyclerView.Adapter<DataAdapter.MoveV
         private fun fromHtml(html: String?) = Html.fromHtml(html)
     }
 
-    fun update(list: List<Move>) {
-        this.list = list
+    fun update(newList: List<Move>) {
+        list.clear()
+        list.addAll(newList)
         notifyDataSetChanged()
     }
 
     fun sort(sortBy: Int) {
         when (sortBy) {
             SORT_BY_CHAR -> {
-                list = list.sortedBy { it.ownerId }
+                list.sortBy { it.ownerId }
             }
             SORT_BY_MOVE -> {
-                list = list.sortedBy { it.name }
+                list.sortBy { it.name }
             }
         }
         notifyDataSetChanged()

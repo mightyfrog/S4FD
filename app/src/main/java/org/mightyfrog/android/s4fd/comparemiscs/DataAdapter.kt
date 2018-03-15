@@ -21,7 +21,7 @@ import java.util.*
  * @author Shigehiro Soejima
  */
 class DataAdapter(var name: String, ownerId: Int, charToCompareId: Int) : RecyclerView.Adapter<DataAdapter.MiscViewHolder>() {
-    private val list: ArrayList<Misc> = ArrayList(0)
+    private val list: MutableList<Misc> = mutableListOf()
 
     private val thumbnailUrlMap = SparseArray<String?>()
 

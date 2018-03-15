@@ -1,13 +1,12 @@
 package org.mightyfrog.android.s4fd.util
 
 import org.mightyfrog.android.s4fd.data.KHCharacter
-import java.util.*
 
 /**
  * @author Shigehiro Soejima
  */
 object KHCharacterCreator {
-    private val list: List<KHCharacter> = ArrayList(58)
+    private val list: MutableList<KHCharacter> = mutableListOf()
 
     init {
         for (i in 1..58) {
@@ -21,7 +20,7 @@ object KHCharacterCreator {
             char.name = i.toString()
             char.displayName = i.toString()
             char.id = i
-            (list as ArrayList).add(char)
+            list.add(char)
         }
     }
 
