@@ -31,7 +31,7 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
         super.onCreate(savedInstanceState)
 
         val ownerId = intent.getIntExtra("ownerId", 0)
-        setTheme(resources.getIdentifier("CharTheme." + ownerId, "style", packageName))
+        setTheme(resources.getIdentifier("CharTheme.$ownerId", "style", packageName))
 
         setContentView(R.layout.activity_compare)
 

@@ -20,14 +20,14 @@ class ComparePresenter @Inject constructor(val view: CompareContract.View, priva
         val list = if (charToCompareId != 0) {
             (Select().from(Move::class.java)
                     .where()
-                    .and(OperatorGroup.clause().or(Move_Table.name.like(name + "%")).or(Move_Table.name.like("% $name%")))
+                    .and(OperatorGroup.clause().or(Move_Table.name.like("$name%")).or(Move_Table.name.like("% $name%")))
                     .and(OperatorGroup.clause().or(Move_Table.ownerId.eq(charId)).or(Move_Table.ownerId.eq(charToCompareId)))
                     .orderBy(Move_Table.id, true)
                     .queryList())
         } else {
             (Select().from(Move::class.java)
                     .where()
-                    .and(OperatorGroup.clause().or(Move_Table.name.like(name + "%")).or(Move_Table.name.like("% $name%")))
+                    .and(OperatorGroup.clause().or(Move_Table.name.like("$name%")).or(Move_Table.name.like("% $name%")))
                     .orderBy(Move_Table.id, true)
                     .queryList())
         }
