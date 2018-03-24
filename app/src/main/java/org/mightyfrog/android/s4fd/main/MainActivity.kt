@@ -79,18 +79,18 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         mainPresenter.loadCharacters()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         characterAdapter.clearLastAdapterPosition()
     }
 
-    override fun onPause() {
+    override fun onStop() {
         if (!BuildConfig.DEBUG) {
             dump()
         }
 
-        super.onPause()
+        super.onStop()
     }
 
     override fun onDestroy() {

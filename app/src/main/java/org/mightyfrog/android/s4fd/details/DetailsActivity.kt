@@ -100,16 +100,16 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         backdrop.visibility = View.VISIBLE
     }
 
-    override fun onPause() {
+    override fun onStop() {
         backdrop.visibility = View.GONE
 
-        super.onPause()
+        super.onStop()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
