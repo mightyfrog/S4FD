@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = "1.2.31"
-    ext.support_version = "27.1.0"
+    ext.support_version = "27.1.1"
     ext.retrofit_version = "2.3.0"
     ext.dbflow_version = "4.2.4"
     ext.dagger2_version = "2.13"
@@ -12,7 +12,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:oss-licenses:0.9.1'
 
