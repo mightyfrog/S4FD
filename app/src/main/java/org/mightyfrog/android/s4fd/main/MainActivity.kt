@@ -244,12 +244,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun getViewAtPosition(position: Int): View {
-        val view = recyclerView.layoutManager.findViewByPosition(position)
-        return view.findViewById(R.id.thumbnail)
+        val view = recyclerView.layoutManager!!.findViewByPosition(position)
+        return view!!.findViewById(R.id.thumbnail)
     }
 
     private fun setViewMode(mode: Int) { // TODO: refactor me
-        recyclerView.removeItemDecoration(itemDecor)
+        itemDecor?.let {
+            recyclerView.removeItemDecoration(it)
+        }
         val layoutManager: RecyclerView.LayoutManager
         when (mode) {
             CharacterAdapter.MODE_LINEAR -> {
@@ -277,7 +279,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         layoutManager.initialPrefetchItemCount = Const.CHARACTER_COUNT
         recyclerView.layoutManager = layoutManager
         (recyclerView.adapter as CharacterAdapter).setMode(mode)
-        recyclerView.addItemDecoration(itemDecor)
+        itemDecor?.let {
+            recyclerView.addItemDecoration(it)
+        }
         invalidateOptionsMenu()
     }
 
