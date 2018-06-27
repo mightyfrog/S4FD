@@ -27,7 +27,7 @@ interface DetailsContract {
     }
 
     interface Presenter {
-        fun compare(id: Int)
+        infix fun compareTo(id: Int)
 
         fun setCharToCompare(ownerId: Int, charToCompare: KHCharacter?)
 

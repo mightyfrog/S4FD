@@ -86,7 +86,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         })
 
         fab.setOnClickListener {
-            detailsPresenter.compare(id)
+            detailsPresenter compareTo id
         }
 
         findViewById<AppBarLayout>(R.id.appbar).addOnOffsetChangedListener(this)

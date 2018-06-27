@@ -17,6 +17,6 @@ interface CompareContract {
     interface Presenter {
         fun loadMoves(name: String, charId: Int, charToCompareId: Int)
 
-        fun sort(type: Int)
+        infix fun sortBy(type: Int)
     }
 }

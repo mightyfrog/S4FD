@@ -36,11 +36,11 @@ class ComparePresenter @Inject constructor(val view: CompareContract.View, priva
                 .count()
         view.showMoves(list, count)
         if (prefs.getInt("compare_sort_type", DataAdapter.SORT_BY_CHAR) != DataAdapter.SORT_BY_CHAR) {
-            sort(DataAdapter.SORT_BY_MOVE)
+            sortBy(DataAdapter.SORT_BY_MOVE)
         }
     }
 
-    override fun sort(type: Int) {
+    override fun sortBy(type: Int) {
         prefs.edit().putInt("compare_sort_type", type).apply()
         view.showSortedMoves(type)
     }

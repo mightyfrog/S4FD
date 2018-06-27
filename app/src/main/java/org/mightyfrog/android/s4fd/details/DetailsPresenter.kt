@@ -17,7 +17,7 @@ class DetailsPresenter @Inject constructor(val view: DetailsContract.View, priva
         view.setPresenter(this)
     }
 
-    override fun compare(id: Int) {
+    override fun compareTo(id: Int) {
         val list = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.notEq(id)).queryList()
         val displayNames = ArrayList<String>(list.size)
         list.mapTo(displayNames) { it.displayName!! }

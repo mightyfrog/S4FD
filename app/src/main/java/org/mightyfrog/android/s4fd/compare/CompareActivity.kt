@@ -87,10 +87,10 @@ class CompareActivity : AppCompatActivity(), CompareContract.View {
                 finish()
             }
             R.id.sort_by_char -> {
-                comparePresenter.sort(DataAdapter.SORT_BY_CHAR)
+                comparePresenter sortBy DataAdapter.SORT_BY_CHAR
             }
             R.id.sort_by_move -> {
-                comparePresenter.sort(DataAdapter.SORT_BY_MOVE)
+                comparePresenter sortBy DataAdapter.SORT_BY_MOVE
             }
         }
         return super.onOptionsItemSelected(item)
