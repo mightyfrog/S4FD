@@ -59,7 +59,7 @@ dependencies {
 
     implementation "com.squareup.picasso:picasso:2.5.2"
 
-    implementation "org.mightyfrog.centeringrecyclerview:centeringrecyclerview:1.1.6"
+    implementation "org.mightyfrog.centeringrecyclerview:centeringrecyclerview:1.1.7"
 
     implementation "com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar"
 
