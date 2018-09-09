@@ -56,7 +56,7 @@ dependencies {
 
     implementation "com.google.dagger:dagger:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
-    provided "javax.annotation:jsr250-api:1.0"
+    compileOnly "javax.annotation:jsr250-api:1.0"
 
     kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"

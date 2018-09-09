@@ -25,8 +25,10 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowAlertDialog;
 
+import java.util.Objects;
+
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.robolectric.RuntimeEnvironment.application;
 import static org.robolectric.Shadows.shadowOf;
 
@@ -57,7 +59,7 @@ public class UnitTest {
         public void validateMainActivityTitle() {
             MainActivity activity = Robolectric.setupActivity(MainActivity.class);
             Toolbar toolbar = activity.findViewById(R.id.toolbar);
-            assertTrue("MainActivity title is S4FD.", toolbar.getTitle().equals(activity.getString(R.string.app_name)));
+            assertEquals("MainActivity title is S4FD.", toolbar.getTitle(), activity.getString(R.string.app_name));
         }
 
         @Test
@@ -114,9 +116,9 @@ public class UnitTest {
         public void validateShowActivityCircleVisibilities() {
             MainActivity activity = Robolectric.setupActivity(MainActivity.class);
             activity.showActivityCircle();
-            assertTrue("Activity circle is visible.", activity.findViewById(R.id.activity_circle).getVisibility() == View.VISIBLE);
+            assertEquals("Activity circle is visible.", activity.findViewById(R.id.activity_circle).getVisibility(), View.VISIBLE);
             activity.hideActivityCircle();
-            assertTrue("Activity circle is not visible.", activity.findViewById(R.id.activity_circle).getVisibility() == View.GONE);
+            assertEquals("Activity circle is not visible.", activity.findViewById(R.id.activity_circle).getVisibility(), View.GONE);
         }
 
         @Test
@@ -127,8 +129,7 @@ public class UnitTest {
 //            Intent expectedIntent = new Intent(activity, SettingsActivity.class);
 //            assertThat(shadow.getNextStartedActivity()).isEqualTo(expectedIntent);
 //            https://github.com/robolectric/robolectric/issues/2627
-            assertThat(shadowOf(activity).getNextStartedActivity().getComponent().getClassName())
-                    .isEqualTo(SettingsActivity.class.getName());
+            assertEquals(Objects.requireNonNull(shadowOf(activity).getNextStartedActivity().getComponent()).getClassName(), SettingsActivity.class.getName());
         }
     }
 
@@ -144,7 +145,7 @@ public class UnitTest {
                     .create()
                     .get();
             Toolbar toolbar = (Toolbar) shadowOf(activity).findViewById(R.id.toolbar);
-            assertTrue("DetailsActivity title is Bayonetta: (actual=" + toolbar.getTitle() + ")", toolbar.getTitle().equals("Bayonetta"));
+            assertEquals("DetailsActivity title is Bayonetta: (actual=" + toolbar.getTitle() + ")", "Bayonetta", toolbar.getTitle());
         }
 
         @Test
@@ -155,7 +156,7 @@ public class UnitTest {
                     .create()
                     .get();
             FloatingActionButton fab = (FloatingActionButton) shadowOf(activity).findViewById(R.id.fab);
-            assertTrue("FAB is visible.", fab.getVisibility() == View.VISIBLE);
+            assertEquals("FAB is visible.", fab.getVisibility(), View.VISIBLE);
         }
 
         @Test
@@ -186,11 +187,11 @@ public class UnitTest {
             ShadowActivity shadow = shadowOf(activity);
             shadow.onCreateOptionsMenu(toolbar.getMenu());
             assertTrue("Open in browser menu is not visible when Attributes tab is selected.", !shadow.getOptionsMenu().findItem(R.id.open_in_browser).isVisible());
-            tabLayout.getTabAt(1).select();
+            Objects.requireNonNull(tabLayout.getTabAt(1)).select();
             assertTrue("Open in browser menu is not visible when Attacks tab is selected.", !shadow.getOptionsMenu().findItem(R.id.open_in_browser).isVisible());
-            tabLayout.getTabAt(2).select();
+            Objects.requireNonNull(tabLayout.getTabAt(2)).select();
             assertTrue("Open in browser menu is not visible when Miscs tab is selected.", !shadow.getOptionsMenu().findItem(R.id.open_in_browser).isVisible());
-            tabLayout.getTabAt(3).select();
+            Objects.requireNonNull(tabLayout.getTabAt(3)).select();
             assertTrue("Open in browser menu is visible when KH Web tab is selected.", shadow.getOptionsMenu().findItem(R.id.open_in_browser).isVisible());
         }
     }
@@ -208,7 +209,7 @@ public class UnitTest {
                     .create()
                     .get();
             Toolbar toolbar = (Toolbar) shadowOf(activity).findViewById(R.id.toolbar);
-            assertTrue("CompareActivity title is Jab: (actual=" + toolbar.getTitle() + ")", toolbar.getTitle().equals("Jab"));
+            assertEquals("CompareActivity title is Jab: (actual=" + toolbar.getTitle() + ")", "Jab", toolbar.getTitle());
         }
 
         @Test
@@ -237,8 +238,8 @@ public class UnitTest {
             RecyclerView rv = (RecyclerView) shadowOf(activity).findViewById(R.id.recyclerView);
             rv.measure(0, 0);
             rv.layout(0, 0, 100, 10000);
-            int count = rv.getAdapter().getItemCount();
-            assertTrue("Bayonetta vs Bowser (Jab) contains 8 rows (actual=" + count + ")", count == 8);
+            int count = Objects.requireNonNull(rv.getAdapter()).getItemCount();
+            assertEquals("Bayonetta vs Bowser (Jab) contains 8 rows (actual=" + count + ")", 8, count);
         }
     }
 

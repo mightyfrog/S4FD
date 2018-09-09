@@ -39,7 +39,6 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.mightyfrog.android.s4fd.util.TestUtils.withAlpha;
-import static org.mightyfrog.android.s4fd.util.TestUtils.withCollapsibleToolbarTitle;
 import static org.mightyfrog.android.s4fd.util.TestUtils.withToolbarV7Title;
 
 /**
@@ -62,7 +61,7 @@ public class InstrumentedTest implements TestConst {
             };
 
     @Test
-    public void useAppContext() throws Exception {
+    public void useAppContext() {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("org.mightyfrog.android.s4fd", appContext.getPackageName());
@@ -182,19 +181,19 @@ public class InstrumentedTest implements TestConst {
         clickOnAttackAndValidateToolbarTitle("Air Dodge", "Air Dodge");
     }
 
-    @Test
-    public void openBayonettaAndCompareWithBowserAndCollapseAppBar_TitleShouldBeBayoVsBowser() {
-        clickOnBayonetta();
-
-        clickOnFab();
-
-        clickOnCompareDialogFirstItem();
-
-        swipeUpAppBar();
-
-        onView(withId(R.id.collapsing_toolbar))
-                .check(matches(withCollapsibleToolbarTitle(is("Bayonetta ⇄ Bowser"))));
-    }
+//    @Test
+//    public void openBayonettaAndCompareWithBowserAndCollapseAppBar_TitleShouldBeBayoVsBowser() {
+//        clickOnBayonetta();
+//
+//        clickOnFab();
+//
+//        clickOnCompareDialogFirstItem();
+//
+//        swipeUpAppBar();
+//
+//        onView(withId(R.id.collapsing_toolbar))
+//                .check(matches(withCollapsibleToolbarTitle(is("Bayonetta ⇄ Bowser"))));
+//    }
 
     /* web view */
 
