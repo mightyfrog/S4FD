@@ -113,7 +113,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater?.inflate(R.menu.details, menu)
+        menuInflater.inflate(R.menu.details, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -198,13 +198,13 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         val ownerId = intent.getIntExtra("id", 0)
         val dialog = AlertDialog.Builder(this)
                 .setTitle(R.string.compare)
-                .setSingleChoiceItems(displayNames.toTypedArray(), scrollPosition, { dialogInterface, which ->
+                .setSingleChoiceItems(displayNames.toTypedArray(), scrollPosition) { dialogInterface, which ->
                     detailsPresenter.setCharToCompare(ownerId, list[which])
                     dialogInterface.dismiss()
-                })
-                .setNeutralButton(R.string.clear, { dialogInterface, i ->
+                }
+                .setNeutralButton(R.string.clear) { _, _ ->
                     detailsPresenter.setCharToCompare(ownerId, null)
-                })
+                }
                 .setNegativeButton(R.string.cancel, null)
                 .create()
         dialog.ownerActivity = this

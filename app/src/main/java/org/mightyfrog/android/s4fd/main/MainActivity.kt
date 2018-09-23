@@ -202,10 +202,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun showFallbackDialog() {
         AlertDialog.Builder(this)
                 .setMessage(R.string.connection_timeout)
-                .setPositiveButton(android.R.string.ok) { dialog, which ->
+                .setPositiveButton(android.R.string.ok) { _, _ ->
                     fallback()
                 }
-                .setNegativeButton(android.R.string.cancel) { dialog, which ->
+                .setNegativeButton(android.R.string.cancel) { _, _ ->
                     finish()
                 }
                 .show()
