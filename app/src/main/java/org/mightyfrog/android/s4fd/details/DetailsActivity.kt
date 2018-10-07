@@ -151,9 +151,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
             isAppBarCollapsed = !isAppBarCollapsed
         }
 
-        charToCompare?.let {
+        charToCompare?.apply {
             if (percentage == 1f) {
-                collapsingToolbarLayout.title = getString(R.string.attr_compare, character?.displayName, it.displayName)
+                collapsingToolbarLayout.title = getString(R.string.attr_compare, character?.displayName, displayName)
             } else {
                 collapsingToolbarLayout.title = character?.displayName?.trim()
             }

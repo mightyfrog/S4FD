@@ -49,9 +49,9 @@ class AttributesAdapter(var list: List<MovementDatum>) : RecyclerView.Adapter<At
         fun bind(datum: MovementDatum) {
             nameTv.text = datum.name
             val value = datum.value?.replace("frame", " frame")
-            charToCompare?.let {
+            charToCompare?.apply {
                 val datumToComp = Select().from(MovementDatum::class.java)
-                        .where(MovementDatum_Table.ownerId.eq(it.id))
+                        .where(MovementDatum_Table.ownerId.eq(id))
                         .and(MovementDatum_Table.name.eq(datum.name))
                         .querySingle()
                 if (datum.ownerId != datumToComp?.ownerId) {

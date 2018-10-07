@@ -160,10 +160,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showDetails(id: Int, position: Int) {
-        Intent(this, DetailsActivity::class.java).let {
-            it.putExtra("id", id)
+        Intent(this, DetailsActivity::class.java).let { intent ->
+            intent.putExtra("id", id)
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, getViewAtPosition(position), "thumbnail")
-            startActivity(it, options.toBundle())
+            startActivity(intent, options.toBundle())
         }
     }
 

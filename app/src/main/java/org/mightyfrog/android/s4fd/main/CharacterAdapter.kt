@@ -172,9 +172,9 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)
             nameTv.text = character.displayName?.trim()
-            valueMap.get(character.id)?.let {
+            valueMap.get(character.id)?.let { char ->
                 valueTv.visibility = View.VISIBLE
-                valueTv.text = it
+                valueTv.text = char
             } ?: run {
                 valueTv.visibility = View.GONE
             }
@@ -190,9 +190,9 @@ class CharacterAdapter(private var list: List<KHCharacter>, private val listener
                     .load(character.thumbnailUrl)
                     .placeholder(R.drawable.placeholder)
                     .into(thumbnailIv)
-            valueMap.get(character.id)?.let {
+            valueMap.get(character.id)?.let { char ->
                 valueTv.visibility = View.VISIBLE
-                valueTv.text = it
+                valueTv.text = char
             } ?: run {
                 valueTv.visibility = View.GONE
             }

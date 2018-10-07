@@ -24,7 +24,7 @@ class DetailsPresenter @Inject constructor(val view: DetailsContract.View, priva
         var position = 0
         prefs.getString("selectedCharToCompare", null)?.let { selectedCharToCompare ->
             displayNames.takeWhile { selectedCharToCompare != it }
-                    .forEach { position++ }
+                    .forEach { _ -> position++ }
         } ?: run {
             position = -1
         }
@@ -42,7 +42,7 @@ class DetailsPresenter @Inject constructor(val view: DetailsContract.View, priva
             view.showVsThumbnail(charToCompare)
         }
 
-        charToCompare?.let {
+        charToCompare?.apply {
             view.setSubtitle(R.string.attr_compare_subtitle, charToCompare.displayName)
             prefs.edit().putString("selectedCharToCompare", charToCompare.displayName).apply()
         } ?: run {

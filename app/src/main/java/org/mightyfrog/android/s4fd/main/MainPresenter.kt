@@ -38,11 +38,11 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(object : SingleSubscriber<List<KHCharacter>>() {
                         override fun onSuccess(list: List<KHCharacter>?) {
-                            list?.let {
-                                it.forEach { character ->
+                            list?.let { char ->
+                                char.forEach { character ->
                                     character.save()
                                 }
-                                loadDetails(it)
+                                loadDetails(char)
                             } ?: run {
                                 view.showErrorMessage(R.string.no_char_data_found)
                             }
@@ -82,9 +82,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                 .where(Move_Table.id.eq(1))
                 .querySingle()
 
-        test?.let {
-            return
-        }
+        test ?: return
 
         view.showProgressDialog(R.string.loading_attr_types)
         compositeSubscription.add(service.getSmashAttributeTypes()
@@ -92,8 +90,8 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : SingleSubscriber<List<SmashAttributeType>>() {
                     override fun onSuccess(attrTypes: List<SmashAttributeType>?) {
-                        attrTypes?.let {
-                            for (attrType in it) {
+                        attrTypes?.let { types ->
+                            for (attrType in types) {
                                 attrType.save()
                             }
                         }
@@ -113,9 +111,7 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                 .where(Move_Table.id.eq(1))
                 .querySingle()
 
-        test?.let {
-            return
-        }
+        test ?: return
 
         view.showProgressDialog(R.string.loading_moves)
         compositeSubscription.add(service.getMoves()

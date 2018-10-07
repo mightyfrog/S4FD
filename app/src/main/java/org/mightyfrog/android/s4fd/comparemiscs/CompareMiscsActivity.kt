@@ -17,18 +17,16 @@ class CompareMiscsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val ownerId = intent.getIntExtra("ownerId", 0)
-        setTheme(resources.getIdentifier("CharTheme." + ownerId, "style", packageName))
+        setTheme(resources.getIdentifier("CharTheme.$ownerId", "style", packageName))
 
         setContentView(R.layout.activity_compare_miscs)
 
         setSupportActionBar(toolbar)
         initActionBar()
 
-        recyclerView.let {
-            it.layoutManager = GridLayoutManager(this, 1)
-            it.adapter = DataAdapter(intent.getStringExtra("name"), ownerId, intent.getIntExtra("charToCompareId", 0))
-            it.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        }
+        recyclerView.layoutManager = GridLayoutManager(this, 1)
+        recyclerView.adapter = DataAdapter(intent.getStringExtra("name"), ownerId, intent.getIntExtra("charToCompareId", 0))
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
     override fun finish() {
