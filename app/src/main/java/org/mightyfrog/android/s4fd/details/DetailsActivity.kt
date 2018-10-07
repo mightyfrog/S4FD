@@ -33,7 +33,13 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     @Inject
     lateinit var detailsPresenter: DetailsPresenter
 
-    private var character: KHCharacter? = null
+    private val id: Int by lazy {
+        intent.getIntExtra("id", 0)
+    }
+
+    private val character: KHCharacter by lazy {
+        Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(id)).querySingle() as KHCharacter
+    }
 
     private var charToCompare: KHCharacter? = null
 
@@ -42,13 +48,10 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val id = intent.getIntExtra("id", 0)
         if (id <= 0 || id > Const.CHARACTER_COUNT) {
             finish()
             return
         }
-
-        character = Select().from(KHCharacter::class.java).where(KHCharacter_Table.id.eq(id)).querySingle()
 
         setTheme(resources.getIdentifier("CharTheme.$id", "style", packageName))
 
@@ -61,10 +64,6 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
                 .inject(this)
 
         setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            title = character?.displayName?.trim()
-            setDisplayHomeAsUpEnabled(true)
-        }
 
         val titles = resources.getStringArray(R.array.detail_tabs)
         viewPager.adapter = TabContentAdapter(titles, supportFragmentManager, id)
@@ -92,11 +91,15 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         findViewById<AppBarLayout>(R.id.appbar).addOnOffsetChangedListener(this)
 
         Picasso.with(this)
-                .load(character?.mainImageUrl)
+                .load(character.mainImageUrl)
                 .into(backdrop)
 
         viewPager.post {
             detailsPresenter.setCharToCompareIfAny(id)
+            supportActionBar?.apply {
+                title = character.displayName?.trim()
+                setDisplayHomeAsUpEnabled(true)
+            }
         }
     }
 
@@ -125,12 +128,8 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            android.R.id.home -> {
-                supportFinishAfterTransition()
-            }
-            R.id.open_in_browser -> {
-                openInBrowser()
-            }
+            android.R.id.home -> supportFinishAfterTransition()
+            R.id.open_in_browser -> openInBrowser()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -153,9 +152,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
         charToCompare?.apply {
             if (percentage == 1f) {
-                collapsingToolbarLayout.title = getString(R.string.attr_compare, character?.displayName, displayName)
+                collapsingToolbarLayout.title = getString(R.string.attr_compare, character.displayName, displayName)
             } else {
-                collapsingToolbarLayout.title = character?.displayName?.trim()
+                collapsingToolbarLayout.title = character.displayName?.trim()
             }
         }
     }
@@ -173,15 +172,17 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun showVsThumbnail(charToCompare: KHCharacter?) {
-        charToCompare?.apply {
-            Picasso.with(vsThumbnail.context)
-                    .load(thumbnailUrl)
-                    .into(vsThumbnail)
-            (vsThumbnail.parent as CardView).setCardBackgroundColor(Color.parseColor(colorTheme))
+        with(vsThumbnail) {
+            charToCompare?.apply {
+                Picasso.with(context)
+                        .load(thumbnailUrl)
+                        .into(this@with)
+                (parent as CardView).setCardBackgroundColor(Color.parseColor(colorTheme))
+            }
+            visibility = View.VISIBLE
+            alpha = 0f
+            animate().setDuration(750L).alpha(1f).start()
         }
-        vsThumbnail.visibility = View.VISIBLE
-        vsThumbnail.alpha = 0f
-        vsThumbnail.animate().setDuration(750L).alpha(1f).start()
     }
 
     override fun setCharToCompare(charToCompare: KHCharacter?) {
@@ -195,15 +196,14 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
     }
 
     override fun showCompareDialog(list: List<KHCharacter>, displayNames: List<String>, scrollPosition: Int) {
-        val ownerId = intent.getIntExtra("id", 0)
         val dialog = AlertDialog.Builder(this)
                 .setTitle(R.string.compare)
                 .setSingleChoiceItems(displayNames.toTypedArray(), scrollPosition) { dialogInterface, which ->
-                    detailsPresenter.setCharToCompare(ownerId, list[which])
+                    detailsPresenter.setCharToCompare(id, list[which])
                     dialogInterface.dismiss()
                 }
                 .setNeutralButton(R.string.clear) { _, _ ->
-                    detailsPresenter.setCharToCompare(ownerId, null)
+                    detailsPresenter.setCharToCompare(id, null)
                 }
                 .setNegativeButton(R.string.cancel, null)
                 .create()
@@ -233,7 +233,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
 
     private fun openInBrowser() {
         Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse(character?.fullUrl)
+            data = Uri.parse(character.fullUrl)
             when (resolveActivity(packageManager)) {
                 null -> {
                     Toast.makeText(this@DetailsActivity, "No browser found :(", Toast.LENGTH_LONG).show()

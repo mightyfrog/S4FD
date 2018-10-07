@@ -41,7 +41,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     @Inject
     lateinit var prefs: SharedPreferences
 
-    private var progressDialog: ProgressDialog? = null
+    private val progressDialog: ProgressDialog by lazy {
+        ProgressDialog(this).apply {
+            isIndeterminate = true
+            setCancelable(false)
+        }
+    }
 
     private var surfaceRotation = Surface.ROTATION_0
 
@@ -185,18 +190,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showProgressDialog(resId: Int, vararg arg: String?) {
-        progressDialog ?: run {
-            progressDialog = ProgressDialog(this)
-            progressDialog?.isIndeterminate = true
-            progressDialog?.setCancelable(false)
-            progressDialog?.show()
-            hideActivityCircle()
-        }
-        progressDialog?.setMessage(getString(resId, if (arg.isEmpty()) null else arg[0]))
+        progressDialog.setMessage(getString(resId, if (arg.isEmpty()) null else arg[0]))
+        progressDialog.show()
+        hideActivityCircle()
     }
 
     override fun hideProgressDialog() {
-        progressDialog?.dismiss()
+        progressDialog.dismiss()
     }
 
     override fun showFallbackDialog() {
