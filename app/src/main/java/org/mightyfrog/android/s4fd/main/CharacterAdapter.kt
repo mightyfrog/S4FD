@@ -1,6 +1,5 @@
 package org.mightyfrog.android.s4fd.main
 
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.util.SparseIntArray
 import android.view.LayoutInflater
@@ -8,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.squareup.picasso.Picasso
 import org.mightyfrog.android.s4fd.R
@@ -18,7 +18,7 @@ import org.mightyfrog.android.s4fd.data.MovementDatum_Table
 /**
  * @author Shigehiro Soejima
  */
-class CharacterAdapter(private var list: List<KHCharacter>, private val listener: MainActivity.OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CharacterAdapter(private var list: List<KHCharacter>, private val listener: MainActivity.OnItemClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
     companion object {
         const val MODE_LINEAR = 1
         const val MODE_GRID = 2

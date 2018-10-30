@@ -1,12 +1,12 @@
 package org.mightyfrog.android.s4fd.comparemiscs
 
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.raizlabs.android.dbflow.sql.queriable.StringQuery
 import com.squareup.picasso.Picasso

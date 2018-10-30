@@ -1,7 +1,7 @@
 package org.mightyfrog.android.s4fd.details.tabcontents.web
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import org.mightyfrog.android.s4fd.data.KHCharacter_Table
 /**
  * @author Shigehiro Soejima
  */
-class WebFragment : Fragment() {
+class WebFragment : androidx.fragment.app.Fragment() {
 
     companion object {
         fun newInstance(b: Bundle?): WebFragment = WebFragment().apply {

@@ -1,9 +1,9 @@
 package org.mightyfrog.android.s4fd.details
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import org.mightyfrog.android.s4fd.details.tabcontents.attacks.AttacksFragment
 import org.mightyfrog.android.s4fd.details.tabcontents.attributes.AttributesFragment
 import org.mightyfrog.android.s4fd.details.tabcontents.miscs.MiscsFragment

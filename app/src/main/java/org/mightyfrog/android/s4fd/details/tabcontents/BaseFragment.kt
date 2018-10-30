@@ -2,14 +2,14 @@ package org.mightyfrog.android.s4fd.details.tabcontents
 
 import android.content.Context
 import android.content.res.Configuration
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.Surface.ROTATION_0
 import android.view.WindowManager
 
 /**
  * @author Shigehiro Soejima
  */
-open class BaseFragment : Fragment() {
+open class BaseFragment : androidx.fragment.app.Fragment() {
     var surfaceRotation = ROTATION_0
 
     override fun onResume() {

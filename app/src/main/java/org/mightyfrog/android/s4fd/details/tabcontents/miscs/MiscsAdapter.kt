@@ -1,10 +1,10 @@
 package org.mightyfrog.android.s4fd.details.tabcontents.miscs
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.raizlabs.android.dbflow.sql.queriable.StringQuery
 import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.MiscAttribute

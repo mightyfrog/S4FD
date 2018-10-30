@@ -1,12 +1,12 @@
 package org.mightyfrog.android.s4fd.details.tabcontents.attacks
 
-import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import org.mightyfrog.android.s4fd.R
 import org.mightyfrog.android.s4fd.data.Move
 

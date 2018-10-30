@@ -1,7 +1,7 @@
 package org.mightyfrog.android.s4fd.settings
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_settings.*
 import org.mightyfrog.android.s4fd.R

@@ -4,15 +4,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.TabLayout
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.appbar.AppBarLayout
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
@@ -70,16 +68,16 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
         viewPager.offscreenPageLimit = 3
 
         tabLayout.setupWithViewPager(viewPager)
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
+        tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
                 // no-op
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
                 // no-op
             }
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
+            override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
                 invalidateOptionsMenu()
             }
         })
@@ -177,7 +175,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View, AppBarLayout.
                 Picasso.with(context)
                         .load(thumbnailUrl)
                         .into(this@with)
-                (parent as CardView).setCardBackgroundColor(Color.parseColor(colorTheme))
+                (parent as androidx.cardview.widget.CardView).setCardBackgroundColor(Color.parseColor(colorTheme))
             }
             visibility = View.VISIBLE
             alpha = 0f
